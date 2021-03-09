@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B439BA650A0DAC086854C386 /* Pods_TripPlanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C18C15ADC0BA18643D94CAD /* Pods_TripPlanner.framework */; };
 		FF12CCCF25F7DE8E008F144D /* TPButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF12CCCE25F7DE8E008F144D /* TPButton.swift */; };
 		FF12CCD825F7DFDA008F144D /* TPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF12CCD725F7DFDA008F144D /* TPTextField.swift */; };
 		FF12CCDC25F7E239008F144D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF12CCDB25F7E239008F144D /* DetailViewController.swift */; };
 		FF12CCE025F7E39C008F144D /* TPLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF12CCDF25F7E39C008F144D /* TPLabel.swift */; };
 		FF12CCE325F7E470008F144D /* TPAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF12CCE225F7E470008F144D /* TPAlertViewController.swift */; };
+		FF12CCE625F80425008F144D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF12CCE525F80425008F144D /* GoogleService-Info.plist */; };
 		FFDCED0925F71C2C001C2769 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0825F71C2C001C2769 /* AppDelegate.swift */; };
 		FFDCED0B25F71C2C001C2769 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0A25F71C2C001C2769 /* SceneDelegate.swift */; };
 		FFDCED0D25F71C2C001C2769 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0C25F71C2C001C2769 /* ViewController.swift */; };
@@ -20,11 +22,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0430F25CC70B5217D6376C9D /* Pods-TripPlanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TripPlanner.debug.xcconfig"; path = "Target Support Files/Pods-TripPlanner/Pods-TripPlanner.debug.xcconfig"; sourceTree = "<group>"; };
+		7C18C15ADC0BA18643D94CAD /* Pods_TripPlanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TripPlanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DF4C0713690653D0341476D /* Pods-TripPlanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TripPlanner.release.xcconfig"; path = "Target Support Files/Pods-TripPlanner/Pods-TripPlanner.release.xcconfig"; sourceTree = "<group>"; };
 		FF12CCCE25F7DE8E008F144D /* TPButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPButton.swift; sourceTree = "<group>"; };
 		FF12CCD725F7DFDA008F144D /* TPTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTextField.swift; sourceTree = "<group>"; };
 		FF12CCDB25F7E239008F144D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		FF12CCDF25F7E39C008F144D /* TPLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPLabel.swift; sourceTree = "<group>"; };
 		FF12CCE225F7E470008F144D /* TPAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPAlertViewController.swift; sourceTree = "<group>"; };
+		FF12CCE525F80425008F144D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		FFDCED0525F71C2C001C2769 /* TripPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TripPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFDCED0825F71C2C001C2769 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFDCED0A25F71C2C001C2769 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,12 +45,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B439BA650A0DAC086854C386 /* Pods_TripPlanner.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A16AFB679207AF21D582D1C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7C18C15ADC0BA18643D94CAD /* Pods_TripPlanner.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A2A48308F2893A49C23F9FEB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0430F25CC70B5217D6376C9D /* Pods-TripPlanner.debug.xcconfig */,
+				7DF4C0713690653D0341476D /* Pods-TripPlanner.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		FF12CCCD25F7DE7B008F144D /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
@@ -73,7 +98,10 @@
 			isa = PBXGroup;
 			children = (
 				FFDCED0725F71C2C001C2769 /* TripPlanner */,
+				FF12CCE525F80425008F144D /* GoogleService-Info.plist */,
 				FFDCED0625F71C2C001C2769 /* Products */,
+				A2A48308F2893A49C23F9FEB /* Pods */,
+				1A16AFB679207AF21D582D1C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -150,9 +178,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FFDCED1925F71C2D001C2769 /* Build configuration list for PBXNativeTarget "TripPlanner" */;
 			buildPhases = (
+				01331E1A2688E9A744FA9930 /* [CP] Check Pods Manifest.lock */,
 				FFDCED0125F71C2C001C2769 /* Sources */,
 				FFDCED0225F71C2C001C2769 /* Frameworks */,
 				FFDCED0325F71C2C001C2769 /* Resources */,
+				40857E89649E7A5DF636101D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -202,10 +232,53 @@
 			files = (
 				FFDCED1525F71C2D001C2769 /* LaunchScreen.storyboard in Resources */,
 				FFDCED1225F71C2D001C2769 /* Assets.xcassets in Resources */,
+				FF12CCE625F80425008F144D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		01331E1A2688E9A744FA9930 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TripPlanner-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		40857E89649E7A5DF636101D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TripPlanner/Pods-TripPlanner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TripPlanner/Pods-TripPlanner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TripPlanner/Pods-TripPlanner-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FFDCED0125F71C2C001C2769 /* Sources */ = {
@@ -355,6 +428,7 @@
 		};
 		FFDCED1A25F71C2D001C2769 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0430F25CC70B5217D6376C9D /* Pods-TripPlanner.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -374,6 +448,7 @@
 		};
 		FFDCED1B25F71C2D001C2769 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7DF4C0713690653D0341476D /* Pods-TripPlanner.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
