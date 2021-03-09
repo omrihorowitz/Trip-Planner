@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FF12CCCF25F7DE8E008F144D /* TPButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF12CCCE25F7DE8E008F144D /* TPButton.swift */; };
+		FF12CCD825F7DFDA008F144D /* TPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF12CCD725F7DFDA008F144D /* TPTextField.swift */; };
+		FF12CCDC25F7E239008F144D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF12CCDB25F7E239008F144D /* DetailViewController.swift */; };
+		FF12CCE025F7E39C008F144D /* TPLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF12CCDF25F7E39C008F144D /* TPLabel.swift */; };
+		FF12CCE325F7E470008F144D /* TPAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF12CCE225F7E470008F144D /* TPAlertViewController.swift */; };
 		FFDCED0925F71C2C001C2769 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0825F71C2C001C2769 /* AppDelegate.swift */; };
 		FFDCED0B25F71C2C001C2769 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0A25F71C2C001C2769 /* SceneDelegate.swift */; };
 		FFDCED0D25F71C2C001C2769 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0C25F71C2C001C2769 /* ViewController.swift */; };
@@ -15,6 +20,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FF12CCCE25F7DE8E008F144D /* TPButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPButton.swift; sourceTree = "<group>"; };
+		FF12CCD725F7DFDA008F144D /* TPTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTextField.swift; sourceTree = "<group>"; };
+		FF12CCDB25F7E239008F144D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		FF12CCDF25F7E39C008F144D /* TPLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPLabel.swift; sourceTree = "<group>"; };
+		FF12CCE225F7E470008F144D /* TPAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPAlertViewController.swift; sourceTree = "<group>"; };
 		FFDCED0525F71C2C001C2769 /* TripPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TripPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFDCED0825F71C2C001C2769 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFDCED0A25F71C2C001C2769 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -35,6 +45,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FF12CCCD25F7DE7B008F144D /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				FF12CCCE25F7DE8E008F144D /* TPButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		FF12CCD625F7DFC7008F144D /* TextFields */ = {
+			isa = PBXGroup;
+			children = (
+				FF12CCD725F7DFDA008F144D /* TPTextField.swift */,
+			);
+			path = TextFields;
+			sourceTree = "<group>";
+		};
+		FF12CCDE25F7E38F008F144D /* Labels */ = {
+			isa = PBXGroup;
+			children = (
+				FF12CCDF25F7E39C008F144D /* TPLabel.swift */,
+			);
+			path = Labels;
+			sourceTree = "<group>";
+		};
 		FFDCECFC25F71C2C001C2769 = {
 			isa = PBXGroup;
 			children = (
@@ -76,6 +110,8 @@
 			isa = PBXGroup;
 			children = (
 				FFDCED0C25F71C2C001C2769 /* ViewController.swift */,
+				FF12CCDB25F7E239008F144D /* DetailViewController.swift */,
+				FF12CCE225F7E470008F144D /* TPAlertViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -91,6 +127,9 @@
 		FFDCED2525F71CA0001C2769 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FF12CCDE25F7E38F008F144D /* Labels */,
+				FF12CCD625F7DFC7008F144D /* TextFields */,
+				FF12CCCD25F7DE7B008F144D /* Buttons */,
 				FFDCED2425F71C9B001C2769 /* Storyboards */,
 			);
 			path = Views;
@@ -174,6 +213,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				FFDCED0D25F71C2C001C2769 /* ViewController.swift in Sources */,
+				FF12CCE325F7E470008F144D /* TPAlertViewController.swift in Sources */,
+				FF12CCE025F7E39C008F144D /* TPLabel.swift in Sources */,
+				FF12CCCF25F7DE8E008F144D /* TPButton.swift in Sources */,
+				FF12CCD825F7DFDA008F144D /* TPTextField.swift in Sources */,
+				FF12CCDC25F7E239008F144D /* DetailViewController.swift in Sources */,
 				FFDCED0925F71C2C001C2769 /* AppDelegate.swift in Sources */,
 				FFDCED0B25F71C2C001C2769 /* SceneDelegate.swift in Sources */,
 			);
