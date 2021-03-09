@@ -15,6 +15,8 @@ class FriendViewController: UIViewController {
     
     let blockButton = TPButton(color: .systemPink, title: "Block")
     
+    let reportButton = TPButton(color: .systemYellow, title: "Report")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -24,6 +26,8 @@ class FriendViewController: UIViewController {
   
     
     func constrain() {
+        
+        reportButton.setTitleColor(.black, for: .normal)
         
         NSLayoutConstraint.activate([
             friendButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -40,6 +44,11 @@ class FriendViewController: UIViewController {
             blockButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             blockButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             blockButton.heightAnchor.constraint(equalToConstant: 75),
+            
+            reportButton.topAnchor.constraint(equalTo: blockButton.bottomAnchor, constant: 20),
+            reportButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            reportButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            reportButton.heightAnchor.constraint(equalToConstant: 75)
         
         
         
@@ -53,6 +62,7 @@ class FriendViewController: UIViewController {
         view.addSubview(friendButton)
         view.addSubview(unfriendButton)
         view.addSubview(blockButton)
+        view.addSubview(reportButton)
     }
     
 }
