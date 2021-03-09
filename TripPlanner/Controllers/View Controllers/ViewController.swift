@@ -6,13 +6,14 @@
 //
 
 import UIKit
+import Firebase
 
 class ViewController: UIViewController {
 
     let createAcctButton = TPButton(color: .systemGreen, title: "Create Account")
     let loginButton = TPButton(color: .systemBlue, title: "Log In")
     
-    let usernameTextField = TPTextField(placeHolder: "Username")
+    let emailTextField = TPTextField(placeHolder: "Username")
     
     let passwordTextField = TPTextField(placeHolder: "Password")
     
@@ -26,41 +27,78 @@ class ViewController: UIViewController {
         addSubViews()
         constrainTextFields()
         constrainButtons()
-        
+        addButtonTargets()
+    }
+    
+    func addButtonTargets() {
         loginButton.addTarget(self, action: #selector(goToDetail), for: .touchUpInside)
         createAcctButton.addTarget(self, action: #selector(goToDetail), for: .touchUpInside)
     }
     
     @objc func goToDetail(sender: UIButton) {
-        
-        if sender == createAcctButton {
-            let destination = TPAlertViewController()
-            self.present(destination, animated: true)
+
+        if let email = emailTextField.text, let password = passwordTextField.text, !email.isEmpty, !password.isEmpty {
+            switch sender {
+            case loginButton:
+                loginUser(email: email, password: password)
+            case createAcctButton:
+                createUser(email: email, password: password)
+            default:
+                print("Nothing")
+            }
+        } else {
+            self.presentAlert(title: "Please fill out both fields")
         }
         
         
-        let destination = DetailViewController()
-        self.present(destination, animated: true)
+    }
+    
+    func createUser(email: String, password: String) {
         
-//        if let username = usernameTextField.text, let password = passwordTextField.text {
-//            switch sender {
-//            case loginButton:
-//                print("Login")
-//            case createAcctButton:
-//                print("Create account")
-//            default:
-//                print("none")
-//            }
-//        } else {
-//            let destination = TPAlertViewController()
-//            self.present(destination, animated: true)
-//        }
-        
-        
+        Auth.auth().createUser(withEmail: email, password: password) { [weak self] (user, error) in
+            
+            guard let self = self else { return }
+            
+            if let error = error {
+                //We have an error so show an alert
+                self.presentAlert(title: error.localizedDescription)
+            } else {
+                //We created a user so go to the next view
+                let destination = DetailViewController()
+                destination.email = email
+                destination.modalPresentationStyle = .overFullScreen
+                destination.modalTransitionStyle = .crossDissolve
+                self.present(destination, animated: true)
+            }
+            
+            
+        }
+    }
+    
+    func loginUser(email: String, password: String) {
+       
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] (user, error) in
+            guard let self = self else { return }
+            
+            if let error = error {
+                //We have an error so show an alert
+                self.presentAlert(title: error.localizedDescription)
+            } else {
+                //We logged in successfully
+                let destination = DetailViewController()
+                destination.email = email
+                destination.modalPresentationStyle = .overFullScreen
+                destination.modalTransitionStyle = .crossDissolve
+                self.present(destination, animated: true)
+            }
+            
+            
+            
+        }
     }
 
     func addSubViews() {
-        view.addSubview(usernameTextField)
+        view.addSubview(emailTextField)
         view.addSubview(passwordTextField)
         view.addSubview(loginButton)
         view.addSubview(createAcctButton)
@@ -70,12 +108,12 @@ class ViewController: UIViewController {
         passwordTextField.isSecureTextEntry = true
         
         NSLayoutConstraint.activate([
-            usernameTextField.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            usernameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            usernameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
-            usernameTextField.heightAnchor.constraint(equalToConstant: 50),
+            emailTextField.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            emailTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            emailTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            emailTextField.heightAnchor.constraint(equalToConstant: 50),
             
-            passwordTextField.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor),
+            passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor),
             passwordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             passwordTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             passwordTextField.heightAnchor.constraint(equalToConstant: 50)

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class DetailViewController: UIViewController {
 
@@ -13,11 +14,24 @@ class DetailViewController: UIViewController {
     
     let usernameLabel = TPLabel(text: "Username of logged in user")
     
+    var email: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         addSubViews()
         constrainViews()
+        logoutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
+        usernameLabel.text = email
+    }
+    
+    @objc func logout() {
+        do {
+            try Auth.auth().signOut()
+            dismiss(animated: true)
+        } catch let signoutError as NSError {
+            self.presentAlert(title: signoutError.localizedDescription)
+        }
     }
     
     func addSubViews() {

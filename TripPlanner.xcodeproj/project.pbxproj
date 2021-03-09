@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,7 @@
 		FF12CCE025F7E39C008F144D /* TPLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF12CCDF25F7E39C008F144D /* TPLabel.swift */; };
 		FF12CCE325F7E470008F144D /* TPAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF12CCE225F7E470008F144D /* TPAlertViewController.swift */; };
 		FF12CCE625F80425008F144D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF12CCE525F80425008F144D /* GoogleService-Info.plist */; };
+		FF530C2825F81BC2008F138D /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF530C2725F81BC2008F138D /* UIViewController+Ext.swift */; };
 		FFDCED0925F71C2C001C2769 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0825F71C2C001C2769 /* AppDelegate.swift */; };
 		FFDCED0B25F71C2C001C2769 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0A25F71C2C001C2769 /* SceneDelegate.swift */; };
 		FFDCED0D25F71C2C001C2769 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0C25F71C2C001C2769 /* ViewController.swift */; };
@@ -31,6 +32,7 @@
 		FF12CCDF25F7E39C008F144D /* TPLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPLabel.swift; sourceTree = "<group>"; };
 		FF12CCE225F7E470008F144D /* TPAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPAlertViewController.swift; sourceTree = "<group>"; };
 		FF12CCE525F80425008F144D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		FF530C2725F81BC2008F138D /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		FFDCED0525F71C2C001C2769 /* TripPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TripPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFDCED0825F71C2C001C2769 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFDCED0A25F71C2C001C2769 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,7 +68,6 @@
 				0430F25CC70B5217D6376C9D /* Pods-TripPlanner.debug.xcconfig */,
 				7DF4C0713690653D0341476D /* Pods-TripPlanner.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -94,6 +95,14 @@
 			path = Labels;
 			sourceTree = "<group>";
 		};
+		FF530C2625F81BB5008F138D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FF530C2725F81BC2008F138D /* UIViewController+Ext.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		FFDCECFC25F71C2C001C2769 = {
 			isa = PBXGroup;
 			children = (
@@ -116,6 +125,7 @@
 		FFDCED0725F71C2C001C2769 /* TripPlanner */ = {
 			isa = PBXGroup;
 			children = (
+				FF530C2625F81BB5008F138D /* Extensions */,
 				FFDCED1D25F71C39001C2769 /* Resources */,
 				FFDCED2625F71CA5001C2769 /* Controllers */,
 				FFDCED2525F71CA0001C2769 /* Views */,
@@ -293,6 +303,7 @@
 				FF12CCDC25F7E239008F144D /* DetailViewController.swift in Sources */,
 				FFDCED0925F71C2C001C2769 /* AppDelegate.swift in Sources */,
 				FFDCED0B25F71C2C001C2769 /* SceneDelegate.swift in Sources */,
+				FF530C2825F81BC2008F138D /* UIViewController+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

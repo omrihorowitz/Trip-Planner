@@ -9,9 +9,13 @@ import UIKit
 
 class TPAlertViewController: UIViewController {
 
-    let alertLabel = TPLabel(text: "Alert goes here")
+    var errorMessage: String = "Alert"
+    
+    let alertLabel = TPLabel(text: "")
     let alertButton = TPButton(color: .systemPink, title: "Ok")
     let containerView = UIView()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +23,7 @@ class TPAlertViewController: UIViewController {
         addSubViews()
         constrainViews()
         customizeView()
+        alertLabel.text = errorMessage
     }
     
     @objc func dismissVC() {

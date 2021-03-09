@@ -18,6 +18,7 @@ class TPLabel: UILabel {
         translatesAutoresizingMaskIntoConstraints = false
         self.text = text
         textAlignment = .center
+        numberOfLines = 0
     }
     
     required init?(coder: NSCoder) {
