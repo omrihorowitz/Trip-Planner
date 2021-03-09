@@ -15,6 +15,7 @@
 		FF12CCE325F7E470008F144D /* TPAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF12CCE225F7E470008F144D /* TPAlertViewController.swift */; };
 		FF12CCE625F80425008F144D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF12CCE525F80425008F144D /* GoogleService-Info.plist */; };
 		FF530C2825F81BC2008F138D /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF530C2725F81BC2008F138D /* UIViewController+Ext.swift */; };
+		FF530C2B25F83A77008F138D /* FriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF530C2A25F83A77008F138D /* FriendViewController.swift */; };
 		FFDCED0925F71C2C001C2769 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0825F71C2C001C2769 /* AppDelegate.swift */; };
 		FFDCED0B25F71C2C001C2769 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0A25F71C2C001C2769 /* SceneDelegate.swift */; };
 		FFDCED0D25F71C2C001C2769 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0C25F71C2C001C2769 /* ViewController.swift */; };
@@ -33,6 +34,7 @@
 		FF12CCE225F7E470008F144D /* TPAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPAlertViewController.swift; sourceTree = "<group>"; };
 		FF12CCE525F80425008F144D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		FF530C2725F81BC2008F138D /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
+		FF530C2A25F83A77008F138D /* FriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewController.swift; sourceTree = "<group>"; };
 		FFDCED0525F71C2C001C2769 /* TripPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TripPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFDCED0825F71C2C001C2769 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFDCED0A25F71C2C001C2769 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				FFDCED0C25F71C2C001C2769 /* ViewController.swift */,
 				FF12CCDB25F7E239008F144D /* DetailViewController.swift */,
 				FF12CCE225F7E470008F144D /* TPAlertViewController.swift */,
+				FF530C2A25F83A77008F138D /* FriendViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				FF12CCE325F7E470008F144D /* TPAlertViewController.swift in Sources */,
 				FF12CCE025F7E39C008F144D /* TPLabel.swift in Sources */,
 				FF12CCCF25F7DE8E008F144D /* TPButton.swift in Sources */,
+				FF530C2B25F83A77008F138D /* FriendViewController.swift in Sources */,
 				FF12CCD825F7DFDA008F144D /* TPTextField.swift in Sources */,
 				FF12CCDC25F7E239008F144D /* DetailViewController.swift in Sources */,
 				FFDCED0925F71C2C001C2769 /* AppDelegate.swift in Sources */,

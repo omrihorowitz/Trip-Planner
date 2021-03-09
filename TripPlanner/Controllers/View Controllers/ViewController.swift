@@ -65,7 +65,7 @@ class ViewController: UIViewController {
             } else {
                 //We created a user so go to the next view
                 let destination = DetailViewController()
-                destination.email = email
+                destination.email = "Logged in user: \(email)"
                 destination.modalPresentationStyle = .overFullScreen
                 destination.modalTransitionStyle = .crossDissolve
                 self.present(destination, animated: true)
@@ -86,7 +86,7 @@ class ViewController: UIViewController {
             } else {
                 //We logged in successfully
                 let destination = DetailViewController()
-                destination.email = email
+                destination.email = "Logged in user: \(email)"
                 destination.modalPresentationStyle = .overFullScreen
                 destination.modalTransitionStyle = .crossDissolve
                 self.present(destination, animated: true)
