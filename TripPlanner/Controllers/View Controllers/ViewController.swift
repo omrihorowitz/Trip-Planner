@@ -10,18 +10,17 @@ import MapKit
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
     
-    var locationManager: CLLocationManager!
+    let locationManager = CLLocationManager()
+    let regionInMeters: Double = 10000
     var mapView = MKMapView()
     private var landmarks: [Landmark] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .gray
-        locationManager = CLLocationManager()
-        locationManager?.delegate = self
-        locationManager?.requestAlwaysAuthorization()
         addSubViews()
         allConfiguration()
+        checkLocationServices()
     }
     
     override func didReceiveMemoryWarning() {
@@ -42,19 +41,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func configureMap() {
         // Set initial location in Santa Monica
-        let initialLocation = CLLocation(latitude: 34.0195, longitude: -118.4912)
-        mapView.centerToLocation(initialLocation)
-        let smCenter = CLLocation(latitude: 34.0099, longitude: -118.4960)
-        let region = MKCoordinateRegion(
-            center: smCenter.coordinate,
-            latitudinalMeters: 5000, //how constrained can users look in region
-            longitudinalMeters: 6000)
-        mapView.setCameraBoundary(
-            MKMapView.CameraBoundary(coordinateRegion: region),
-            animated: true)
-        
-        let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: 200000)
-        mapView.setCameraZoomRange(zoomRange, animated: true)
+//        let initialLocation = CLLocation(latitude: 34.0195, longitude: -118.4912)
+//        mapView.centerToLocation(initialLocation)
+//        let smCenter = CLLocation(latitude: 34.0099, longitude: -118.4960)
+//        let region = MKCoordinateRegion(
+//            center: smCenter.coordinate,
+//            latitudinalMeters: 5000, //how constrained can users look in region
+//            longitudinalMeters: 6000)
+//        mapView.setCameraBoundary(
+//            MKMapView.CameraBoundary(coordinateRegion: region),
+//            animated: true)
+
+//        let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: 200000)
+//        mapView.setCameraZoomRange(zoomRange, animated: true)
         let leftMargin:CGFloat = 0
         let topMargin:CGFloat = 0
         let mapWidth:CGFloat = view.frame.size.width
@@ -63,7 +62,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         mapView.mapType = MKMapType.mutedStandard //diff map types
         mapView.isZoomEnabled = true
         mapView.isScrollEnabled = true
-        //        mapView.center = view.center
         mapView.delegate = self
         mapView.register(
             LandmarkView.self,
@@ -95,6 +93,61 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             // 5
             print("Unexpected error: \(error).")
         }
+    }
+    
+    func setupLocationManager() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    }
+    
+    func centerViewOnUserLocation() {
+        if let location = locationManager.location?.coordinate {
+            let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
+            mapView.setRegion(region, animated: true)
+        }
+    }
+    
+    func checkLocationServices() {
+        if CLLocationManager.locationServicesEnabled() {
+            setupLocationManager()
+            checkLocationAuthorization()
+        } else {
+            // show alert letting user know they have to turn this on
+        }
+    }
+    
+    func checkLocationAuthorization() {
+        switch locationManager.authorizationStatus {
+        case .authorizedWhenInUse:
+            mapView.showsUserLocation = true
+            centerViewOnUserLocation()
+            locationManager.startUpdatingLocation()
+            break
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        case .restricted:
+            // show an alert letting them know what's up
+            break
+        case .denied:
+            // show alert instructing them to turn on permissions
+            break
+        case .authorizedAlways:
+            break
+        @unknown default:
+            break
+        }
+        
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else { return }
+        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        let region = MKCoordinateRegion.init(center: center, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
+        mapView.setRegion(region, animated: true)
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        checkLocationAuthorization()
     }
 }
 
