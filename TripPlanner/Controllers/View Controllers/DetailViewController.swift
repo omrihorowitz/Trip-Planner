@@ -32,7 +32,16 @@ class DetailViewController: UIViewController {
         makeDelegates()
         registerCells()
         logoutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
-        
+        UserController.shared.fetchAllUsers { (result) in
+            switch result {
+            case .success(_):
+                DispatchQueue.main.async {
+                    self.allPeopleTableView.reloadData()
+                }
+            case .failure(_):
+                print("Error fetching people")
+            }
+        }
     }
     
     func registerCells() {
@@ -113,7 +122,11 @@ class DetailViewController: UIViewController {
 extension DetailViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        if tableView == allPeopleTableView {
+            return UserController.shared.users.count
+        } else {
+            return 2
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -121,11 +134,11 @@ extension DetailViewController : UITableViewDelegate, UITableViewDataSource {
         
         if tableView == allPeopleTableView {
             cell.backgroundColor = .systemBlue
+            cell.textLabel?.text = UserController.shared.users[indexPath.row].email
         } else {
             cell.backgroundColor = .systemGreen
+            cell.textLabel?.text = "Test Cell"
         }
-        
-        cell.textLabel?.text = "Test Cell"
         
         return cell
     }

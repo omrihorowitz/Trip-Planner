@@ -16,6 +16,8 @@
 		FF12CCE625F80425008F144D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF12CCE525F80425008F144D /* GoogleService-Info.plist */; };
 		FF530C2825F81BC2008F138D /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF530C2725F81BC2008F138D /* UIViewController+Ext.swift */; };
 		FF530C2B25F83A77008F138D /* FriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF530C2A25F83A77008F138D /* FriendViewController.swift */; };
+		FFC87F2025F946B400226920 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC87F1F25F946B400226920 /* User.swift */; };
+		FFC87F2525F9470D00226920 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC87F2425F9470D00226920 /* UserController.swift */; };
 		FFDCED0925F71C2C001C2769 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0825F71C2C001C2769 /* AppDelegate.swift */; };
 		FFDCED0B25F71C2C001C2769 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0A25F71C2C001C2769 /* SceneDelegate.swift */; };
 		FFDCED0D25F71C2C001C2769 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0C25F71C2C001C2769 /* ViewController.swift */; };
@@ -35,6 +37,8 @@
 		FF12CCE525F80425008F144D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		FF530C2725F81BC2008F138D /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		FF530C2A25F83A77008F138D /* FriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewController.swift; sourceTree = "<group>"; };
+		FFC87F1F25F946B400226920 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		FFC87F2425F9470D00226920 /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 		FFDCED0525F71C2C001C2769 /* TripPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TripPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFDCED0825F71C2C001C2769 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFDCED0A25F71C2C001C2769 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -105,6 +109,22 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		FFC87F1E25F946A800226920 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FFC87F1F25F946B400226920 /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FFC87F2325F9470200226920 /* Model Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				FFC87F2425F9470D00226920 /* UserController.swift */,
+			);
+			path = "Model Controllers";
+			sourceTree = "<group>";
+		};
 		FFDCECFC25F71C2C001C2769 = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +147,7 @@
 		FFDCED0725F71C2C001C2769 /* TripPlanner */ = {
 			isa = PBXGroup;
 			children = (
+				FFC87F1E25F946A800226920 /* Models */,
 				FF530C2625F81BB5008F138D /* Extensions */,
 				FFDCED1D25F71C39001C2769 /* Resources */,
 				FFDCED2625F71CA5001C2769 /* Controllers */,
@@ -179,6 +200,7 @@
 		FFDCED2625F71CA5001C2769 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				FFC87F2325F9470200226920 /* Model Controllers */,
 				FFDCED2125F71C85001C2769 /* View Controllers */,
 			);
 			path = Controllers;
@@ -304,10 +326,12 @@
 				FF12CCCF25F7DE8E008F144D /* TPButton.swift in Sources */,
 				FF530C2B25F83A77008F138D /* FriendViewController.swift in Sources */,
 				FF12CCD825F7DFDA008F144D /* TPTextField.swift in Sources */,
+				FFC87F2525F9470D00226920 /* UserController.swift in Sources */,
 				FF12CCDC25F7E239008F144D /* DetailViewController.swift in Sources */,
 				FFDCED0925F71C2C001C2769 /* AppDelegate.swift in Sources */,
 				FFDCED0B25F71C2C001C2769 /* SceneDelegate.swift in Sources */,
 				FF530C2825F81BC2008F138D /* UIViewController+Ext.swift in Sources */,
+				FFC87F2025F946B400226920 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
