@@ -50,8 +50,6 @@ class FriendViewController: UIViewController {
             reportButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             reportButton.heightAnchor.constraint(equalToConstant: 75)
         
-        
-        
         ])
         
         
