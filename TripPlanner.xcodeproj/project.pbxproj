@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C0873F825F7E6510088000C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0873F725F7E6510088000C /* MapKit.framework */; };
+		6C0873FC25F7FF830088000C /* TPLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0873FB25F7FF830088000C /* TPLabel.swift */; };
+		6C08740525F83A910088000C /* HistoricLandmarks.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 6C08740425F83A910088000C /* HistoricLandmarks.geojson */; };
+		6C08740825F83AD40088000C /* Landmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C08740725F83AD40088000C /* Landmark.swift */; };
+		6C08740D25F84E100088000C /* LandmarkViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C08740C25F84E100088000C /* LandmarkViews.swift */; };
 		FFDCED0925F71C2C001C2769 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0825F71C2C001C2769 /* AppDelegate.swift */; };
 		FFDCED0B25F71C2C001C2769 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0A25F71C2C001C2769 /* SceneDelegate.swift */; };
 		FFDCED0D25F71C2C001C2769 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0C25F71C2C001C2769 /* ViewController.swift */; };
@@ -15,6 +20,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6C0873F725F7E6510088000C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		6C0873FB25F7FF830088000C /* TPLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPLabel.swift; sourceTree = "<group>"; };
+		6C08740425F83A910088000C /* HistoricLandmarks.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HistoricLandmarks.geojson; sourceTree = "<group>"; };
+		6C08740725F83AD40088000C /* Landmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landmark.swift; sourceTree = "<group>"; };
+		6C08740C25F84E100088000C /* LandmarkViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkViews.swift; sourceTree = "<group>"; };
 		FFDCED0525F71C2C001C2769 /* TripPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TripPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFDCED0825F71C2C001C2769 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFDCED0A25F71C2C001C2769 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -29,17 +39,45 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C0873F825F7E6510088000C /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6C0873F625F7E6510088000C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6C0873F725F7E6510088000C /* MapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6C0873FA25F7FF510088000C /* Custom Labels */ = {
+			isa = PBXGroup;
+			children = (
+				6C0873FB25F7FF830088000C /* TPLabel.swift */,
+			);
+			path = "Custom Labels";
+			sourceTree = "<group>";
+		};
+		6C08740B25F84DF20088000C /* GeoData */ = {
+			isa = PBXGroup;
+			children = (
+				6C08740425F83A910088000C /* HistoricLandmarks.geojson */,
+				6C08740725F83AD40088000C /* Landmark.swift */,
+				6C08740C25F84E100088000C /* LandmarkViews.swift */,
+			);
+			path = GeoData;
+			sourceTree = "<group>";
+		};
 		FFDCECFC25F71C2C001C2769 = {
 			isa = PBXGroup;
 			children = (
 				FFDCED0725F71C2C001C2769 /* TripPlanner */,
 				FFDCED0625F71C2C001C2769 /* Products */,
+				6C0873F625F7E6510088000C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,6 +92,7 @@
 		FFDCED0725F71C2C001C2769 /* TripPlanner */ = {
 			isa = PBXGroup;
 			children = (
+				6C08740B25F84DF20088000C /* GeoData */,
 				FFDCED1D25F71C39001C2769 /* Resources */,
 				FFDCED2625F71CA5001C2769 /* Controllers */,
 				FFDCED2525F71CA0001C2769 /* Views */,
@@ -91,6 +130,7 @@
 		FFDCED2525F71CA0001C2769 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6C0873FA25F7FF510088000C /* Custom Labels */,
 				FFDCED2425F71C9B001C2769 /* Storyboards */,
 			);
 			path = Views;
@@ -161,6 +201,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C08740525F83A910088000C /* HistoricLandmarks.geojson in Resources */,
 				FFDCED1525F71C2D001C2769 /* LaunchScreen.storyboard in Resources */,
 				FFDCED1225F71C2D001C2769 /* Assets.xcassets in Resources */,
 			);
@@ -173,9 +214,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C0873FC25F7FF830088000C /* TPLabel.swift in Sources */,
 				FFDCED0D25F71C2C001C2769 /* ViewController.swift in Sources */,
+				6C08740D25F84E100088000C /* LandmarkViews.swift in Sources */,
 				FFDCED0925F71C2C001C2769 /* AppDelegate.swift in Sources */,
 				FFDCED0B25F71C2C001C2769 /* SceneDelegate.swift in Sources */,
+				6C08740825F83AD40088000C /* Landmark.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,7 +359,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 883MB467TW;
+				DEVELOPMENT_TEAM = W578QLR797;
 				INFOPLIST_FILE = TripPlanner/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -334,7 +378,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 883MB467TW;
+				DEVELOPMENT_TEAM = W578QLR797;
 				INFOPLIST_FILE = TripPlanner/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
