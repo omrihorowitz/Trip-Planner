@@ -3,14 +3,31 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		0CB96B5F7AF4104DDA1275CC /* Pods_TripPlanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827BB44F8453A2FFE3D8904B /* Pods_TripPlanner.framework */; };
+		FF51912625FBD2CA0046642F /* FirstPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51912525FBD2CA0046642F /* FirstPageViewController.swift */; };
+		FF51912925FBD2D40046642F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51912825FBD2D40046642F /* LoginViewController.swift */; };
+		FF51912C25FBD2DD0046642F /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51912B25FBD2DD0046642F /* CreateAccountViewController.swift */; };
+		FF51912F25FBD2EE0046642F /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51912E25FBD2EE0046642F /* TabBarViewController.swift */; };
+		FF51913225FBD3060046642F /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51913125FBD3060046642F /* FriendsViewController.swift */; };
+		FF51913525FBD3100046642F /* TripsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51913425FBD3100046642F /* TripsViewController.swift */; };
+		FF51913825FBD31A0046642F /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51913725FBD31A0046642F /* AccountViewController.swift */; };
+		FF51913F25FBD3380046642F /* PersonDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51913E25FBD3380046642F /* PersonDetailViewController.swift */; };
+		FF51914225FBD3570046642F /* TripDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51914125FBD3570046642F /* TripDetailViewController.swift */; };
+		FF51914525FBD36F0046642F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51914425FBD36F0046642F /* MapViewController.swift */; };
+		FF51914825FBD3B00046642F /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51914725FBD3B00046642F /* AlertViewController.swift */; };
+		FF51914D25FBD5900046642F /* TPButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51914C25FBD5900046642F /* TPButton.swift */; };
+		FF51915225FBD6250046642F /* TPContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51915125FBD6250046642F /* TPContainerView.swift */; };
+		FF51915B25FBD6790046642F /* TPBodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51915A25FBD6790046642F /* TPBodyLabel.swift */; };
+		FF51916625FBD71A0046642F /* TPTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51916525FBD71A0046642F /* TPTitleLabel.swift */; };
+		FF51916A25FBD7730046642F /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51916925FBD7730046642F /* UIView+Ext.swift */; };
+		FF51916D25FBD79E0046642F /* ViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51916C25FBD79E0046642F /* ViewController+Ext.swift */; };
+		FF51917825FBDAEB0046642F /* TPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51917725FBDAEB0046642F /* TPTextField.swift */; };
 		FFDCED0925F71C2C001C2769 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0825F71C2C001C2769 /* AppDelegate.swift */; };
 		FFDCED0B25F71C2C001C2769 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0A25F71C2C001C2769 /* SceneDelegate.swift */; };
-		FFDCED0D25F71C2C001C2769 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0C25F71C2C001C2769 /* ViewController.swift */; };
 		FFDCED1225F71C2D001C2769 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFDCED1125F71C2D001C2769 /* Assets.xcassets */; };
 		FFDCED1525F71C2D001C2769 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFDCED1325F71C2D001C2769 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -19,10 +36,27 @@
 		491ABF6A1C765837D5BA68EE /* Pods-TripPlanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TripPlanner.release.xcconfig"; path = "Target Support Files/Pods-TripPlanner/Pods-TripPlanner.release.xcconfig"; sourceTree = "<group>"; };
 		64E89E64A8FD8581383EE3AF /* Pods-TripPlanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TripPlanner.debug.xcconfig"; path = "Target Support Files/Pods-TripPlanner/Pods-TripPlanner.debug.xcconfig"; sourceTree = "<group>"; };
 		827BB44F8453A2FFE3D8904B /* Pods_TripPlanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TripPlanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF51912525FBD2CA0046642F /* FirstPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPageViewController.swift; sourceTree = "<group>"; };
+		FF51912825FBD2D40046642F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		FF51912B25FBD2DD0046642F /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
+		FF51912E25FBD2EE0046642F /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		FF51913125FBD3060046642F /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
+		FF51913425FBD3100046642F /* TripsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsViewController.swift; sourceTree = "<group>"; };
+		FF51913725FBD31A0046642F /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		FF51913E25FBD3380046642F /* PersonDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailViewController.swift; sourceTree = "<group>"; };
+		FF51914125FBD3570046642F /* TripDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailViewController.swift; sourceTree = "<group>"; };
+		FF51914425FBD36F0046642F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		FF51914725FBD3B00046642F /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
+		FF51914C25FBD5900046642F /* TPButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPButton.swift; sourceTree = "<group>"; };
+		FF51915125FBD6250046642F /* TPContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPContainerView.swift; sourceTree = "<group>"; };
+		FF51915A25FBD6790046642F /* TPBodyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPBodyLabel.swift; sourceTree = "<group>"; };
+		FF51916525FBD71A0046642F /* TPTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTitleLabel.swift; sourceTree = "<group>"; };
+		FF51916925FBD7730046642F /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
+		FF51916C25FBD79E0046642F /* ViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Ext.swift"; sourceTree = "<group>"; };
+		FF51917725FBDAEB0046642F /* TPTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTextField.swift; sourceTree = "<group>"; };
 		FFDCED0525F71C2C001C2769 /* TripPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TripPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFDCED0825F71C2C001C2769 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFDCED0A25F71C2C001C2769 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		FFDCED0C25F71C2C001C2769 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FFDCED1125F71C2D001C2769 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FFDCED1425F71C2D001C2769 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FFDCED1625F71C2D001C2769 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -46,7 +80,6 @@
 				64E89E64A8FD8581383EE3AF /* Pods-TripPlanner.debug.xcconfig */,
 				491ABF6A1C765837D5BA68EE /* Pods-TripPlanner.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -56,6 +89,88 @@
 				827BB44F8453A2FFE3D8904B /* Pods_TripPlanner.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FF51914A25FBD56C0046642F /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				FF51917625FBDADA0046642F /* TextFields */,
+				FF51915525FBD6400046642F /* Labels */,
+				FF51915025FBD6160046642F /* Container Views */,
+				FF51914B25FBD5730046642F /* Buttons */,
+			);
+			path = "Custom Views";
+			sourceTree = "<group>";
+		};
+		FF51914B25FBD5730046642F /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				FF51914C25FBD5900046642F /* TPButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		FF51915025FBD6160046642F /* Container Views */ = {
+			isa = PBXGroup;
+			children = (
+				FF51915125FBD6250046642F /* TPContainerView.swift */,
+			);
+			path = "Container Views";
+			sourceTree = "<group>";
+		};
+		FF51915525FBD6400046642F /* Labels */ = {
+			isa = PBXGroup;
+			children = (
+				FF51915A25FBD6790046642F /* TPBodyLabel.swift */,
+				FF51916525FBD71A0046642F /* TPTitleLabel.swift */,
+			);
+			path = Labels;
+			sourceTree = "<group>";
+		};
+		FF51916825FBD7690046642F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FF51916925FBD7730046642F /* UIView+Ext.swift */,
+				FF51916C25FBD79E0046642F /* ViewController+Ext.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		FF51916F25FBD8BD0046642F /* LoginSection */ = {
+			isa = PBXGroup;
+			children = (
+				FF51912525FBD2CA0046642F /* FirstPageViewController.swift */,
+				FF51912825FBD2D40046642F /* LoginViewController.swift */,
+				FF51912B25FBD2DD0046642F /* CreateAccountViewController.swift */,
+			);
+			path = LoginSection;
+			sourceTree = "<group>";
+		};
+		FF51917125FBD8D60046642F /* Trip Section */ = {
+			isa = PBXGroup;
+			children = (
+				FF51913425FBD3100046642F /* TripsViewController.swift */,
+				FF51914125FBD3570046642F /* TripDetailViewController.swift */,
+				FF51914425FBD36F0046642F /* MapViewController.swift */,
+			);
+			path = "Trip Section";
+			sourceTree = "<group>";
+		};
+		FF51917325FBD8E90046642F /* Friends Section */ = {
+			isa = PBXGroup;
+			children = (
+				FF51913125FBD3060046642F /* FriendsViewController.swift */,
+				FF51913E25FBD3380046642F /* PersonDetailViewController.swift */,
+			);
+			path = "Friends Section";
+			sourceTree = "<group>";
+		};
+		FF51917625FBDADA0046642F /* TextFields */ = {
+			isa = PBXGroup;
+			children = (
+				FF51917725FBDAEB0046642F /* TPTextField.swift */,
+			);
+			path = TextFields;
 			sourceTree = "<group>";
 		};
 		FFDCECFC25F71C2C001C2769 = {
@@ -79,6 +194,7 @@
 		FFDCED0725F71C2C001C2769 /* TripPlanner */ = {
 			isa = PBXGroup;
 			children = (
+				FF51916825FBD7690046642F /* Extensions */,
 				FFDCED1D25F71C39001C2769 /* Resources */,
 				FFDCED2625F71CA5001C2769 /* Controllers */,
 				FFDCED2525F71CA0001C2769 /* Views */,
@@ -100,7 +216,12 @@
 		FFDCED2125F71C85001C2769 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				FFDCED0C25F71C2C001C2769 /* ViewController.swift */,
+				FF51912E25FBD2EE0046642F /* TabBarViewController.swift */,
+				FF51913725FBD31A0046642F /* AccountViewController.swift */,
+				FF51914725FBD3B00046642F /* AlertViewController.swift */,
+				FF51916F25FBD8BD0046642F /* LoginSection */,
+				FF51917325FBD8E90046642F /* Friends Section */,
+				FF51917125FBD8D60046642F /* Trip Section */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -116,6 +237,7 @@
 		FFDCED2525F71CA0001C2769 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FF51914A25FBD56C0046642F /* Custom Views */,
 				FFDCED2425F71C9B001C2769 /* Storyboards */,
 			);
 			path = Views;
@@ -242,9 +364,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FFDCED0D25F71C2C001C2769 /* ViewController.swift in Sources */,
+				FF51912C25FBD2DD0046642F /* CreateAccountViewController.swift in Sources */,
+				FF51912925FBD2D40046642F /* LoginViewController.swift in Sources */,
+				FF51912625FBD2CA0046642F /* FirstPageViewController.swift in Sources */,
+				FF51915225FBD6250046642F /* TPContainerView.swift in Sources */,
 				FFDCED0925F71C2C001C2769 /* AppDelegate.swift in Sources */,
+				FF51914225FBD3570046642F /* TripDetailViewController.swift in Sources */,
+				FF51914D25FBD5900046642F /* TPButton.swift in Sources */,
+				FF51913225FBD3060046642F /* FriendsViewController.swift in Sources */,
+				FF51916625FBD71A0046642F /* TPTitleLabel.swift in Sources */,
+				FF51913525FBD3100046642F /* TripsViewController.swift in Sources */,
+				FF51914525FBD36F0046642F /* MapViewController.swift in Sources */,
+				FF51912F25FBD2EE0046642F /* TabBarViewController.swift in Sources */,
 				FFDCED0B25F71C2C001C2769 /* SceneDelegate.swift in Sources */,
+				FF51913F25FBD3380046642F /* PersonDetailViewController.swift in Sources */,
+				FF51916A25FBD7730046642F /* UIView+Ext.swift in Sources */,
+				FF51914825FBD3B00046642F /* AlertViewController.swift in Sources */,
+				FF51915B25FBD6790046642F /* TPBodyLabel.swift in Sources */,
+				FF51917825FBDAEB0046642F /* TPTextField.swift in Sources */,
+				FF51913825FBD31A0046642F /* AccountViewController.swift in Sources */,
+				FF51916D25FBD79E0046642F /* ViewController+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
