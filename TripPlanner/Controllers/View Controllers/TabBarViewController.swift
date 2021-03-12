@@ -11,8 +11,12 @@ class TabBarViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.viewControllers = [setUpFriendsVC(), setUpTripsVC(), setUpAccountVC()]
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        super.viewWillAppear(animated)
     }
     
     private func setUpFriendsVC() -> UIViewController {

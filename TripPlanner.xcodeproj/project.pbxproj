@@ -26,6 +26,7 @@
 		FF51916A25FBD7730046642F /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51916925FBD7730046642F /* UIView+Ext.swift */; };
 		FF51916D25FBD79E0046642F /* ViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51916C25FBD79E0046642F /* ViewController+Ext.swift */; };
 		FF51917825FBDAEB0046642F /* TPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51917725FBDAEB0046642F /* TPTextField.swift */; };
+		FF51918925FBE7E60046642F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF51918825FBE7E60046642F /* GoogleService-Info.plist */; };
 		FFDCED0925F71C2C001C2769 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0825F71C2C001C2769 /* AppDelegate.swift */; };
 		FFDCED0B25F71C2C001C2769 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0A25F71C2C001C2769 /* SceneDelegate.swift */; };
 		FFDCED1225F71C2D001C2769 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFDCED1125F71C2D001C2769 /* Assets.xcassets */; };
@@ -54,6 +55,7 @@
 		FF51916925FBD7730046642F /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		FF51916C25FBD79E0046642F /* ViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Ext.swift"; sourceTree = "<group>"; };
 		FF51917725FBDAEB0046642F /* TPTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTextField.swift; sourceTree = "<group>"; };
+		FF51918825FBE7E60046642F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FFDCED0525F71C2C001C2769 /* TripPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TripPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFDCED0825F71C2C001C2769 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFDCED0A25F71C2C001C2769 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				FFDCED0725F71C2C001C2769 /* TripPlanner */,
+				FF51918825FBE7E60046642F /* GoogleService-Info.plist */,
 				FFDCED0625F71C2C001C2769 /* Products */,
 				0B2C43E450B5FB916B4327E3 /* Pods */,
 				9AB8CF99E8EBAD9D5010B9BC /* Frameworks */,
@@ -312,6 +315,7 @@
 			files = (
 				FFDCED1525F71C2D001C2769 /* LaunchScreen.storyboard in Resources */,
 				FFDCED1225F71C2D001C2769 /* Assets.xcassets in Resources */,
+				FF51918925FBE7E60046642F /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

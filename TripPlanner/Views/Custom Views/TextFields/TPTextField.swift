@@ -18,10 +18,10 @@ class TPTextField: UITextField {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(placeHolder: String) {
+    convenience init(placeHolder: String, isSecure: Bool) {
         self.init(frame: .zero)
         placeholder = placeHolder
-        
+        isSecureTextEntry = isSecure
     }
     
     private func configure() {

@@ -6,25 +6,74 @@
 //
 
 import UIKit
+import Firebase
 
 class LoginViewController: UIViewController {
+    
+    let emailTextField = TPTextField(placeHolder: "Email", isSecure: false)
+    let passwordTextField = TPTextField(placeHolder: "Password", isSecure: true)
+    let loginButton = TPButton(backgroundColor: .systemGreen, title: "Go!")
 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = false
-        view.backgroundColor = .systemGreen
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .systemBackground
+        view.addSubviews(emailTextField, passwordTextField, loginButton)
+        constrainViews()
+        setButtonTarget()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        super.viewWillAppear(animated)
     }
-    */
+    
+    func setButtonTarget() {
+        loginButton.addTarget(self, action: #selector(actionButtonPressed), for: .touchUpInside)
+    }
+    
+    @objc func actionButtonPressed() {
+        guard let email = emailTextField.text, let password = passwordTextField.text, !email.isEmpty, !password.isEmpty else {
+            self.presentAlertOnMainThread(title: "Uh oh!", message: "Please fill out both fields", buttonTitle: "Ok")
+            return
+        }
+        
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] (result, error) in
+            guard let self = self else { return }
+            if let error = error {
+                self.presentAlertOnMainThread(title: "Uh oh", message: error.localizedDescription, buttonTitle: "ok")
+            } else {
+                let tabBar = TabBarViewController()
+                self.navigationController?.pushViewController(tabBar, animated: true)
+            }
+        }
+    }
+    
+    func constrainViews() {
+        
+        NSLayoutConstraint.activate([
+        
+            emailTextField.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            emailTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            emailTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            emailTextField.heightAnchor.constraint(equalToConstant: 50),
+            
+            passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 20),
+            passwordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            passwordTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            passwordTextField.heightAnchor.constraint(equalToConstant: 50),
+            
+            loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20),
+            loginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            loginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            loginButton.heightAnchor.constraint(equalToConstant: 50)
+        
+        
+        ])
+        
+        
+    }
+
+    
 
 }

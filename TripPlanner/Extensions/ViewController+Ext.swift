@@ -9,7 +9,8 @@ import UIKit
 
 extension UIViewController {
     
-    func presentGFAlertOnMainThread(title: String, message: String, buttonTitle: String) {
+    func presentAlertOnMainThread(title: String, message: String, buttonTitle: String) {
+        //Presents an alert with whatever title and message you pass in
         DispatchQueue.main.async {
             let alertVC = AlertViewController(title: title, message: message, buttonTitle: buttonTitle)
             alertVC.modalPresentationStyle = .overFullScreen
