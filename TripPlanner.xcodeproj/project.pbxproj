@@ -27,6 +27,9 @@
 		FF51916D25FBD79E0046642F /* ViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51916C25FBD79E0046642F /* ViewController+Ext.swift */; };
 		FF51917825FBDAEB0046642F /* TPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51917725FBDAEB0046642F /* TPTextField.swift */; };
 		FF51918925FBE7E60046642F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF51918825FBE7E60046642F /* GoogleService-Info.plist */; };
+		FF51919225FC11AD0046642F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51919125FC11AD0046642F /* User.swift */; };
+		FF51919625FC13CC0046642F /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51919525FC13CC0046642F /* UserController.swift */; };
+		FF51919A25FC1A380046642F /* CustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51919925FC1A380046642F /* CustomError.swift */; };
 		FFDCED0925F71C2C001C2769 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0825F71C2C001C2769 /* AppDelegate.swift */; };
 		FFDCED0B25F71C2C001C2769 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0A25F71C2C001C2769 /* SceneDelegate.swift */; };
 		FFDCED1225F71C2D001C2769 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFDCED1125F71C2D001C2769 /* Assets.xcassets */; };
@@ -56,6 +59,9 @@
 		FF51916C25FBD79E0046642F /* ViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Ext.swift"; sourceTree = "<group>"; };
 		FF51917725FBDAEB0046642F /* TPTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTextField.swift; sourceTree = "<group>"; };
 		FF51918825FBE7E60046642F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FF51919125FC11AD0046642F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		FF51919525FC13CC0046642F /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
+		FF51919925FC1A380046642F /* CustomError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomError.swift; sourceTree = "<group>"; };
 		FFDCED0525F71C2C001C2769 /* TripPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TripPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFDCED0825F71C2C001C2769 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFDCED0A25F71C2C001C2769 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -175,6 +181,23 @@
 			path = TextFields;
 			sourceTree = "<group>";
 		};
+		FF51918B25FC11980046642F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FF51919125FC11AD0046642F /* User.swift */,
+				FF51919925FC1A380046642F /* CustomError.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FF51919425FC13C30046642F /* Model Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				FF51919525FC13CC0046642F /* UserController.swift */,
+			);
+			path = "Model Controllers";
+			sourceTree = "<group>";
+		};
 		FFDCECFC25F71C2C001C2769 = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +220,7 @@
 		FFDCED0725F71C2C001C2769 /* TripPlanner */ = {
 			isa = PBXGroup;
 			children = (
+				FF51918B25FC11980046642F /* Models */,
 				FF51916825FBD7690046642F /* Extensions */,
 				FFDCED1D25F71C39001C2769 /* Resources */,
 				FFDCED2625F71CA5001C2769 /* Controllers */,
@@ -249,6 +273,7 @@
 		FFDCED2625F71CA5001C2769 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				FF51919425FC13C30046642F /* Model Controllers */,
 				FFDCED2125F71C85001C2769 /* View Controllers */,
 			);
 			path = Controllers;
@@ -368,6 +393,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF51919A25FC1A380046642F /* CustomError.swift in Sources */,
 				FF51912C25FBD2DD0046642F /* CreateAccountViewController.swift in Sources */,
 				FF51912925FBD2D40046642F /* LoginViewController.swift in Sources */,
 				FF51912625FBD2CA0046642F /* FirstPageViewController.swift in Sources */,
@@ -382,12 +408,14 @@
 				FF51912F25FBD2EE0046642F /* TabBarViewController.swift in Sources */,
 				FFDCED0B25F71C2C001C2769 /* SceneDelegate.swift in Sources */,
 				FF51913F25FBD3380046642F /* PersonDetailViewController.swift in Sources */,
+				FF51919625FC13CC0046642F /* UserController.swift in Sources */,
 				FF51916A25FBD7730046642F /* UIView+Ext.swift in Sources */,
 				FF51914825FBD3B00046642F /* AlertViewController.swift in Sources */,
 				FF51915B25FBD6790046642F /* TPBodyLabel.swift in Sources */,
 				FF51917825FBDAEB0046642F /* TPTextField.swift in Sources */,
 				FF51913825FBD31A0046642F /* AccountViewController.swift in Sources */,
 				FF51916D25FBD79E0046642F /* ViewController+Ext.swift in Sources */,
+				FF51919225FC11AD0046642F /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -19,6 +19,10 @@ class CreateAccountViewController: UIViewController {
     let confirmPasswordTextField = TPTextField(placeHolder: "Confirm Password", isSecure: true)
     let createAccountButton = TPButton(backgroundColor: .systemTeal, title: "Let's Go!")
     
+    var imageData: Data?
+    
+    let db = Firestore.firestore()
+    
     
     
     override func viewDidLoad() {
@@ -53,22 +57,42 @@ class CreateAccountViewController: UIViewController {
         //Check all fields are filled out
         guard let name = nameTextField.text, let email = emailTextField.text, let password = passwordTextField.text, let confirmed = confirmPasswordTextField.text, !name.isEmpty, !email.isEmpty, !password.isEmpty, !confirmed.isEmpty else { self.presentAlertOnMainThread(title: "Uh oh!", message: "Please fill out all fields to create account", buttonTitle: "Ok"); return}
         
+        var downloadURL: String?
+        
         //check passwords match
         guard password == confirmed else {
             self.presentAlertOnMainThread(title: "Uh oh!", message: "Please make sure passwords match", buttonTitle: "Ok")
             return }
         
         //try to create account
-        
+        if let imageData = self.imageData {
+            UserController.shared.uploadPhotoForUser(imageData: imageData, email: email) { [weak self] (result) in
+                
+                guard let self = self else { return }
+                
+                switch result{
+                case .success(let url):
+                    downloadURL = url
+                    self.createUser(email: email, password: password, name: name, downloadURL: downloadURL)
+                case .failure(_):
+                    self.presentAlertOnMainThread(title: "Uh oh", message: "Couldn't upload photo at this time", buttonTitle: "Ok")
+                }
+            }
+        }
+    }
+    
+    
+    func createUser(email: String, password: String, name: String, downloadURL: String?) {
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] (result, error) in
             guard let self = self else { return }
             if let error = error {
                 self.presentAlertOnMainThread(title: "Error", message: error.localizedDescription, buttonTitle: "Ok")
             } else {
+                UserController.shared.createUserInDB(email: email, name: name, downloadURL: downloadURL)
                 let tabBar = TabBarViewController()
                 self.navigationController?.pushViewController(tabBar, animated: true)
             }
-        }  
+        }
     }
     
     func constrainViews() {
@@ -124,6 +148,9 @@ extension CreateAccountViewController : UIImagePickerControllerDelegate, UINavig
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true)
         guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
+        
+        guard let imageData = image.pngData() else { return }
+        self.imageData = imageData
         imageView.image = image
     }
     
