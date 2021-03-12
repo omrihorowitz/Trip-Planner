@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class FriendViewController: UIViewController {
 
@@ -17,13 +18,75 @@ class FriendViewController: UIViewController {
     
     let reportButton = TPButton(color: .systemYellow, title: "Report")
     
+    var selectedUser: User?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         addSubViews()
         constrain()
+        addButtonTargets()
     }
   
+    @objc func friendButtonTapped() {
+        
+        guard let selectedUser = selectedUser else { return }
+        
+        UserController.shared.makeFriend(userToFriend: selectedUser) { (result) in
+            switch result {
+            case .success(let bool):
+                if bool {
+                    self.reloadData()
+                    self.dismiss(animated: true)
+                    self.presentAlert(title: "Friended!")
+                    
+                } else {
+                    self.presentAlert(title: "You are already friends!")
+                }
+            case .failure(_):
+                self.presentAlert(title: "Something went wrong!")
+            }
+        }
+    }
+    
+    @objc func unfriendButtonTapped() {
+        guard let selectedUser = selectedUser else { return }
+        
+        UserController.shared.unFriend(userToFriend: selectedUser) { (result) in
+            switch result {
+            case .success(let bool):
+                if bool {
+                    self.reloadData()
+                    self.dismiss(animated: true)
+                    self.presentAlert(title: "Unfriended!")
+                    
+                } else {
+                    self.presentAlert(title: "You've already unfriended them!")
+                }
+            case .failure(_):
+                self.presentAlert(title: "Something went wrong!")
+            }
+        }
+    }
+    
+    
+    func addButtonTargets() {
+        friendButton.addTarget(self, action: #selector(friendButtonTapped), for: .touchUpInside)
+        unfriendButton.addTarget(self, action: #selector(unfriendButtonTapped), for: .touchUpInside)
+    }
+    
+    func reloadData() {
+        UserController.shared.fetchAllUsers { (result) in
+            switch result {
+            case .success(_):
+                print("Reloaded data")
+            case .failure(_):
+                print("Failed to reload data")
+            }
+        }
+    }
+    
+    
     
     func constrain() {
         

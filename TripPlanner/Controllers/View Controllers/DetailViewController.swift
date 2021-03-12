@@ -146,6 +146,17 @@ extension DetailViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let destination = FriendViewController()
+        
+        if tableView == allPeopleTableView {
+            let selectedUser = UserController.shared.users[indexPath.row]
+            destination.selectedUser = selectedUser
+        } else {
+            let selectedUser = UserController.shared.friends[indexPath.row]
+            destination.selectedUser = selectedUser
+        }
+        
+        
+        
         self.present(destination, animated: true)
         
     }
