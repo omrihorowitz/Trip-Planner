@@ -57,5 +57,23 @@ class UserController {
         }
     }
     
+    func fetchCurrentUser() {
+        
+    }
+    
+    func fetchAllUsers() {
+        
+    }
+    
+    func fetchFriendsForUser(user: User) {
+        
+    }
+    
+    func fetchBlockedForUser(user: User) {
+        
+    }
+    
+    
+    
     
 }

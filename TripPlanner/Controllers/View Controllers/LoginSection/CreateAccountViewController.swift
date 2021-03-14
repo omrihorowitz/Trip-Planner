@@ -57,8 +57,6 @@ class CreateAccountViewController: UIViewController {
         //Check all fields are filled out
         guard let name = nameTextField.text, let email = emailTextField.text, let password = passwordTextField.text, let confirmed = confirmPasswordTextField.text, !name.isEmpty, !email.isEmpty, !password.isEmpty, !confirmed.isEmpty else { self.presentAlertOnMainThread(title: "Uh oh!", message: "Please fill out all fields to create account", buttonTitle: "Ok"); return}
         
-        var downloadURL: String?
-        
         //check passwords match
         guard password == confirmed else {
             self.presentAlertOnMainThread(title: "Uh oh!", message: "Please make sure passwords match", buttonTitle: "Ok")
@@ -66,19 +64,23 @@ class CreateAccountViewController: UIViewController {
         
         //try to create account
         if let imageData = self.imageData {
+            //User picked an image so save the image and then make a user with the image URL
             UserController.shared.uploadPhotoForUser(imageData: imageData, email: email) { [weak self] (result) in
                 
                 guard let self = self else { return }
                 
                 switch result{
                 case .success(let url):
-                    downloadURL = url
-                    self.createUser(email: email, password: password, name: name, downloadURL: downloadURL)
+                    self.createUser(email: email, password: password, name: name, downloadURL: url)
                 case .failure(_):
                     self.presentAlertOnMainThread(title: "Uh oh", message: "Couldn't upload photo at this time", buttonTitle: "Ok")
                 }
             }
+        } else{
+            // User didn't pick an image so save just save user. Download URL will just be "no"
+            self.createUser(email: email, password: password, name: name, downloadURL: nil)
         }
+        
     }
     
     
