@@ -29,17 +29,17 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate {
         view.backgroundColor = .white
         addAllSubviews()
         addAllConfiguration()
-        //checkLocationServices()
+        checkLocationServices()
     }
     
     // MARK: - Actions
     @objc func goButtonTapped(sender : UIButton!){
-        resetMapView(withNew: MKDirections) //tbd
+//        resetMapView(withNew: MKDirections) //tbd
         //mapping the route from user to the selected pin
     }
 
     @objc func planRouteButtonTapped(sender : UIButton!){
-        resetMapView(withNew: MKDirections) //tbd
+//        resetMapView(withNew: MKDirections) //tbd
         let tripDetailViewController = TripDetailViewController()
                 present(tripDetailViewController, animated: true)
     }
@@ -48,12 +48,6 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate {
         //hide keyboard if tap away
         //show suggestions
         //press suggestions for autocomplete
-    }
-    
-    func goButtonSubview() {
-        goButton.backgroundColor = .green
-        goButton.setTitle("Go", for: .normal)
-        goButton.addTarget(self, action: #selector(goButtonTapped), for: .touchUpInside)
     }
     
     //MARK: - Methods
@@ -76,11 +70,38 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func configureMapView() {
-        
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            mapView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            mapView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        mapView.mapType = MKMapType.mutedStandard //diff map types
+        mapView.isZoomEnabled = true
+        mapView.isScrollEnabled = true
+        mapView.delegate = self
+//        mapView.register(
+//            LandmarkView.self,
+//            forAnnotationViewWithReuseIdentifier:
+//                MKMapViewDefaultAnnotationViewReuseIdentifier)  // would need unique identifier w more classes
+//        mapView.addAnnotations(whatever pins we annnotate)
     }
     
     func configurePlanRouteButton() {
-        
+        planRouteButton.translatesAutoresizingMaskIntoConstraints = false
+        planRouteButton.backgroundColor = .systemGreen
+        planRouteButton.setTitleColor(UIColor.white, for: .normal)
+        planRouteButton.setTitle("Plan Route", for: .normal)
+        planRouteButton.addTarget(self, action: #selector(planRouteButtonTapped), for: .touchUpInside)
+        NSLayoutConstraint.activate([
+            planRouteButton.heightAnchor.constraint(equalToConstant: 30),
+            planRouteButton.leadingAnchor.constraint(equalTo: view.trailingAnchor, constant: -150),
+            planRouteButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            planRouteButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30),
+        ])
+        planRouteButton.layer.cornerRadius = 10
+        planRouteButton.clipsToBounds = true
     }
     
     func configureGoButton() {
@@ -92,7 +113,13 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func configureSearchBar() {
-        
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.backgroundColor = .white
+        searchBar.placeholder = "What do you want to find?"
+//        searchBar.addTarget(self, action: #selector(searchBar), for: .touchUpInside)
+        NSLayoutConstraint.activate([
+            searchBar.topAnchor.constraint(equalTo: view.topAnchor)
+        ])
     }
     
     func setupLocationManager() {
