@@ -8,27 +8,47 @@
 
 /* Begin PBXBuildFile section */
 		6C0873F825F7E6510088000C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0873F725F7E6510088000C /* MapKit.framework */; };
-		6C0873FC25F7FF830088000C /* TPLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0873FB25F7FF830088000C /* TPLabel.swift */; };
 		6C08740525F83A910088000C /* HistoricLandmarks.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 6C08740425F83A910088000C /* HistoricLandmarks.geojson */; };
 		6C08740825F83AD40088000C /* Landmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C08740725F83AD40088000C /* Landmark.swift */; };
 		6C08740D25F84E100088000C /* LandmarkViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C08740C25F84E100088000C /* LandmarkViews.swift */; };
+		6C853A3825FEE63A00F10102 /* RouteAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C853A3625FEE63A00F10102 /* RouteAnnotation.swift */; };
+		6C853A3925FEE63A00F10102 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C853A3725FEE63A00F10102 /* Route.swift */; };
+		6C853A3D25FEE67200F10102 /* RouteBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C853A3C25FEE67200F10102 /* RouteBuilder.swift */; };
+		6C853A4625FEE77C00F10102 /* TimeInterval+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C853A4025FEE77B00F10102 /* TimeInterval+Additions.swift */; };
+		6C853A4725FEE77C00F10102 /* UITextField+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C853A4125FEE77C00F10102 /* UITextField+Additions.swift */; };
+		6C853A4825FEE77C00F10102 /* UIView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C853A4225FEE77C00F10102 /* UIView+Additions.swift */; };
+		6C853A4925FEE77C00F10102 /* UIButton+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C853A4325FEE77C00F10102 /* UIButton+Additions.swift */; };
+		6C853A4A25FEE77C00F10102 /* CLPlacemark+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C853A4425FEE77C00F10102 /* CLPlacemark+Additions.swift */; };
+		6C853A4B25FEE77C00F10102 /* UIImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C853A4525FEE77C00F10102 /* UIImage+Additions.swift */; };
+		6C853A5025FEF18800F10102 /* DirectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C853A4E25FEF18800F10102 /* DirectionsViewController.swift */; };
+		6C853A5125FEF18800F10102 /* RouteSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C853A4F25FEF18800F10102 /* RouteSelectionViewController.swift */; };
 		FFDCED0925F71C2C001C2769 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0825F71C2C001C2769 /* AppDelegate.swift */; };
 		FFDCED0B25F71C2C001C2769 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0A25F71C2C001C2769 /* SceneDelegate.swift */; };
-		FFDCED0D25F71C2C001C2769 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0C25F71C2C001C2769 /* ViewController.swift */; };
+		FFDCED0D25F71C2C001C2769 /* AnnotatedMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0C25F71C2C001C2769 /* AnnotatedMapViewController.swift */; };
 		FFDCED1225F71C2D001C2769 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFDCED1125F71C2D001C2769 /* Assets.xcassets */; };
 		FFDCED1525F71C2D001C2769 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFDCED1325F71C2D001C2769 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6C0873F725F7E6510088000C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		6C0873FB25F7FF830088000C /* TPLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPLabel.swift; sourceTree = "<group>"; };
 		6C08740425F83A910088000C /* HistoricLandmarks.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HistoricLandmarks.geojson; sourceTree = "<group>"; };
 		6C08740725F83AD40088000C /* Landmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landmark.swift; sourceTree = "<group>"; };
 		6C08740C25F84E100088000C /* LandmarkViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkViews.swift; sourceTree = "<group>"; };
+		6C853A3625FEE63A00F10102 /* RouteAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteAnnotation.swift; sourceTree = "<group>"; };
+		6C853A3725FEE63A00F10102 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		6C853A3C25FEE67200F10102 /* RouteBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteBuilder.swift; sourceTree = "<group>"; };
+		6C853A4025FEE77B00F10102 /* TimeInterval+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Additions.swift"; sourceTree = "<group>"; };
+		6C853A4125FEE77C00F10102 /* UITextField+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+Additions.swift"; sourceTree = "<group>"; };
+		6C853A4225FEE77C00F10102 /* UIView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Additions.swift"; sourceTree = "<group>"; };
+		6C853A4325FEE77C00F10102 /* UIButton+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Additions.swift"; sourceTree = "<group>"; };
+		6C853A4425FEE77C00F10102 /* CLPlacemark+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLPlacemark+Additions.swift"; sourceTree = "<group>"; };
+		6C853A4525FEE77C00F10102 /* UIImage+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Additions.swift"; sourceTree = "<group>"; };
+		6C853A4E25FEF18800F10102 /* DirectionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionsViewController.swift; sourceTree = "<group>"; };
+		6C853A4F25FEF18800F10102 /* RouteSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteSelectionViewController.swift; sourceTree = "<group>"; };
 		FFDCED0525F71C2C001C2769 /* TripPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TripPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFDCED0825F71C2C001C2769 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFDCED0A25F71C2C001C2769 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		FFDCED0C25F71C2C001C2769 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FFDCED0C25F71C2C001C2769 /* AnnotatedMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotatedMapViewController.swift; sourceTree = "<group>"; };
 		FFDCED1125F71C2D001C2769 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FFDCED1425F71C2D001C2769 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FFDCED1625F71C2D001C2769 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -54,14 +74,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		6C0873FA25F7FF510088000C /* Custom Labels */ = {
-			isa = PBXGroup;
-			children = (
-				6C0873FB25F7FF830088000C /* TPLabel.swift */,
-			);
-			path = "Custom Labels";
-			sourceTree = "<group>";
-		};
 		6C08740B25F84DF20088000C /* GeoData */ = {
 			isa = PBXGroup;
 			children = (
@@ -70,6 +82,36 @@
 				6C08740C25F84E100088000C /* LandmarkViews.swift */,
 			);
 			path = GeoData;
+			sourceTree = "<group>";
+		};
+		6C853A3525FEE62E00F10102 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6C853A3725FEE63A00F10102 /* Route.swift */,
+				6C853A3625FEE63A00F10102 /* RouteAnnotation.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		6C853A3B25FEE65E00F10102 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				6C853A3C25FEE67200F10102 /* RouteBuilder.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		6C853A3F25FEE74300F10102 /* Custom Objects */ = {
+			isa = PBXGroup;
+			children = (
+				6C853A4425FEE77C00F10102 /* CLPlacemark+Additions.swift */,
+				6C853A4025FEE77B00F10102 /* TimeInterval+Additions.swift */,
+				6C853A4325FEE77C00F10102 /* UIButton+Additions.swift */,
+				6C853A4525FEE77C00F10102 /* UIImage+Additions.swift */,
+				6C853A4125FEE77C00F10102 /* UITextField+Additions.swift */,
+				6C853A4225FEE77C00F10102 /* UIView+Additions.swift */,
+			);
+			path = "Custom Objects";
 			sourceTree = "<group>";
 		};
 		FFDCECFC25F71C2C001C2769 = {
@@ -92,6 +134,8 @@
 		FFDCED0725F71C2C001C2769 /* TripPlanner */ = {
 			isa = PBXGroup;
 			children = (
+				6C853A3B25FEE65E00F10102 /* Helpers */,
+				6C853A3525FEE62E00F10102 /* Models */,
 				6C08740B25F84DF20088000C /* GeoData */,
 				FFDCED1D25F71C39001C2769 /* Resources */,
 				FFDCED2625F71CA5001C2769 /* Controllers */,
@@ -114,7 +158,9 @@
 		FFDCED2125F71C85001C2769 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				FFDCED0C25F71C2C001C2769 /* ViewController.swift */,
+				FFDCED0C25F71C2C001C2769 /* AnnotatedMapViewController.swift */,
+				6C853A4F25FEF18800F10102 /* RouteSelectionViewController.swift */,
+				6C853A4E25FEF18800F10102 /* DirectionsViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -130,7 +176,7 @@
 		FFDCED2525F71CA0001C2769 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				6C0873FA25F7FF510088000C /* Custom Labels */,
+				6C853A3F25FEE74300F10102 /* Custom Objects */,
 				FFDCED2425F71C9B001C2769 /* Storyboards */,
 			);
 			path = Views;
@@ -214,12 +260,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C0873FC25F7FF830088000C /* TPLabel.swift in Sources */,
-				FFDCED0D25F71C2C001C2769 /* ViewController.swift in Sources */,
+				6C853A4825FEE77C00F10102 /* UIView+Additions.swift in Sources */,
+				6C853A5025FEF18800F10102 /* DirectionsViewController.swift in Sources */,
+				6C853A4725FEE77C00F10102 /* UITextField+Additions.swift in Sources */,
+				FFDCED0D25F71C2C001C2769 /* AnnotatedMapViewController.swift in Sources */,
 				6C08740D25F84E100088000C /* LandmarkViews.swift in Sources */,
+				6C853A5125FEF18800F10102 /* RouteSelectionViewController.swift in Sources */,
+				6C853A3825FEE63A00F10102 /* RouteAnnotation.swift in Sources */,
 				FFDCED0925F71C2C001C2769 /* AppDelegate.swift in Sources */,
+				6C853A4625FEE77C00F10102 /* TimeInterval+Additions.swift in Sources */,
+				6C853A4925FEE77C00F10102 /* UIButton+Additions.swift in Sources */,
+				6C853A3925FEE63A00F10102 /* Route.swift in Sources */,
 				FFDCED0B25F71C2C001C2769 /* SceneDelegate.swift in Sources */,
+				6C853A4A25FEE77C00F10102 /* CLPlacemark+Additions.swift in Sources */,
+				6C853A3D25FEE67200F10102 /* RouteBuilder.swift in Sources */,
 				6C08740825F83AD40088000C /* Landmark.swift in Sources */,
+				6C853A4B25FEE77C00F10102 /* UIImage+Additions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
