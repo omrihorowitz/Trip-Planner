@@ -273,8 +273,8 @@
 		FFDCED2625F71CA5001C2769 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				FF51919425FC13C30046642F /* Model Controllers */,
 				FFDCED2125F71C85001C2769 /* View Controllers */,
+				FF51919425FC13C30046642F /* Model Controllers */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

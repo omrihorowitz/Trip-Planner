@@ -10,36 +10,48 @@ import Firebase
 
 class FriendsViewController: UIViewController {
 
-    let logoutButton = TPButton(backgroundColor: .systemPink, title: "Logout")
+    let searchBar = UISearchBar()
+    
+    let segmentedControl = UISegmentedControl(items: ["Friends", "Sent", "Received", "Add"])
+    
+    var collectionView: UICollectionView!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .systemBackground
-        
-        view.addSubview(logoutButton)
-        constrainLogout()
-        
-        logoutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
+        view.addSubviews(searchBar, segmentedControl)
+        setConstraints()
+        setUpSegmentedControl()
     }
     
-    
-    @objc func logout() {
-        do {
-            try Auth.auth().signOut()
-            navigationController?.popToRootViewController(animated: true)
-        } catch let signoutError as NSError {
-            self.presentAlertOnMainThread(title: "Uh oh", message: signoutError.localizedDescription, buttonTitle: "Ok")
-        }
+    func setUpSegmentedControl() {
+        segmentedControl.selectedSegmentIndex = 0
     }
     
-    func constrainLogout() {
+    func setConstraints() {
+        
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
-            logoutButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            logoutButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            logoutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
-            logoutButton.heightAnchor.constraint(equalToConstant: 75)
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            
+            segmentedControl.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 5),
+            segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        
         ])
+        
+        
     }
-
+    
+    
+    
+    
 }
+
