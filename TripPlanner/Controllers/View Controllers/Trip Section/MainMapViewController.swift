@@ -9,20 +9,20 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class MainMapViewController: UIViewController, CLLocationManagerDelegate {
-
+class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDelegate {
+    
     //MARK: - Properties
-        let locationManager = CLLocationManager()
-        let regionInMeters: Double = 10000
-        var previousLocation: CLLocation?
-        var mapView = MKMapView()
-        let goButton = UIButton()
-        let planRouteButton = UIButton()
-        let tripDetailLabel = UILabel()
-        let searchBar = UISearchBar()
-        let geoCoder = CLGeocoder()
-        var directionsArray: [MKDirections] = []
-        
+    let locationManager = CLLocationManager()
+    let regionInMeters: Double = 10000
+    var previousLocation: CLLocation?
+    var mapView = MKMapView()
+    let goButton = UIButton()
+    let planRouteButton = UIButton()
+    let tripDetailLabel = UILabel()
+    let searchBar = UISearchBar()
+    let geoCoder = CLGeocoder()
+    var directionsArray: [MKDirections] = []
+    
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,14 +34,14 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate {
     
     // MARK: - Actions
     @objc func goButtonTapped(sender : UIButton!){
-//        resetMapView(withNew: MKDirections) //tbd
+        //        resetMapView(withNew: MKDirections) //tbd
         //mapping the route from user to the selected pin
     }
-
+    
     @objc func planRouteButtonTapped(sender : UIButton!){
-//        resetMapView(withNew: MKDirections) //tbd
+        //        resetMapView(withNew: MKDirections) //tbd
         let tripDetailViewController = TripDetailViewController()
-                present(tripDetailViewController, animated: true)
+        present(tripDetailViewController, animated: true)
     }
     
     @objc func searchBar(sender : UISearchBar!){
@@ -67,13 +67,14 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate {
         configurePlanRouteButton()
         configureTripDetailLabel()
         configureSearchBar()
+        configureGoButton()
     }
     
     func configureMapView() {
         mapView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            mapView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
-            mapView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            mapView.topAnchor.constraint(equalTo: view.topAnchor),
+            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
@@ -81,11 +82,11 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate {
         mapView.isZoomEnabled = true
         mapView.isScrollEnabled = true
         mapView.delegate = self
-//        mapView.register(
-//            LandmarkView.self,
-//            forAnnotationViewWithReuseIdentifier:
-//                MKMapViewDefaultAnnotationViewReuseIdentifier)  // would need unique identifier w more classes
-//        mapView.addAnnotations(whatever pins we annnotate)
+        //        mapView.register(
+        //            LandmarkView.self,
+        //            forAnnotationViewWithReuseIdentifier:
+        //                MKMapViewDefaultAnnotationViewReuseIdentifier)  // would need unique identifier w more classes
+        //        mapView.addAnnotations(whatever pins we annnotate)
     }
     
     func configurePlanRouteButton() {
@@ -96,112 +97,137 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate {
         planRouteButton.addTarget(self, action: #selector(planRouteButtonTapped), for: .touchUpInside)
         NSLayoutConstraint.activate([
             planRouteButton.heightAnchor.constraint(equalToConstant: 30),
-            planRouteButton.leadingAnchor.constraint(equalTo: view.trailingAnchor, constant: -150),
-            planRouteButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            planRouteButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30),
+            planRouteButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            //planRouteButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -150),
+            planRouteButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30)
         ])
         planRouteButton.layer.cornerRadius = 10
+        planRouteButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        planRouteButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
         planRouteButton.clipsToBounds = true
     }
     
     func configureGoButton() {
-        
+        goButton.translatesAutoresizingMaskIntoConstraints = false
+        goButton.backgroundColor = .systemGreen
+        goButton.setTitleColor(UIColor.white, for: .normal)
+        goButton.setTitle("Go", for: .normal)
+        goButton.addTarget(self, action: #selector(goButtonTapped), for: .touchUpInside)
+        NSLayoutConstraint.activate([
+            goButton.heightAnchor.constraint(equalToConstant: 30),
+            //goButton.leadingAnchor.constraint(equalTo: view.trailingAnchor, constant: -150),
+            goButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            goButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30)
+        ])
+        goButton.layer.cornerRadius = 10
+        goButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        goButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        goButton.clipsToBounds = true
     }
     
     func configureTripDetailLabel() {
-        
+        tripDetailLabel.translatesAutoresizingMaskIntoConstraints = false
+        tripDetailLabel.backgroundColor = .white
+        tripDetailLabel.textColor = .black
+        tripDetailLabel.text = "I am text"
+        NSLayoutConstraint.activate([
+            tripDetailLabel.heightAnchor.constraint(equalToConstant: 30),
+            tripDetailLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            tripDetailLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            tripDetailLabel.bottomAnchor.constraint(equalTo: goButton.topAnchor, constant: -10)
+        ])
+        tripDetailLabel.layer.cornerRadius = 10
+        tripDetailLabel.layer.masksToBounds = true
+        tripDetailLabel.textAlignment = .center
+        tripDetailLabel.widthAnchor.constraint(equalToConstant: 175).isActive = true
+        tripDetailLabel.heightAnchor.constraint(equalToConstant: 35).isActive = true
     }
     
     func configureSearchBar() {
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.backgroundColor = .white
-        searchBar.placeholder = "What do you want to find?"
-//        searchBar.addTarget(self, action: #selector(searchBar), for: .touchUpInside)
-        NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: view.topAnchor)
-        ])
+        let searchController = UISearchController(searchResultsController: nil)
+        navigationItem.searchController = searchController
     }
     
     func setupLocationManager() {
-           locationManager.delegate = self
-           locationManager.desiredAccuracy = kCLLocationAccuracyBest
-       }
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    }
     
     func centerViewOnUserLocation() {
-         if let location = locationManager.location?.coordinate {
-             let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
-             mapView.setRegion(region, animated: true)
-         }
-     }
+        if let location = locationManager.location?.coordinate {
+            let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
+            mapView.setRegion(region, animated: true)
+        }
+    }
     
     func checkLocationServices() {
-            if CLLocationManager.locationServicesEnabled() {
-                setupLocationManager()
-                checkLocationAuthorization()
-            } else {
-                // show alert letting user know they have to turn this on
-            }
-        }
-        
-        func checkLocationAuthorization() {
-            switch locationManager.authorizationStatus {
-            case .authorizedWhenInUse:
-                startTrackingUserLocation()
-            case .denied:
-                // show alert instructing them to turn on permissions
-                break
-            case .notDetermined:
-                locationManager.requestWhenInUseAuthorization()
-            case .restricted:
-                // show an alert letting them know what's up
-                break
-            case .authorizedAlways:
-                startTrackingUserLocation()
-            @unknown default:
-                break
-            }
-        }
-        
-        func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        if CLLocationManager.locationServicesEnabled() {
+            setupLocationManager()
             checkLocationAuthorization()
+        } else {
+            // show alert letting user know they have to turn this on
         }
-        
-        func startTrackingUserLocation() {
-            mapView.showsUserLocation = true
-            centerViewOnUserLocation()
-            locationManager.startUpdatingLocation()
-            previousLocation = getCenterLocation(for: mapView)
-        }
-        
-        func getCenterLocation(for mapView: MKMapView) -> CLLocation {
-            let latitude = mapView.centerCoordinate.latitude
-            let longitutde = mapView.centerCoordinate.longitude
-            
-            return CLLocation(latitude: latitude, longitude: longitutde)
-        }
+    }
     
-//    func createDirectionsRequest(from coordinate: CLLocationCoordinate2D) -> MKDirections.Request {
-//        let destinationCoordinate       = getCenterLocation(for: mapView).coordinate //this is where the pin is
-//        let startingLocation            = MKPlacemark(coordinate: coordinate) //user location
-//        let destination                 = MKPlacemark(coordinate: destinationCoordinate) // coordinate from destinationcoordinate
-//
-//        let request                     = MKDirections.Request() // this is how you request directions
-//        request.source                  = MKMapItem(placemark: startingLocation)
-//        request.destination             = MKMapItem(placemark: destination)
-//        request.transportType           = .automobile
-//        request.requestsAlternateRoutes = false //switch later for alternate routes
-//
+    func checkLocationAuthorization() {
+        switch locationManager.authorizationStatus {
+        case .authorizedWhenInUse:
+            startTrackingUserLocation()
+        case .denied:
+            // show alert instructing them to turn on permissions
+            break
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        case .restricted:
+            // show an alert letting them know what's up
+            break
+        case .authorizedAlways:
+            startTrackingUserLocation()
+        @unknown default:
+            break
+        }
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        checkLocationAuthorization()
+    }
+    
+    func startTrackingUserLocation() {
+        mapView.showsUserLocation = true
+        centerViewOnUserLocation()
+        locationManager.startUpdatingLocation()
+        previousLocation = getCenterLocation(for: mapView)
+    }
+    
+    func getCenterLocation(for mapView: MKMapView) -> CLLocation {
+        let latitude = mapView.centerCoordinate.latitude
+        let longitutde = mapView.centerCoordinate.longitude
+        
+        return CLLocation(latitude: latitude, longitude: longitutde)
+    }
+    
+    //    func createDirectionsRequest(from coordinate: CLLocationCoordinate2D) -> MKDirections.Request {
+    //        let destinationCoordinate       = getCenterLocation(for: mapView).coordinate //this is where the pin is
+    //        let startingLocation            = MKPlacemark(coordinate: coordinate) //user location
+    //        let destination                 = MKPlacemark(coordinate: destinationCoordinate) // coordinate from destinationcoordinate
+    //
+    //        let request                     = MKDirections.Request() // this is how you request directions
+    //        request.source                  = MKMapItem(placemark: startingLocation)
+    //        request.destination             = MKMapItem(placemark: destination)
+    //        request.transportType           = .automobile
+    //        request.requestsAlternateRoutes = false //switch later for alternate routes
+    //
     // getting start and stop from detail view // plus additional stops
     
-//        return request
-//    }
-//
-//    func resetMapView(withNew directions: MKDirections) {
-//        mapView.removeOverlays(mapView.overlays)
-//        directionsArray.append(directions)
-//        let _ = directionsArray.map { $0.cancel() }
-//        directionsArray.removeLast() //not sure about this one
-//    }
+    //        return request
+    //    }
+    //
+    //    func resetMapView(withNew directions: MKDirections) {
+    //        mapView.removeOverlays(mapView.overlays)
+    //        directionsArray.append(directions)
+    //        let _ = directionsArray.map { $0.cancel() }
+    //        directionsArray.removeLast() //not sure about this one
+    //    }
     
     //label delegate --- getting its info from the detail view
     
@@ -229,21 +255,21 @@ private extension MKMapView {
 }
 
 extension MainMapViewController: MKMapViewDelegate {
-//    func mapView(
-//        _ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    //    func mapView(
+    //        _ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
     
     // decide what annotations we're throwin in models. just set photo and type that would show up in search
-//
-//        guard let landmark = view.annotation as? Landmark else {
-//            return
-//        }
-//
-//        let launchOptions = [
-//            MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving
-//        ]
-//        landmark.mapItem?.openInMaps(launchOptions: launchOptions)
-//    }
-        
+    //
+    //        guard let landmark = view.annotation as? Landmark else {
+    //            return
+    //        }
+    //
+    //        let launchOptions = [
+    //            MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving
+    //        ]
+    //        landmark.mapItem?.openInMaps(launchOptions: launchOptions)
+    //    }
+    
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay as! MKPolyline)
         renderer.strokeColor = .blue //color of the polyline
@@ -267,7 +293,7 @@ extension MainMapViewController: MKMapViewDelegate {
                 view.image = #imageLiteral(resourceName: "profilepic")
                 view.layer.cornerRadius = view.frame.size.height/2
                 view.layer.masksToBounds = true
-        
+                
                 return view
             }
         default:
