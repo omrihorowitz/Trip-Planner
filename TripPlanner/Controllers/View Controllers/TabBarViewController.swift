@@ -26,7 +26,7 @@ class TabBarViewController: UITabBarController {
     }
     
     private func setUpTripsVC() -> UIViewController {
-        let TripsVC = TripsViewController()
+        let TripsVC = TripsListTableViewController()
         TripsVC.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
         return TripsVC
     }
