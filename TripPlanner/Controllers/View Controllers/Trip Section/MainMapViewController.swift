@@ -23,6 +23,10 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISear
     let searchBar = UISearchBar()
     let geoCoder = CLGeocoder()
     var directionsArray: [MKDirections] = []
+    private let completer = MKLocalSearchCompleter()
+    private var editingSearchBar: UISearchBar? // may not be right -- adapting from text field
+    private var currentRegion: MKCoordinateRegion?
+
     
     // MARK: - LifeCycle
     override func viewDidLoad() {
@@ -32,6 +36,7 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISear
         addAllConfiguration()
         checkLocationServices()
         addCancelKeyboardGestureRecognizer()
+        completer.delegate = self
     }
     
     override func didReceiveMemoryWarning() {
@@ -322,4 +327,21 @@ extension UIViewController {
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
-}//End of extension
+}
+
+extension MainMapViewController: MKLocalSearchCompleterDelegate {
+  func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+    guard let firstResult = completer.results.first else {
+      return
+    }
+    
+//    showSuggestion(firstResult.title) // write this function
+  }
+
+  func completer(
+    _ completer: MKLocalSearchCompleter,
+    didFailWithError error: Error
+  ) {
+    print("Error suggesting a location: \(error.localizedDescription)")
+  }
+}
