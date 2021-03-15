@@ -30,7 +30,16 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISear
         addAllSubviews()
         addAllConfiguration()
         checkLocationServices()
+        addCancelKeyboardGestureRecognizer()
     }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+          super.viewWillAppear(animated)
+      }
     
     // MARK: - Actions
     @objc func goButtonTapped(sender : UIButton!){
@@ -129,7 +138,7 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISear
         tripDetailLabel.translatesAutoresizingMaskIntoConstraints = false
         tripDetailLabel.backgroundColor = .white
         tripDetailLabel.textColor = .black
-        tripDetailLabel.text = "I am text"
+        tripDetailLabel.text = "ETA 525,600 min / 1k miles"
         NSLayoutConstraint.activate([
             tripDetailLabel.heightAnchor.constraint(equalToConstant: 30),
             tripDetailLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -165,7 +174,7 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISear
             setupLocationManager()
             checkLocationAuthorization()
         } else {
-            // show alert letting user know they have to turn this on
+           print("Error fetching location")
         }
     }
     
@@ -174,12 +183,12 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISear
         case .authorizedWhenInUse:
             startTrackingUserLocation()
         case .denied:
-            // show alert instructing them to turn on permissions
+            locationManager.requestWhenInUseAuthorization()
             break
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
         case .restricted:
-            // show an alert letting them know what's up
+            locationManager.requestWhenInUseAuthorization()
             break
         case .authorizedAlways:
             startTrackingUserLocation()
@@ -300,6 +309,16 @@ extension MainMapViewController: MKMapViewDelegate {
             return nil
         }
     }
-    
-    //extension on searchbar
 }
+
+extension UIViewController {
+    func addCancelKeyboardGestureRecognizer() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}//End of extension

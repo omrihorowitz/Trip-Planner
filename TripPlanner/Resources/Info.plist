@@ -60,5 +60,13 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Please allow access to location for optimized directions and map interface!</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Please allow access to location for optimized directions and map interface!</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Please allow access to location for optimized directions and map interface!</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Please allow access to location for optimized directions and map interface!</string>
 </dict>
 </plist>
