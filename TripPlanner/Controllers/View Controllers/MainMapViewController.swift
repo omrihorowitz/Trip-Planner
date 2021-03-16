@@ -8,7 +8,7 @@ import CoreLocation
 import UIKit
 import MapKit
 
-class AnnotatedMapViewController: UIViewController, CLLocationManagerDelegate {
+class MainMapViewController: UIViewController, CLLocationManagerDelegate {
     
     //MARK: - Properties
     
@@ -16,7 +16,11 @@ class AnnotatedMapViewController: UIViewController, CLLocationManagerDelegate {
     let regionInMeters: Double = 10000
     var previousLocation: CLLocation?
     var mapView = MKMapView()
+    let etaLabel = UILabel()
+    let goButton = UIButton()
+    let searchBar = UISearchBar()
     let planRouteButton = UIButton()
+    let textDirectionsButton = UIButton()
     let geoCoder = CLGeocoder()
     var directionsArray: [MKDirections] = []
     private var landmarks: [Landmark] = []
@@ -29,6 +33,7 @@ class AnnotatedMapViewController: UIViewController, CLLocationManagerDelegate {
         addSubViews()
         allConfiguration()
         checkLocationServices()
+        addCancelKeyboardGestureRecognizer()
     }
     
     override func didReceiveMemoryWarning() {
@@ -46,16 +51,33 @@ class AnnotatedMapViewController: UIViewController, CLLocationManagerDelegate {
         present(routeSelectionViewController, animated: true)
     }
     
+    @objc func goButtonTapped(sender : UIButton!) {
+        //mapping from user to the pin
+    }
+    
+    @objc func textDirectionsButtonTapped(sender : UIButton!) {
+        let textDirectionsTableViewController = TextDirectionsTableViewController()
+        present(textDirectionsTableViewController, animated: true)
+    }
+    
     //MARK: - Methods
     
     func allConfiguration() {
         configureMap()
+        configureETALabel()
         configurePlanRouteButton()
+        configureGoButton()
+        configureSearchBar()
+        configureTextDirectionsButton()
     }
     
     func addSubViews() {
         view.addSubview(mapView)
+        view.addSubview(etaLabel)
         view.addSubview(planRouteButton)
+        view.addSubview(goButton)
+        view.addSubview(textDirectionsButton)
+        view.addSubview(searchBar)
     }
     
     func configureMap() {
@@ -82,16 +104,71 @@ class AnnotatedMapViewController: UIViewController, CLLocationManagerDelegate {
         planRouteButton.translatesAutoresizingMaskIntoConstraints = false
         planRouteButton.backgroundColor = .systemGreen
         planRouteButton.setTitleColor(UIColor.white, for: .normal)
-        planRouteButton.setTitle("Plan Route", for: .normal)
+        planRouteButton.setTitle("Plan", for: .normal)
         planRouteButton.addTarget(self, action: #selector(planRouteButtonTapped), for: .touchUpInside)
         NSLayoutConstraint.activate([
-            planRouteButton.heightAnchor.constraint(equalToConstant: 30),
-            planRouteButton.leadingAnchor.constraint(equalTo: view.trailingAnchor, constant: -150),
-            planRouteButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            planRouteButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30),
+            planRouteButton.heightAnchor.constraint(equalToConstant: 35),
+            planRouteButton.widthAnchor.constraint(equalToConstant: 80),
+            planRouteButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            planRouteButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
         ])
         planRouteButton.layer.cornerRadius = 10
         planRouteButton.clipsToBounds = true
+    }
+    
+    func configureGoButton() {
+        goButton.translatesAutoresizingMaskIntoConstraints = false
+        goButton.backgroundColor = .systemGreen
+        goButton.setTitleColor(UIColor.white, for: .normal)
+        goButton.setTitle("Go", for: .normal)
+        goButton.addTarget(self, action: #selector(goButtonTapped), for: .touchUpInside)
+        NSLayoutConstraint.activate([
+            goButton.heightAnchor.constraint(equalToConstant: 35),
+            goButton.widthAnchor.constraint(equalToConstant: 80),
+            goButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            goButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+        ])
+        goButton.layer.cornerRadius = 10
+        goButton.clipsToBounds = true
+    }
+    
+    func configureETALabel() {
+        etaLabel.translatesAutoresizingMaskIntoConstraints = false
+        etaLabel.backgroundColor = .white
+        etaLabel.textAlignment = .center
+        etaLabel.textColor = .black
+        etaLabel.text = "ETA: Mileage, Timing"
+        NSLayoutConstraint.activate([
+            etaLabel.heightAnchor.constraint(equalToConstant: 70),
+            etaLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            etaLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            etaLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+    }
+    
+    func configureTextDirectionsButton() {
+        textDirectionsButton.translatesAutoresizingMaskIntoConstraints = false
+        textDirectionsButton.tintColor = .systemGreen
+        textDirectionsButton.backgroundColor = .clear
+        textDirectionsButton.setImage(UIImage(systemName: "info.circle.fill"), for: .normal)
+        textDirectionsButton.addTarget(self, action: #selector(textDirectionsButtonTapped), for: .touchUpInside)
+        NSLayoutConstraint.activate([
+            textDirectionsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            textDirectionsButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -45)
+        ])
+    }
+    
+    func configureSearchBar() {
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.barStyle = .default
+        searchBar.searchBarStyle = .minimal
+        searchBar.isTranslucent = true
+        searchBar.placeholder = "Search for a place or address"
+        NSLayoutConstraint.activate([
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
     
     private func loadInitialData() {
@@ -213,7 +290,7 @@ private extension MKMapView {
     }
 }
 
-extension AnnotatedMapViewController: MKMapViewDelegate {
+extension MainMapViewController: MKMapViewDelegate {
     func mapView(
         _ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
