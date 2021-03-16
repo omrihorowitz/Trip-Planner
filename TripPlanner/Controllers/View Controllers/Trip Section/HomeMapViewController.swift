@@ -6,6 +6,7 @@
 //
 import MapKit
 import UIKit
+import CoreLocation
 
 class HomeMapViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDelegate, MKLocalSearchCompleterDelegate {
     
