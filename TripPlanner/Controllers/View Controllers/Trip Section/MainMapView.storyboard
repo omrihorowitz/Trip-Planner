@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lRi-7E-gre">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Home Map View Controller-->
+        <scene sceneID="Mmx-uQ-p0e">
+            <objects>
+                <viewController id="lRi-7E-gre" customClass="HomeMapViewController" customModule="TripPlanner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Zro-EN-eaQ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="rva-kU-QYW">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </mapView>
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search for a place or address" translatesAutoresizingMaskIntoConstraints="NO" id="hZf-6S-2gK">
+                                <rect key="frame" x="0.0" y="44" width="414" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ETA: Mileage, Time  " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bOw-Tn-QUI">
+                                <rect key="frame" x="0.0" y="796" width="414" height="100"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="DDT-1I-Yod"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8KF-sA-ZzM">
+                                <rect key="frame" x="304" y="832" width="90" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="VjG-py-QwP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Go">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="goButtonTapped:" destination="lRi-7E-gre" eventType="touchUpInside" id="HGx-Kc-4Qd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d9L-XC-AV4">
+                                <rect key="frame" x="194.5" y="806" width="25" height="24"/>
+                                <connections>
+                                    <segue destination="thj-03-yLO" kind="presentation" id="OFo-mA-x8D"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="75G-fd-wQZ">
+                                <rect key="frame" x="20" y="832" width="90" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.56078433989999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="bNW-I1-ck7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Plan Route">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="planRouteButtonTapped:" destination="lRi-7E-gre" eventType="touchUpInside" id="0et-Pm-4HC"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="K9H-di-8jH"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="rva-kU-QYW" firstAttribute="top" secondItem="Zro-EN-eaQ" secondAttribute="top" id="1h5-Qf-N9l"/>
+                            <constraint firstItem="bOw-Tn-QUI" firstAttribute="bottom" secondItem="Zro-EN-eaQ" secondAttribute="bottom" id="4jB-7O-swZ"/>
+                            <constraint firstItem="K9H-di-8jH" firstAttribute="bottom" secondItem="d9L-XC-AV4" secondAttribute="bottom" constant="32" id="5gG-6e-vL5"/>
+                            <constraint firstItem="hZf-6S-2gK" firstAttribute="top" secondItem="K9H-di-8jH" secondAttribute="top" id="FuN-gH-UEK"/>
+                            <constraint firstItem="rva-kU-QYW" firstAttribute="leading" secondItem="K9H-di-8jH" secondAttribute="leading" id="J2N-PT-hUt"/>
+                            <constraint firstItem="8KF-sA-ZzM" firstAttribute="bottom" secondItem="K9H-di-8jH" secondAttribute="bottom" id="PZP-pX-QiD"/>
+                            <constraint firstItem="K9H-di-8jH" firstAttribute="trailing" secondItem="bOw-Tn-QUI" secondAttribute="trailing" id="UUm-Cg-cMD"/>
+                            <constraint firstItem="8KF-sA-ZzM" firstAttribute="trailing" secondItem="Zro-EN-eaQ" secondAttribute="trailingMargin" id="Usr-nP-bz7"/>
+                            <constraint firstItem="75G-fd-wQZ" firstAttribute="leading" secondItem="Zro-EN-eaQ" secondAttribute="leading" constant="20" id="YTs-OK-UL1"/>
+                            <constraint firstItem="75G-fd-wQZ" firstAttribute="bottom" secondItem="K9H-di-8jH" secondAttribute="bottom" id="bFa-qe-50a"/>
+                            <constraint firstItem="d9L-XC-AV4" firstAttribute="centerX" secondItem="K9H-di-8jH" secondAttribute="centerX" id="ga8-wB-WYe"/>
+                            <constraint firstItem="hZf-6S-2gK" firstAttribute="trailing" secondItem="K9H-di-8jH" secondAttribute="trailing" id="kFa-ad-L9p"/>
+                            <constraint firstItem="hZf-6S-2gK" firstAttribute="leading" secondItem="K9H-di-8jH" secondAttribute="leading" id="mNl-2z-lsT"/>
+                            <constraint firstAttribute="bottom" secondItem="rva-kU-QYW" secondAttribute="bottom" id="o9a-zD-Yzi"/>
+                            <constraint firstItem="K9H-di-8jH" firstAttribute="trailing" secondItem="rva-kU-QYW" secondAttribute="trailing" id="pdm-CK-nry"/>
+                            <constraint firstItem="bOw-Tn-QUI" firstAttribute="leading" secondItem="K9H-di-8jH" secondAttribute="leading" id="zeT-QJ-Q29"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="ZdJ-TZ-AFM"/>
+                    <connections>
+                        <outlet property="etaLabel" destination="bOw-Tn-QUI" id="uO6-Bb-Cap"/>
+                        <outlet property="mapView" destination="rva-kU-QYW" id="XN4-gc-yfE"/>
+                        <outlet property="searchBar" destination="hZf-6S-2gK" id="xeD-OS-5eH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6lI-dT-CuM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="965.21739130434787" y="67.633928571428569"/>
+        </scene>
+        <!--Text Directions Table View Controller-->
+        <scene sceneID="OCV-Ui-Lgs">
+            <objects>
+                <tableViewController id="thj-03-yLO" customClass="TextDirectionsTableViewController" customModule="TripPlanner" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="oUo-un-9en">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="textDirectionsCell" rowHeight="112" id="LQo-dy-6C8">
+                                <rect key="frame" x="0.0" y="28" width="414" height="112"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LQo-dy-6C8" id="CMN-xB-dhb">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="112"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="thj-03-yLO" id="iPv-g5-OEa"/>
+                            <outlet property="delegate" destination="thj-03-yLO" id="i4Z-D1-muB"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rjb-6v-vtV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="965.21739130434787" y="856.47321428571422"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

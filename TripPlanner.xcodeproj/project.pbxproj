@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0CB96B5F7AF4104DDA1275CC /* Pods_TripPlanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827BB44F8453A2FFE3D8904B /* Pods_TripPlanner.framework */; };
+		6C373449260117DE004525B0 /* MainMapView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C373448260117DE004525B0 /* MainMapView.storyboard */; };
+		6C37344D26011B1F004525B0 /* TextDirectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C37344C26011B1F004525B0 /* TextDirectionsTableViewController.swift */; };
+		6C37345026011B55004525B0 /* HomeMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C37344F26011B55004525B0 /* HomeMapViewController.swift */; };
 		FF51912625FBD2CA0046642F /* FirstPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51912525FBD2CA0046642F /* FirstPageViewController.swift */; };
 		FF51912925FBD2D40046642F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51912825FBD2D40046642F /* LoginViewController.swift */; };
 		FF51912C25FBD2DD0046642F /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51912B25FBD2DD0046642F /* CreateAccountViewController.swift */; };
@@ -39,6 +42,9 @@
 /* Begin PBXFileReference section */
 		491ABF6A1C765837D5BA68EE /* Pods-TripPlanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TripPlanner.release.xcconfig"; path = "Target Support Files/Pods-TripPlanner/Pods-TripPlanner.release.xcconfig"; sourceTree = "<group>"; };
 		64E89E64A8FD8581383EE3AF /* Pods-TripPlanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TripPlanner.debug.xcconfig"; path = "Target Support Files/Pods-TripPlanner/Pods-TripPlanner.debug.xcconfig"; sourceTree = "<group>"; };
+		6C373448260117DE004525B0 /* MainMapView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainMapView.storyboard; sourceTree = "<group>"; };
+		6C37344C26011B1F004525B0 /* TextDirectionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDirectionsTableViewController.swift; sourceTree = "<group>"; };
+		6C37344F26011B55004525B0 /* HomeMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMapViewController.swift; sourceTree = "<group>"; };
 		827BB44F8453A2FFE3D8904B /* Pods_TripPlanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TripPlanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF51912525FBD2CA0046642F /* FirstPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPageViewController.swift; sourceTree = "<group>"; };
 		FF51912825FBD2D40046642F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -160,6 +166,9 @@
 				FF51913425FBD3100046642F /* TripsListTableViewController.swift */,
 				FF51914125FBD3570046642F /* TripDetailViewController.swift */,
 				FF51914425FBD36F0046642F /* MainMapViewController.swift */,
+				6C373448260117DE004525B0 /* MainMapView.storyboard */,
+				6C37344C26011B1F004525B0 /* TextDirectionsTableViewController.swift */,
+				6C37344F26011B55004525B0 /* HomeMapViewController.swift */,
 			);
 			path = "Trip Section";
 			sourceTree = "<group>";
@@ -341,6 +350,7 @@
 				FFDCED1525F71C2D001C2769 /* LaunchScreen.storyboard in Resources */,
 				FFDCED1225F71C2D001C2769 /* Assets.xcassets in Resources */,
 				FF51918925FBE7E60046642F /* GoogleService-Info.plist in Resources */,
+				6C373449260117DE004525B0 /* MainMapView.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,11 +416,13 @@
 				FF51913525FBD3100046642F /* TripsListTableViewController.swift in Sources */,
 				FF51914525FBD36F0046642F /* MainMapViewController.swift in Sources */,
 				FF51912F25FBD2EE0046642F /* TabBarViewController.swift in Sources */,
+				6C37345026011B55004525B0 /* HomeMapViewController.swift in Sources */,
 				FFDCED0B25F71C2C001C2769 /* SceneDelegate.swift in Sources */,
 				FF51913F25FBD3380046642F /* PersonDetailViewController.swift in Sources */,
 				FF51919625FC13CC0046642F /* UserController.swift in Sources */,
 				FF51916A25FBD7730046642F /* UIView+Ext.swift in Sources */,
 				FF51914825FBD3B00046642F /* AlertViewController.swift in Sources */,
+				6C37344D26011B1F004525B0 /* TextDirectionsTableViewController.swift in Sources */,
 				FF51915B25FBD6790046642F /* TPBodyLabel.swift in Sources */,
 				FF51917825FBDAEB0046642F /* TPTextField.swift in Sources */,
 				FF51913825FBD31A0046642F /* AccountViewController.swift in Sources */,
