@@ -20,7 +20,6 @@
 		FF51913825FBD31A0046642F /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51913725FBD31A0046642F /* AccountViewController.swift */; };
 		FF51913F25FBD3380046642F /* PersonDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51913E25FBD3380046642F /* PersonDetailViewController.swift */; };
 		FF51914225FBD3570046642F /* TripDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51914125FBD3570046642F /* TripDetailViewController.swift */; };
-		FF51914525FBD36F0046642F /* MainMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51914425FBD36F0046642F /* MainMapViewController.swift */; };
 		FF51914825FBD3B00046642F /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51914725FBD3B00046642F /* AlertViewController.swift */; };
 		FF51914D25FBD5900046642F /* TPButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51914C25FBD5900046642F /* TPButton.swift */; };
 		FF51915225FBD6250046642F /* TPContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51915125FBD6250046642F /* TPContainerView.swift */; };
@@ -55,7 +54,6 @@
 		FF51913725FBD31A0046642F /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		FF51913E25FBD3380046642F /* PersonDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailViewController.swift; sourceTree = "<group>"; };
 		FF51914125FBD3570046642F /* TripDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailViewController.swift; sourceTree = "<group>"; };
-		FF51914425FBD36F0046642F /* MainMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewController.swift; sourceTree = "<group>"; };
 		FF51914725FBD3B00046642F /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		FF51914C25FBD5900046642F /* TPButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPButton.swift; sourceTree = "<group>"; };
 		FF51915125FBD6250046642F /* TPContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPContainerView.swift; sourceTree = "<group>"; };
@@ -165,7 +163,6 @@
 			children = (
 				FF51913425FBD3100046642F /* TripsListTableViewController.swift */,
 				FF51914125FBD3570046642F /* TripDetailViewController.swift */,
-				FF51914425FBD36F0046642F /* MainMapViewController.swift */,
 				6C373448260117DE004525B0 /* MainMapView.storyboard */,
 				6C37344C26011B1F004525B0 /* TextDirectionsTableViewController.swift */,
 				6C37344F26011B55004525B0 /* HomeMapViewController.swift */,
@@ -414,7 +411,6 @@
 				FF51913225FBD3060046642F /* FriendsViewController.swift in Sources */,
 				FF51916625FBD71A0046642F /* TPTitleLabel.swift in Sources */,
 				FF51913525FBD3100046642F /* TripsListTableViewController.swift in Sources */,
-				FF51914525FBD36F0046642F /* MainMapViewController.swift in Sources */,
 				FF51912F25FBD2EE0046642F /* TabBarViewController.swift in Sources */,
 				6C37345026011B55004525B0 /* HomeMapViewController.swift in Sources */,
 				FFDCED0B25F71C2C001C2769 /* SceneDelegate.swift in Sources */,
