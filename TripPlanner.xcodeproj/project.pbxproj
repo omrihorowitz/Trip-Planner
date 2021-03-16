@@ -34,6 +34,9 @@
 		FFDCED0B25F71C2C001C2769 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0A25F71C2C001C2769 /* SceneDelegate.swift */; };
 		FFDCED1225F71C2D001C2769 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFDCED1125F71C2D001C2769 /* Assets.xcassets */; };
 		FFDCED1525F71C2D001C2769 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFDCED1325F71C2D001C2769 /* LaunchScreen.storyboard */; };
+		FFE4DBE12601178A00DAC744 /* TPImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE4DBE02601178A00DAC744 /* TPImageView.swift */; };
+		FFE4DBE52601182100DAC744 /* TPPersonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE4DBE42601182100DAC744 /* TPPersonCollectionViewCell.swift */; };
+		FFE4DBEE26011CBA00DAC744 /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE4DBED26011CBA00DAC744 /* UIHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +71,9 @@
 		FFDCED1125F71C2D001C2769 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FFDCED1425F71C2D001C2769 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FFDCED1625F71C2D001C2769 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FFE4DBE02601178A00DAC744 /* TPImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageView.swift; sourceTree = "<group>"; };
+		FFE4DBE42601182100DAC744 /* TPPersonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPPersonCollectionViewCell.swift; sourceTree = "<group>"; };
+		FFE4DBED26011CBA00DAC744 /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +108,8 @@
 		FF51914A25FBD56C0046642F /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				FFE4DBE32601180D00DAC744 /* Custom Cells */,
+				FFE4DBDF2601177B00DAC744 /* Image Views */,
 				FF51917625FBDADA0046642F /* TextFields */,
 				FF51915525FBD6400046642F /* Labels */,
 				FF51915025FBD6160046642F /* Container Views */,
@@ -220,6 +228,7 @@
 		FFDCED0725F71C2C001C2769 /* TripPlanner */ = {
 			isa = PBXGroup;
 			children = (
+				FFE4DBE726011C9300DAC744 /* Helpers */,
 				FF51918B25FC11980046642F /* Models */,
 				FF51916825FBD7690046642F /* Extensions */,
 				FFDCED1D25F71C39001C2769 /* Resources */,
@@ -277,6 +286,30 @@
 				FF51919425FC13C30046642F /* Model Controllers */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		FFE4DBDF2601177B00DAC744 /* Image Views */ = {
+			isa = PBXGroup;
+			children = (
+				FFE4DBE02601178A00DAC744 /* TPImageView.swift */,
+			);
+			path = "Image Views";
+			sourceTree = "<group>";
+		};
+		FFE4DBE32601180D00DAC744 /* Custom Cells */ = {
+			isa = PBXGroup;
+			children = (
+				FFE4DBE42601182100DAC744 /* TPPersonCollectionViewCell.swift */,
+			);
+			path = "Custom Cells";
+			sourceTree = "<group>";
+		};
+		FFE4DBE726011C9300DAC744 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				FFE4DBED26011CBA00DAC744 /* UIHelper.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -406,9 +439,12 @@
 				FF51913525FBD3100046642F /* TripsViewController.swift in Sources */,
 				FF51914525FBD36F0046642F /* MapViewController.swift in Sources */,
 				FF51912F25FBD2EE0046642F /* TabBarViewController.swift in Sources */,
+				FFE4DBEE26011CBA00DAC744 /* UIHelper.swift in Sources */,
 				FFDCED0B25F71C2C001C2769 /* SceneDelegate.swift in Sources */,
+				FFE4DBE12601178A00DAC744 /* TPImageView.swift in Sources */,
 				FF51913F25FBD3380046642F /* PersonDetailViewController.swift in Sources */,
 				FF51919625FC13CC0046642F /* UserController.swift in Sources */,
+				FFE4DBE52601182100DAC744 /* TPPersonCollectionViewCell.swift in Sources */,
 				FF51916A25FBD7730046642F /* UIView+Ext.swift in Sources */,
 				FF51914825FBD3B00046642F /* AlertViewController.swift in Sources */,
 				FF51915B25FBD6790046642F /* TPBodyLabel.swift in Sources */,

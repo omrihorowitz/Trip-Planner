@@ -21,7 +21,7 @@ class LoginViewController: UIViewController {
         view.addSubviews(emailTextField, passwordTextField, loginButton)
         constrainViews()
         setButtonTarget()
-        emailTextField.text = "1@1.com"
+        emailTextField.text = "F1@1.com"
         passwordTextField.text = "123456"
     }
     

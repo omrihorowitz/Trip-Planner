@@ -26,7 +26,11 @@ class UserController {
     
     var received: [User] = []
     
+    var addable: [User] = []
+    
     var blocked: [User] = []
+    
+    var filtered: [User] = []
     
     func createUserInDB(email: String, name: String, downloadURL: String?) {
         
@@ -69,6 +73,24 @@ class UserController {
         }
     }
     
+    func fetchPhotoForUser(user: User, completion: @escaping(Result<UIImage, CustomError>) -> Void ) {
+        
+        guard let downloadURL = URL(string: user.downloadURL) else { return completion(.failure(.invalidURL))}
+        
+        URLSession.shared.dataTask(with: downloadURL) { (data, _, error) in
+            if let _ = error {
+                return completion(.failure(.fireBaseError))
+            }
+            
+            if let data = data {
+                guard let userImage = UIImage(data: data) else { return completion(.failure(.noData))}
+                return completion(.success(userImage))
+            }
+            
+        }.resume()
+        
+    }
+    
     func fetchAllUsers(completion: @escaping(Result<Bool, Error>) -> Void) {
            
            guard let loggedInEmail = Auth.auth().currentUser?.email else { return }
@@ -101,10 +123,6 @@ class UserController {
            }
        }
     
-    func fetchCurrentUser() {
-        
-    }
-    
     func fetchFriends() {
         guard let currentUser = currentUser else {return}
         
@@ -123,11 +141,32 @@ class UserController {
         self.received = self.users.filter({(currentUser.pendingReceived.contains($0.email))})
     }
     
+    func fetchAddable() {
+        
+        guard let currentUser = currentUser else {return}
+        
+        self.addable = self.users.filter({!currentUser.friends.contains($0.email) && !currentUser.pendingSent.contains($0.email) && !currentUser.pendingReceived.contains($0.email)})
+        
+    }
+    
     func fetchBlocked() {
         guard let currentUser = currentUser else {return}
         
         self.blocked = self.users.filter({(currentUser.blocked.contains($0.email))})
     }
+    
+    func filterList(list: [User], searchTerm: String) {
+        
+        filtered = []
+        
+        for user in list {
+            if user.name.contains(searchTerm) {
+                filtered.append(user)
+            }
+        }
+    }
+    
+    
     
     func sendFriendRequest(userToFriend: User, completion: @escaping(Result<Bool, CustomError>) -> Void) {
         
@@ -189,7 +228,7 @@ class UserController {
             if let _ = error {
                 return completion(.failure(.fireBaseError))
             } else {
-                return completion(.success(true))
+                completion(.success(true))
             }
         }
         
@@ -229,7 +268,7 @@ class UserController {
             if let _ = error {
                 return completion(.failure(.fireBaseError))
             } else {
-                return completion(.success(true))
+                completion(.success(true))
             }
         }
         
@@ -277,7 +316,7 @@ class UserController {
             if let _ = error {
                 return completion(.failure(.fireBaseError))
             } else {
-                return completion(.success(true))
+                completion(.success(true))
             }
         }
         
@@ -319,7 +358,7 @@ class UserController {
             if let _ = error {
                 return completion(.failure(.fireBaseError))
             } else {
-                return completion(.success(true))
+                completion(.success(true))
             }
         }
         
