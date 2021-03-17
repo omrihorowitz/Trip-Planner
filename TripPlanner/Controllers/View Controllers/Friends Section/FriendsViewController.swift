@@ -30,10 +30,11 @@ class FriendsViewController: UIViewController {
         view.addSubviews(searchBar, segmentedControl)
         setConstraints()
         setUpSegmentedControl()
-        fetchUsers()
         setUpCollectionView()
+        fetchUsers()
         setUpDataSource()
         searchBar.delegate = self
+        searchBar.autocapitalizationType = .none
         
     }
     
@@ -113,6 +114,7 @@ class FriendsViewController: UIViewController {
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         
+        
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -165,8 +167,9 @@ extension FriendsViewController : UICollectionViewDelegate {
         
         let destination = PersonDetailViewController()
         destination.user = userToSelect
-        
-        navigationController?.pushViewController(destination, animated: true)
+        destination.delegate = self
+        destination.modalPresentationStyle = .pageSheet
+        present(destination, animated: true)
     }
     
 }
@@ -236,3 +239,10 @@ extension FriendsViewController : UISearchBarDelegate {
     
 }
 
+extension FriendsViewController : PersonDetailButtonProtocol {
+    func buttonSelected(title: String, message: String) {
+        segmentedControl.selectedSegmentIndex = 0
+        fetchUsers()
+        self.presentAlertOnMainThread(title: title, message: message, buttonTitle: "Ok")
+    }
+}

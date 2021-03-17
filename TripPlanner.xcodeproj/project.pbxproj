@@ -30,6 +30,8 @@
 		FF51919225FC11AD0046642F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51919125FC11AD0046642F /* User.swift */; };
 		FF51919625FC13CC0046642F /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51919525FC13CC0046642F /* UserController.swift */; };
 		FF51919A25FC1A380046642F /* CustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51919925FC1A380046642F /* CustomError.swift */; };
+		FF61F93D26027736007A53C2 /* TripController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF61F93C26027736007A53C2 /* TripController.swift */; };
+		FF61F94026029D3A007A53C2 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF61F93F26029D3A007A53C2 /* Trip.swift */; };
 		FFDCED0925F71C2C001C2769 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0825F71C2C001C2769 /* AppDelegate.swift */; };
 		FFDCED0B25F71C2C001C2769 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0A25F71C2C001C2769 /* SceneDelegate.swift */; };
 		FFDCED1225F71C2D001C2769 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFDCED1125F71C2D001C2769 /* Assets.xcassets */; };
@@ -65,6 +67,8 @@
 		FF51919125FC11AD0046642F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FF51919525FC13CC0046642F /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 		FF51919925FC1A380046642F /* CustomError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomError.swift; sourceTree = "<group>"; };
+		FF61F93C26027736007A53C2 /* TripController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripController.swift; sourceTree = "<group>"; };
+		FF61F93F26029D3A007A53C2 /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 		FFDCED0525F71C2C001C2769 /* TripPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TripPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFDCED0825F71C2C001C2769 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFDCED0A25F71C2C001C2769 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -194,6 +198,7 @@
 			children = (
 				FF51919125FC11AD0046642F /* User.swift */,
 				FF51919925FC1A380046642F /* CustomError.swift */,
+				FF61F93F26029D3A007A53C2 /* Trip.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -202,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				FF51919525FC13CC0046642F /* UserController.swift */,
+				FF61F93C26027736007A53C2 /* TripController.swift */,
 			);
 			path = "Model Controllers";
 			sourceTree = "<group>";
@@ -435,8 +441,10 @@
 				FF51914225FBD3570046642F /* TripDetailViewController.swift in Sources */,
 				FF51914D25FBD5900046642F /* TPButton.swift in Sources */,
 				FF51913225FBD3060046642F /* FriendsViewController.swift in Sources */,
+				FF61F93D26027736007A53C2 /* TripController.swift in Sources */,
 				FF51916625FBD71A0046642F /* TPTitleLabel.swift in Sources */,
 				FF51913525FBD3100046642F /* TripsViewController.swift in Sources */,
+				FF61F94026029D3A007A53C2 /* Trip.swift in Sources */,
 				FF51914525FBD36F0046642F /* MapViewController.swift in Sources */,
 				FF51912F25FBD2EE0046642F /* TabBarViewController.swift in Sources */,
 				FFE4DBEE26011CBA00DAC744 /* UIHelper.swift in Sources */,

@@ -40,6 +40,7 @@ class TPTextField: UITextField {
         
         backgroundColor = .tertiarySystemBackground
         autocorrectionType = .no
+        autocapitalizationType = .none
         
         clearButtonMode = .whileEditing
         

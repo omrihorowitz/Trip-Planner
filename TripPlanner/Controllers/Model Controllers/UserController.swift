@@ -160,7 +160,7 @@ class UserController {
         filtered = []
         
         for user in list {
-            if user.name.contains(searchTerm) {
+            if user.name.lowercased().contains(searchTerm.lowercased()) {
                 filtered.append(user)
             }
         }
@@ -187,7 +187,7 @@ class UserController {
             if let _ = error {
                 return completion(.failure(.fireBaseError))
             } else {
-                completion(.success(true))
+                //completion(.success(true))
             }
         }
         
@@ -228,7 +228,7 @@ class UserController {
             if let _ = error {
                 return completion(.failure(.fireBaseError))
             } else {
-                completion(.success(true))
+                //completion(.success(true))
             }
         }
         
@@ -268,7 +268,7 @@ class UserController {
             if let _ = error {
                 return completion(.failure(.fireBaseError))
             } else {
-                completion(.success(true))
+                //completion(.success(true))
             }
         }
         
@@ -316,7 +316,7 @@ class UserController {
             if let _ = error {
                 return completion(.failure(.fireBaseError))
             } else {
-                completion(.success(true))
+                //completion(.success(true))
             }
         }
         
@@ -358,7 +358,7 @@ class UserController {
             if let _ = error {
                 return completion(.failure(.fireBaseError))
             } else {
-                completion(.success(true))
+                //completion(.success(true))
             }
         }
         
@@ -382,6 +382,40 @@ class UserController {
         }
         
         currentUser.blocked.append(userToBlock.email)
+        
+        if currentUser.friends.contains(userToBlock.email) {
+            unFriendUser(userToUnfriend: userToBlock) { (result) in
+                switch result {
+                case .success(_):
+                    print("Unfriended")
+                case .failure(_):
+                    print("can't unfriend")
+                }
+            }
+        }
+        
+        if currentUser.pendingSent.contains(userToBlock.email) {
+            cancelRequest(userToCancel: userToBlock) { (result) in
+                switch result {
+                case .success(_):
+                    print("Cancelled request")
+                case .failure(_):
+                    print("Can't cancel request")
+                }
+            }
+        }
+        
+        if currentUser.pendingReceived.contains(userToBlock.email) {
+            declineRequest(userToDecline: userToBlock) { (result) in
+                switch result {
+                case .success(_):
+                    print("Declined request")
+                case .failure(_):
+                    print("Can't decline request")
+                }
+            }
+        }
+        
         
         let CurrentUserFireBase = db.collection("users").document(currentUser.id)
         

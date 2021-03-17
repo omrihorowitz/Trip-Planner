@@ -46,6 +46,14 @@ class LoginViewController: UIViewController {
                 self.presentAlertOnMainThread(title: "Uh oh", message: error.localizedDescription, buttonTitle: "ok")
             } else {
                 let tabBar = TabBarViewController()
+//                TripController.shared.removeTask(trip: nil, task: "") { (result) in
+//                    switch result {
+//                    case .success(_):
+//                        break
+//                    case .failure(_):
+//                        break
+//                    }
+//                }
                 self.navigationController?.pushViewController(tabBar, animated: true)
             }
         }
