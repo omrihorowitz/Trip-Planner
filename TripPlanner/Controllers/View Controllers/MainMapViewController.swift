@@ -15,6 +15,7 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISear
     let locationManager = CLLocationManager()
     let regionInMeters: Double = 10000
     var previousLocation: CLLocation?
+    var userLocation: CLLocationCoordinate2D? = nil
     var mapView = MKMapView()
     let etaLabel = UILabel()
     let goButton = UIButton()
@@ -24,6 +25,11 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISear
     var directionsArray: [MKDirections] = []
     var resultSearchController: UISearchController? = nil
     var selectedPin : MKPlacemark? = nil
+    var pinLocation: CLLocationCoordinate2D? = nil
+    var currentPlace: CLPlacemark?
+    var etaMiles: CLLocationDistance?
+    var etaTime: Double?
+    var steps = [MKRoute.Step]()
     
     //MARK: - Lifecycle
     
@@ -52,12 +58,21 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISear
     }
     
     @objc func goButtonTapped(sender : UIButton!) {
-//        createDirectionsRequest(from: selectedPin!.coordinate)
+        self.mapView.overlays.forEach {
+                if ($0 is MKPolyline) {
+                    self.mapView.removeOverlay($0)
+                }
+            }
+        pinLocation = selectedPin?.coordinate
+        userLocation = locationManager.location!.coordinate
+        showRouteOnMap(startCoordinate: userLocation!, endCoordinate: pinLocation!) //fix the force unwrapping
     }
     
     @objc func textDirectionsButtonTapped(sender : UIButton!) {
-        let textDirectionsTableViewController = TextDirectionsTableViewController()
-        present(textDirectionsTableViewController, animated: true)
+        let destination = TextDirectionsTableViewController()
+        destination.steps = self.steps
+        destination.modalPresentationStyle = .pageSheet
+        present(destination, animated: true)
     }
     
     //MARK: - Methods
@@ -127,14 +142,14 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISear
     
     func configureETALabel() {
         etaLabel.translatesAutoresizingMaskIntoConstraints = false
-        etaLabel.backgroundColor = .white
+        etaLabel.backgroundColor = .clear
         etaLabel.textAlignment = .center
-        etaLabel.textColor = .black
-        etaLabel.text = "ETA: Mileage, Timing"
+        etaLabel.textColor = .white
+        etaLabel.numberOfLines = 0
         NSLayoutConstraint.activate([
             etaLabel.heightAnchor.constraint(equalToConstant: 70),
-            etaLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            etaLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            etaLabel.leadingAnchor.constraint(equalTo: planRouteButton.trailingAnchor, constant: 1),
+            etaLabel.trailingAnchor.constraint(equalTo: goButton.leadingAnchor, constant: -1),
             etaLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
@@ -147,7 +162,7 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISear
         textDirectionsButton.addTarget(self, action: #selector(textDirectionsButtonTapped), for: .touchUpInside)
         NSLayoutConstraint.activate([
             textDirectionsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            textDirectionsButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -45)
+            textDirectionsButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -55)
         ])
     }
     
@@ -224,28 +239,6 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISear
         
         return CLLocation(latitude: latitude, longitude: longitutde)
     }
-    
-    /// this will change
-    func createDirectionsRequest(from coordinate: CLLocationCoordinate2D) -> MKDirections.Request {
-        let destinationCoordinate       =  getCenterLocation(for: mapView).coordinate //this is where the pin is
-        let startingLocation            = MKPlacemark(coordinate: coordinate) //user location
-        let destination                 = MKPlacemark(coordinate: destinationCoordinate) // coordinate from destinationcoordinate
-        
-        let request                     = MKDirections.Request() // this is how you request directions
-        request.source                  = MKMapItem(placemark: startingLocation)
-        request.destination             = MKMapItem(placemark: destination)
-        request.transportType           = .automobile
-        request.requestsAlternateRoutes = false //switch later for alternate routes
-        
-        return request
-    }
-    
-    func resetMapView(withNew directions: MKDirections) {
-        mapView.removeOverlays(mapView.overlays)
-        directionsArray.append(directions)
-        let _ = directionsArray.map { $0.cancel() }
-        directionsArray.removeLast() //not sure about this one
-    }
 }
 
 //MARK: - Extensions
@@ -287,6 +280,81 @@ extension MainMapViewController: MKMapViewDelegate {
         default:
             return nil
         }
+    }
+    
+    func showRouteOnMap(startCoordinate: CLLocationCoordinate2D, endCoordinate: CLLocationCoordinate2D) {
+        let sourcePlacemark = MKPlacemark(coordinate: startCoordinate, addressDictionary: nil)
+        let destinationPlacemark = MKPlacemark(coordinate: endCoordinate, addressDictionary: nil)
+        
+        let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
+        let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
+        
+        let sourceAnnotation = MKPointAnnotation()
+        
+        if let location = sourcePlacemark.location {
+            sourceAnnotation.coordinate = location.coordinate
+        }
+        
+        let destinationAnnotation = MKPointAnnotation()
+        
+        if let location = destinationPlacemark.location {
+            destinationAnnotation.coordinate = location.coordinate
+        }
+                
+        let directionRequest = MKDirections.Request()
+        directionRequest.source = sourceMapItem
+        directionRequest.destination = destinationMapItem
+        directionRequest.transportType = .automobile
+        
+        // Calculate the direction
+        let directions = MKDirections(request: directionRequest)
+        
+        directions.calculate {
+            (response, error) -> Void in
+            
+            guard let response = response else {
+                if let error = error {
+                    print("Error: \(error)")
+                }
+                
+                return
+            }
+            let route = response.routes[0]
+            self.mapView.addOverlay((route.polyline), level: MKOverlayLevel.aboveRoads)
+            let rect = route.polyline.boundingMapRect
+            self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
+            
+            let etaMiles = (route.distance) * 0.000621
+            let etaTime = (((route.expectedTravelTime) / 60) / 60)
+            self.etaLabel.text = "Miles: \(Int(etaMiles)) mi.\n Time: \(String(format: "%.2f", etaTime)) hrs."
+            
+            self.locationManager.monitoredRegions.forEach({ self.locationManager.stopMonitoring(for: $0)})
+            self.steps = route.steps
+            for i in 0 ..< route.steps.count { // to show a mark at each step
+                let step = route.steps[i]
+                let region = CLCircularRegion(center: step.polyline.coordinate, radius: 20, identifier: "\(i)")
+                self.locationManager.startMonitoring(for: region)
+                let circle = MKCircle(center: region.center, radius: region.radius)
+                self.mapView.addOverlay(circle)
+            }
+    }}
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if overlay is MKPolyline {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+            renderer.strokeColor = .systemBlue
+            renderer.lineWidth = 4.0
+        
+            return renderer
+        }
+        if overlay is MKCircle {
+            let renderer = MKCircleRenderer(overlay: overlay)
+            renderer.strokeColor = .magenta
+            renderer.fillColor = .magenta
+            renderer.alpha = 0.5
+            return renderer
+        }
+        return MKOverlayRenderer()
     }
 }
     protocol HandleMapSearch {
