@@ -8,7 +8,7 @@ import CoreLocation
 import UIKit
 import MapKit
 
-class MainMapViewController: UIViewController, CLLocationManagerDelegate {
+class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDelegate {
     
     //MARK: - Properties
     
@@ -18,12 +18,12 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate {
     var mapView = MKMapView()
     let etaLabel = UILabel()
     let goButton = UIButton()
-    let searchBar = UISearchBar()
     let planRouteButton = UIButton()
     let textDirectionsButton = UIButton()
     let geoCoder = CLGeocoder()
     var directionsArray: [MKDirections] = []
-    private var landmarks: [Landmark] = []
+    var resultSearchController: UISearchController? = nil
+    var selectedPin : MKPlacemark? = nil
     
     //MARK: - Lifecycle
     
@@ -52,7 +52,7 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     @objc func goButtonTapped(sender : UIButton!) {
-        //mapping from user to the pin
+//        createDirectionsRequest(from: selectedPin!.coordinate)
     }
     
     @objc func textDirectionsButtonTapped(sender : UIButton!) {
@@ -77,7 +77,6 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate {
         view.addSubview(planRouteButton)
         view.addSubview(goButton)
         view.addSubview(textDirectionsButton)
-        view.addSubview(searchBar)
     }
     
     func configureMap() {
@@ -92,12 +91,6 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate {
         mapView.isZoomEnabled = true
         mapView.isScrollEnabled = true
         mapView.delegate = self
-        mapView.register(
-            LandmarkView.self,
-            forAnnotationViewWithReuseIdentifier:
-                MKMapViewDefaultAnnotationViewReuseIdentifier)  // would need unique identifier w more classes
-        loadInitialData()
-        mapView.addAnnotations(landmarks)
     }
     
     func configurePlanRouteButton() {
@@ -159,41 +152,20 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func configureSearchBar() {
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.barStyle = .default
-        searchBar.searchBarStyle = .minimal
-        searchBar.isTranslucent = true
+        let searchBarTableView = SearchBarTableViewController()
+        resultSearchController = UISearchController(searchResultsController : searchBarTableView)
+        resultSearchController?.searchResultsUpdater = searchBarTableView as UISearchResultsUpdating
+        searchBarTableView.mapView = mapView
+        searchBarTableView.handleMapSearchDelegate = self
+        let searchBar = resultSearchController!.searchBar
+        searchBar.sizeToFit()
         searchBar.placeholder = "Search for a place or address"
-        NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40)
-        ])
+        navigationItem.titleView = resultSearchController?.searchBar
+        resultSearchController?.hidesNavigationBarDuringPresentation = false
+        definesPresentationContext = true
     }
     
-    private func loadInitialData() {
-        // 1
-        guard
-            let fileName = Bundle.main.url(forResource: "HistoricLandmarks", withExtension: "geojson"),
-            let artworkData = try? Data(contentsOf: fileName)
-        else {
-            return
-        }
-        
-        do {
-            // 2
-            let features = try MKGeoJSONDecoder()
-                .decode(artworkData)
-                .compactMap { $0 as? MKGeoJSONFeature }
-            // 3
-            let validWorks = features.compactMap(Landmark.init)
-            // 4
-            landmarks.append(contentsOf: validWorks)
-        } catch {
-            // 5
-            print("Unexpected error: \(error).")
-        }
-    }
+    /// this will change
     
     func setupLocationManager() {
         locationManager.delegate = self
@@ -253,8 +225,9 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate {
         return CLLocation(latitude: latitude, longitude: longitutde)
     }
     
+    /// this will change
     func createDirectionsRequest(from coordinate: CLLocationCoordinate2D) -> MKDirections.Request {
-        let destinationCoordinate       = getCenterLocation(for: mapView).coordinate //this is where the pin is
+        let destinationCoordinate       =  getCenterLocation(for: mapView).coordinate //this is where the pin is
         let startingLocation            = MKPlacemark(coordinate: coordinate) //user location
         let destination                 = MKPlacemark(coordinate: destinationCoordinate) // coordinate from destinationcoordinate
         
@@ -289,28 +262,10 @@ private extension MKMapView {
         setRegion(coordinateRegion, animated: true)
     }
 }
-
+// this will change
 extension MainMapViewController: MKMapViewDelegate {
-    func mapView(
-        _ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
-        guard let landmark = view.annotation as? Landmark else {
-            return
-        }
-        
-        let launchOptions = [
-            MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving
-        ]
-        landmark.mapItem?.openInMaps(launchOptions: launchOptions)
-    }
-        
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        let renderer = MKPolylineRenderer(overlay: overlay as! MKPolyline)
-        renderer.strokeColor = .blue //color of the polyline
-        
-        return renderer
-    }
-    //will need a pic resizing function
+    //will need a pic resizing function and pulling user image
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         switch annotation {
@@ -332,5 +287,26 @@ extension MainMapViewController: MKMapViewDelegate {
         default:
             return nil
         }
+    }
+}
+    protocol HandleMapSearch {
+        func dropPinZoomIn(placemark: MKPlacemark)
+    }
+
+extension MainMapViewController : HandleMapSearch {
+    
+    func dropPinZoomIn(placemark: MKPlacemark) {
+        //cache the pin
+        selectedPin = placemark
+        //clear existing pins
+        mapView.removeAnnotations(mapView.annotations)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = placemark.coordinate
+        annotation.subtitle = "\(placemark.abbreviation)"
+        mapView.addAnnotation(annotation)
+        
+        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
+        mapView.setRegion(region, animated: true)
     }
 }
