@@ -19,6 +19,7 @@ class FirstPageViewController: UIViewController {
         view.addSubviews(loginButton, createAccountButton)
         constrainButtons()
         addTargets()
+        addCancelKeyboardGestureRecognizer()
     }
     
     func addTargets() {

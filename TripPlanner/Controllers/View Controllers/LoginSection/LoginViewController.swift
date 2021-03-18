@@ -23,6 +23,7 @@ class LoginViewController: UIViewController {
         setButtonTarget()
         emailTextField.text = "F1@1.com"
         passwordTextField.text = "123456"
+        addCancelKeyboardGestureRecognizer()
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -58,14 +58,26 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISear
     }
     
     @objc func goButtonTapped(sender : UIButton!) {
+        guard let selectedPin = selectedPin else {
+            self.presentAlertOnMainThread(title: "Whoops!", message: "You need to select a destination first...", buttonTitle: "OK")
+            return
+        }
         self.mapView.overlays.forEach {
                 if ($0 is MKPolyline) {
                     self.mapView.removeOverlay($0)
                 }
             }
-        pinLocation = selectedPin?.coordinate
-        userLocation = locationManager.location!.coordinate
-        showRouteOnMap(startCoordinate: userLocation!, endCoordinate: pinLocation!) //fix the force unwrapping
+        pinLocation = selectedPin.coordinate
+        guard let location = locationManager.location else {
+            self.presentAlertOnMainThread(title: "Whoops!", message: "You need to authorize location access in settings first...", buttonTitle: "OK")
+            return
+        }
+        userLocation = location.coordinate
+        guard userLocation != nil else {
+            self.presentAlertOnMainThread(title: "Whoops!", message: "You need to authorize location access in settings first...", buttonTitle: "OK")
+            return
+        }
+        showRouteOnMap(startCoordinate: userLocation!, endCoordinate: pinLocation!) 
     }
     
     @objc func textDirectionsButtonTapped(sender : UIButton!) {
@@ -327,7 +339,7 @@ extension MainMapViewController: MKMapViewDelegate {
             
             let etaMiles = (route.distance) * 0.000621
             let etaTime = (((route.expectedTravelTime) / 60) / 60)
-            self.etaLabel.text = "Miles: \(Int(etaMiles)) mi.\n Time: \(String(format: "%.2f", etaTime)) hrs."
+            self.etaLabel.text = "Miles: \(String(format: "%.2f", etaMiles)) mi.\n Time: \(String(format: "%.2f", etaTime)) hrs."
             
             self.locationManager.monitoredRegions.forEach({ self.locationManager.stopMonitoring(for: $0)})
             self.steps = route.steps

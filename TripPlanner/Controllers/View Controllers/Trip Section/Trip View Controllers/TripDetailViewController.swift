@@ -42,6 +42,7 @@ class TripDetailViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupViews()
+        addCancelKeyboardGestureRecognizer()
     }
     
     override func viewWillAppear(_ animated: Bool) {

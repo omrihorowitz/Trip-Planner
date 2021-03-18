@@ -17,6 +17,7 @@ class TripsViewController: UIViewController {
         self.navigationItem.title = "Trips"
         setupTableView()
         setUpHeaderView()
+        addCancelKeyboardGestureRecognizer()
     }
     
     override func viewWillAppear(_ animated: Bool) {

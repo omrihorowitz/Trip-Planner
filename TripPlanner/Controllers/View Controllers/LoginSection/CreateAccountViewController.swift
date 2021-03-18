@@ -32,6 +32,7 @@ class CreateAccountViewController: UIViewController {
         view.addSubviews(nameTextField, emailTextField, passwordTextField, confirmPasswordTextField, createAccountButton, imageView, changeImageButton)
         constrainViews()
         setUpButtonTargets()
+        addCancelKeyboardGestureRecognizer()
     }
     
     override func viewWillAppear(_ animated: Bool) {

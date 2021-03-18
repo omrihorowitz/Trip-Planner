@@ -18,6 +18,7 @@ class AccountViewController: UIViewController {
         constrainLogout()
         logoutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
         view.backgroundColor = .systemBackground
+        addCancelKeyboardGestureRecognizer()
     }
     
     override func viewWillAppear(_ animated: Bool) {

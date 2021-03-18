@@ -46,7 +46,7 @@ class RouteSelectionViewController: UIViewController {
     
     func allConfiguration() {
         calculateButton.stylize()
-//        configureGestures()
+        configureGestures()
         configureTextFields()
         configureInputContainerView()
         configureOriginTextField()
@@ -79,20 +79,25 @@ class RouteSelectionViewController: UIViewController {
         view.addSubview(extraStopLabel)
     }
     
-//    private func configureGestures() {
-//        view.addGestureRecognizer(
-//            UITapGestureRecognizer(
-//                target: self,
-//                action: #selector(handleTap(_:))
-//            )
-//        )
-//        suggestionContainerView.addGestureRecognizer(
-//            UITapGestureRecognizer(
-//                target: self,
-//                action: #selector(suggestionTapped(_:))
-//            )
-//        )
-//    }
+    private func configureGestures() {
+        view.addGestureRecognizer(
+            UITapGestureRecognizer(
+                target: self,
+                action: #selector(handleTap(_:))
+            )
+        )
+        let suggestionTapRecognizer =   UITapGestureRecognizer(
+            target: self,
+            action: #selector(suggestionTapped(_:))
+        )
+        suggestionLabel.addGestureRecognizer(suggestionTapRecognizer)
+        suggestionLabel.addGestureRecognizer(
+            UITapGestureRecognizer(
+                target: self,
+                action: #selector(suggestionTapped(_:))
+            )
+        )
+    }
     
     private func configureTextFields() {
         originTextField.delegate = self
@@ -210,7 +215,7 @@ class RouteSelectionViewController: UIViewController {
         suggestionLabel.translatesAutoresizingMaskIntoConstraints = false
         suggestionLabel.backgroundColor?.withAlphaComponent(0)
         suggestionLabel.textColor = .black
-        suggestionLabel.textAlignment = .center
+        suggestionLabel.textAlignment = .left
         suggestionLabel.font = UIFont(name: "NotoSansMyanmar-Bold", size: 15)
         suggestionLabel.text = "(Address Suggestion)"
         
@@ -389,13 +394,12 @@ class RouteSelectionViewController: UIViewController {
         view.endEditing(true)
     }
     
-//    @objc func suggestionTapped(_ gesture: UITapGestureRecognizer) {
-//        hideSuggestionView(animated: true)
-//
-//        editingTextField?.text = suggestionLabel.text
-//        editingTextField = nil
-//    }
-    /// code to populate the text field with the suggestion
+    @objc func suggestionTapped(_ gesture: UITapGestureRecognizer) {
+        hideSuggestionView(animated: true)
+
+        editingTextField?.text = suggestionLabel.text
+        editingTextField = nil
+    }
     
     @objc func calculateButtonTapped(sender : UIButton!) {
         view.endEditing(true)
