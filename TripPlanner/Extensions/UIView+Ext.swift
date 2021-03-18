@@ -15,5 +15,11 @@ extension UIView {
         }
     }
     
+    func addBorder() {
+        layer.borderWidth = 1
+        layer.cornerRadius = 3
+        layer.borderColor = UIColor.green.cgColor
+      }
+    
     
 }

@@ -8,6 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		0CB96B5F7AF4104DDA1275CC /* Pods_TripPlanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827BB44F8453A2FFE3D8904B /* Pods_TripPlanner.framework */; };
+		FF298F0E2603CF8C0017F999 /* ModalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF298F0D2603CF8C0017F999 /* ModalTableViewController.swift */; };
+		FF298F122603D0480017F999 /* MainMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF298F112603D0480017F999 /* MainMapViewController.swift */; };
+		FF298F152603D0E70017F999 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF298F142603D0E70017F999 /* Route.swift */; };
+		FF298F182603D10A0017F999 /* RouteAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF298F172603D10A0017F999 /* RouteAnnotation.swift */; };
+		FF298F1B2603D1B30017F999 /* RouteSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF298F1A2603D1B30017F999 /* RouteSelectionViewController.swift */; };
+		FF298F1E2603D1DC0017F999 /* DirectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF298F1D2603D1DC0017F999 /* DirectionsViewController.swift */; };
+		FF298F212603D2220017F999 /* TextDirectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF298F202603D2220017F999 /* TextDirectionsTableViewController.swift */; };
+		FF298F242603D2480017F999 /* SearchBarTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF298F232603D2480017F999 /* SearchBarTableViewController.swift */; };
+		FF298F272603D34B0017F999 /* TimeInterval+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF298F262603D34B0017F999 /* TimeInterval+Ext.swift */; };
+		FF298F2A2603D4380017F999 /* CLPlacemark+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF298F292603D4380017F999 /* CLPlacemark+Ext.swift */; };
+		FF298F2D2603D4550017F999 /* UIButton+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF298F2C2603D4550017F999 /* UIButton+Ext.swift */; };
+		FF298F302603D4A70017F999 /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF298F2F2603D4A70017F999 /* UIImage+Ext.swift */; };
+		FF298F332603D4C40017F999 /* UITextField+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF298F322603D4C40017F999 /* UITextField+Ext.swift */; };
+		FF298F362603D55A0017F999 /* RouteBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF298F352603D55A0017F999 /* RouteBuilder.swift */; };
 		FF51912625FBD2CA0046642F /* FirstPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51912525FBD2CA0046642F /* FirstPageViewController.swift */; };
 		FF51912925FBD2D40046642F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51912825FBD2D40046642F /* LoginViewController.swift */; };
 		FF51912C25FBD2DD0046642F /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51912B25FBD2DD0046642F /* CreateAccountViewController.swift */; };
@@ -17,7 +31,6 @@
 		FF51913825FBD31A0046642F /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51913725FBD31A0046642F /* AccountViewController.swift */; };
 		FF51913F25FBD3380046642F /* PersonDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51913E25FBD3380046642F /* PersonDetailViewController.swift */; };
 		FF51914225FBD3570046642F /* TripDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51914125FBD3570046642F /* TripDetailViewController.swift */; };
-		FF51914525FBD36F0046642F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51914425FBD36F0046642F /* MapViewController.swift */; };
 		FF51914825FBD3B00046642F /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51914725FBD3B00046642F /* AlertViewController.swift */; };
 		FF51914D25FBD5900046642F /* TPButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51914C25FBD5900046642F /* TPButton.swift */; };
 		FF51915225FBD6250046642F /* TPContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51915125FBD6250046642F /* TPContainerView.swift */; };
@@ -45,6 +58,20 @@
 		491ABF6A1C765837D5BA68EE /* Pods-TripPlanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TripPlanner.release.xcconfig"; path = "Target Support Files/Pods-TripPlanner/Pods-TripPlanner.release.xcconfig"; sourceTree = "<group>"; };
 		64E89E64A8FD8581383EE3AF /* Pods-TripPlanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TripPlanner.debug.xcconfig"; path = "Target Support Files/Pods-TripPlanner/Pods-TripPlanner.debug.xcconfig"; sourceTree = "<group>"; };
 		827BB44F8453A2FFE3D8904B /* Pods_TripPlanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TripPlanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF298F0D2603CF8C0017F999 /* ModalTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalTableViewController.swift; sourceTree = "<group>"; };
+		FF298F112603D0480017F999 /* MainMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewController.swift; sourceTree = "<group>"; };
+		FF298F142603D0E70017F999 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		FF298F172603D10A0017F999 /* RouteAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteAnnotation.swift; sourceTree = "<group>"; };
+		FF298F1A2603D1B30017F999 /* RouteSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteSelectionViewController.swift; sourceTree = "<group>"; };
+		FF298F1D2603D1DC0017F999 /* DirectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsViewController.swift; sourceTree = "<group>"; };
+		FF298F202603D2220017F999 /* TextDirectionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDirectionsTableViewController.swift; sourceTree = "<group>"; };
+		FF298F232603D2480017F999 /* SearchBarTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarTableViewController.swift; sourceTree = "<group>"; };
+		FF298F262603D34B0017F999 /* TimeInterval+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Ext.swift"; sourceTree = "<group>"; };
+		FF298F292603D4380017F999 /* CLPlacemark+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLPlacemark+Ext.swift"; sourceTree = "<group>"; };
+		FF298F2C2603D4550017F999 /* UIButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
+		FF298F2F2603D4A70017F999 /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
+		FF298F322603D4C40017F999 /* UITextField+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Ext.swift"; sourceTree = "<group>"; };
+		FF298F352603D55A0017F999 /* RouteBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteBuilder.swift; sourceTree = "<group>"; };
 		FF51912525FBD2CA0046642F /* FirstPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPageViewController.swift; sourceTree = "<group>"; };
 		FF51912825FBD2D40046642F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		FF51912B25FBD2DD0046642F /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
@@ -54,7 +81,6 @@
 		FF51913725FBD31A0046642F /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		FF51913E25FBD3380046642F /* PersonDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailViewController.swift; sourceTree = "<group>"; };
 		FF51914125FBD3570046642F /* TripDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailViewController.swift; sourceTree = "<group>"; };
-		FF51914425FBD36F0046642F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		FF51914725FBD3B00046642F /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		FF51914C25FBD5900046642F /* TPButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPButton.swift; sourceTree = "<group>"; };
 		FF51915125FBD6250046642F /* TPContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPContainerView.swift; sourceTree = "<group>"; };
@@ -109,6 +135,30 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FF298F382603E8C60017F999 /* Trip View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				FF51913425FBD3100046642F /* TripsViewController.swift */,
+				FF51914125FBD3570046642F /* TripDetailViewController.swift */,
+				FF298F0D2603CF8C0017F999 /* ModalTableViewController.swift */,
+			);
+			path = "Trip View Controllers";
+			sourceTree = "<group>";
+		};
+		FF298F3A2603E8E60017F999 /* Map files */ = {
+			isa = PBXGroup;
+			children = (
+				FF298F112603D0480017F999 /* MainMapViewController.swift */,
+				FF298F142603D0E70017F999 /* Route.swift */,
+				FF298F172603D10A0017F999 /* RouteAnnotation.swift */,
+				FF298F1A2603D1B30017F999 /* RouteSelectionViewController.swift */,
+				FF298F1D2603D1DC0017F999 /* DirectionsViewController.swift */,
+				FF298F202603D2220017F999 /* TextDirectionsTableViewController.swift */,
+				FF298F232603D2480017F999 /* SearchBarTableViewController.swift */,
+			);
+			path = "Map files";
+			sourceTree = "<group>";
+		};
 		FF51914A25FBD56C0046642F /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -152,6 +202,11 @@
 			children = (
 				FF51916925FBD7730046642F /* UIView+Ext.swift */,
 				FF51916C25FBD79E0046642F /* ViewController+Ext.swift */,
+				FF298F262603D34B0017F999 /* TimeInterval+Ext.swift */,
+				FF298F292603D4380017F999 /* CLPlacemark+Ext.swift */,
+				FF298F2C2603D4550017F999 /* UIButton+Ext.swift */,
+				FF298F2F2603D4A70017F999 /* UIImage+Ext.swift */,
+				FF298F322603D4C40017F999 /* UITextField+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -169,9 +224,8 @@
 		FF51917125FBD8D60046642F /* Trip Section */ = {
 			isa = PBXGroup;
 			children = (
-				FF51913425FBD3100046642F /* TripsViewController.swift */,
-				FF51914125FBD3570046642F /* TripDetailViewController.swift */,
-				FF51914425FBD36F0046642F /* MapViewController.swift */,
+				FF298F382603E8C60017F999 /* Trip View Controllers */,
+				FF298F3A2603E8E60017F999 /* Map files */,
 			);
 			path = "Trip Section";
 			sourceTree = "<group>";
@@ -314,6 +368,7 @@
 			isa = PBXGroup;
 			children = (
 				FFE4DBED26011CBA00DAC744 /* UIHelper.swift */,
+				FF298F352603D55A0017F999 /* RouteBuilder.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -434,18 +489,23 @@
 			files = (
 				FF51919A25FC1A380046642F /* CustomError.swift in Sources */,
 				FF51912C25FBD2DD0046642F /* CreateAccountViewController.swift in Sources */,
+				FF298F242603D2480017F999 /* SearchBarTableViewController.swift in Sources */,
 				FF51912925FBD2D40046642F /* LoginViewController.swift in Sources */,
+				FF298F152603D0E70017F999 /* Route.swift in Sources */,
 				FF51912625FBD2CA0046642F /* FirstPageViewController.swift in Sources */,
+				FF298F302603D4A70017F999 /* UIImage+Ext.swift in Sources */,
 				FF51915225FBD6250046642F /* TPContainerView.swift in Sources */,
 				FFDCED0925F71C2C001C2769 /* AppDelegate.swift in Sources */,
 				FF51914225FBD3570046642F /* TripDetailViewController.swift in Sources */,
+				FF298F272603D34B0017F999 /* TimeInterval+Ext.swift in Sources */,
+				FF298F332603D4C40017F999 /* UITextField+Ext.swift in Sources */,
 				FF51914D25FBD5900046642F /* TPButton.swift in Sources */,
 				FF51913225FBD3060046642F /* FriendsViewController.swift in Sources */,
 				FF61F93D26027736007A53C2 /* TripController.swift in Sources */,
+				FF298F2A2603D4380017F999 /* CLPlacemark+Ext.swift in Sources */,
 				FF51916625FBD71A0046642F /* TPTitleLabel.swift in Sources */,
 				FF51913525FBD3100046642F /* TripsViewController.swift in Sources */,
 				FF61F94026029D3A007A53C2 /* Trip.swift in Sources */,
-				FF51914525FBD36F0046642F /* MapViewController.swift in Sources */,
 				FF51912F25FBD2EE0046642F /* TabBarViewController.swift in Sources */,
 				FFE4DBEE26011CBA00DAC744 /* UIHelper.swift in Sources */,
 				FFDCED0B25F71C2C001C2769 /* SceneDelegate.swift in Sources */,
@@ -453,8 +513,16 @@
 				FF51913F25FBD3380046642F /* PersonDetailViewController.swift in Sources */,
 				FF51919625FC13CC0046642F /* UserController.swift in Sources */,
 				FFE4DBE52601182100DAC744 /* TPPersonCollectionViewCell.swift in Sources */,
+				FF298F1B2603D1B30017F999 /* RouteSelectionViewController.swift in Sources */,
 				FF51916A25FBD7730046642F /* UIView+Ext.swift in Sources */,
+				FF298F122603D0480017F999 /* MainMapViewController.swift in Sources */,
+				FF298F362603D55A0017F999 /* RouteBuilder.swift in Sources */,
+				FF298F2D2603D4550017F999 /* UIButton+Ext.swift in Sources */,
+				FF298F0E2603CF8C0017F999 /* ModalTableViewController.swift in Sources */,
+				FF298F1E2603D1DC0017F999 /* DirectionsViewController.swift in Sources */,
 				FF51914825FBD3B00046642F /* AlertViewController.swift in Sources */,
+				FF298F182603D10A0017F999 /* RouteAnnotation.swift in Sources */,
+				FF298F212603D2220017F999 /* TextDirectionsTableViewController.swift in Sources */,
 				FF51915B25FBD6790046642F /* TPBodyLabel.swift in Sources */,
 				FF51917825FBDAEB0046642F /* TPTextField.swift in Sources */,
 				FF51913825FBD31A0046642F /* AccountViewController.swift in Sources */,

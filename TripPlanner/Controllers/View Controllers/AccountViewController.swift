@@ -20,6 +20,11 @@ class AccountViewController: UIViewController {
         view.backgroundColor = .systemBackground
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
     @objc func logout() {
         do {
             try Auth.auth().signOut()

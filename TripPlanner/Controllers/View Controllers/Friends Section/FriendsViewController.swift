@@ -38,6 +38,11 @@ class FriendsViewController: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
     func setUpCollectionView() {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: UIHelper.createThreeColumnFlowLayout(in: self.view))
         view.addSubview(collectionView)
@@ -90,6 +95,22 @@ class FriendsViewController: UIViewController {
     }
     
     @objc func segmentControlChanged(sender: UISegmentedControl) {
+        
+        TripController.shared.fetchAllTrips { (result) in
+            switch result {
+            case .success(_):
+                for trip in TripController.shared.allTrips {
+                    print(trip.name)
+                    print(trip.owner)
+                    print("")
+                }
+            case .failure(_):
+                print("Failure")
+            }
+        }
+        
+        
+        
         isSearching = false
         switch sender.selectedSegmentIndex {
         case 0:
