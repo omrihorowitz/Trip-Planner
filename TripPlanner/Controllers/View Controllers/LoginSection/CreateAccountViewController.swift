@@ -90,7 +90,7 @@ class CreateAccountViewController: UIViewController {
             if let error = error {
                 self.presentAlertOnMainThread(title: "Error", message: error.localizedDescription, buttonTitle: "Ok")
             } else {
-                UserController.shared.createUserInDB(email: email, name: name, downloadURL: downloadURL)
+                UserController.shared.createUserInDB(email: email.lowercased(), name: name, downloadURL: downloadURL)
                 let tabBar = TabBarViewController()
                 self.navigationController?.pushViewController(tabBar, animated: true)
             }

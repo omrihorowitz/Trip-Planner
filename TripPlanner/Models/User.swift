@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct User {
+struct User : Hashable {
     
     let id: String
     let email: String
@@ -16,7 +16,6 @@ struct User {
     var blocked: [String]
     var pendingSent: [String]
     var pendingReceived: [String]
-    var downloadURL: String?
-    
+    var downloadURL: String
     
 }

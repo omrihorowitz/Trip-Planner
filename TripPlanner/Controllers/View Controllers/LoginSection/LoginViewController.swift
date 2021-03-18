@@ -21,6 +21,8 @@ class LoginViewController: UIViewController {
         view.addSubviews(emailTextField, passwordTextField, loginButton)
         constrainViews()
         setButtonTarget()
+        emailTextField.text = "F1@1.com"
+        passwordTextField.text = "123456"
     }
     
     override func viewWillAppear(_ animated: Bool) {

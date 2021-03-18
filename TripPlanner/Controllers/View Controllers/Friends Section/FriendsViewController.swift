@@ -10,36 +10,260 @@ import Firebase
 
 class FriendsViewController: UIViewController {
 
-    let logoutButton = TPButton(backgroundColor: .systemPink, title: "Logout")
+    let searchBar = UISearchBar()
+    
+    let segmentedControl = UISegmentedControl(items: ["Friends", "Sent", "Received", "Add"])
+    
+    var collectionView: UICollectionView!
+    
+    var isSearching: Bool = false
+    
+    enum Section {
+        case main
+    }
+    
+    var dataSource: UICollectionViewDiffableDataSource<Section, User>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .systemBackground
+        view.addSubviews(searchBar, segmentedControl)
+        setConstraints()
+        setUpSegmentedControl()
+        setUpCollectionView()
+        fetchUsers()
+        setUpDataSource()
+        searchBar.delegate = self
+        searchBar.autocapitalizationType = .none
         
-        view.addSubview(logoutButton)
-        constrainLogout()
-        
-        logoutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
     
-    @objc func logout() {
-        do {
-            try Auth.auth().signOut()
-            navigationController?.popToRootViewController(animated: true)
-        } catch let signoutError as NSError {
-            self.presentAlertOnMainThread(title: "Uh oh", message: signoutError.localizedDescription, buttonTitle: "Ok")
+    func setUpCollectionView() {
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: UIHelper.createThreeColumnFlowLayout(in: self.view))
+        view.addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        collectionView.delegate = self
+        collectionView.backgroundColor = .systemBackground
+        collectionView.register(TPPersonCollectionViewCell.self, forCellWithReuseIdentifier: TPPersonCollectionViewCell.reuseID)
+    }
+    
+    func setUpDataSource() {
+        dataSource = UICollectionViewDiffableDataSource<Section, User>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, user) -> UICollectionViewCell? in
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TPPersonCollectionViewCell.reuseID, for: indexPath) as! TPPersonCollectionViewCell
+            cell.set(user: user)
+            return cell
+        })
+    }
+    
+    func updateData(listOfUsers: [User]) {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, User>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(listOfUsers)
+        DispatchQueue.main.async {
+            self.dataSource.apply(snapshot, animatingDifferences: true)
         }
     }
     
-    func constrainLogout() {
+    func fetchUsers() {
+        
+        UserController.shared.fetchAllUsers { (result) in
+            switch result {
+            case .success(_):
+                UserController.shared.fetchFriends()
+                self.updateData(listOfUsers: UserController.shared.friends)
+            case .failure(_):
+                print("Nay")
+            }
+        }
+    }
+    
+    
+    func setUpSegmentedControl() {
+        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.addTarget(self, action: #selector(segmentControlChanged(sender:)), for: .valueChanged)
+    }
+    
+    @objc func segmentControlChanged(sender: UISegmentedControl) {
+        
+        TripController.shared.fetchAllTrips { (result) in
+            switch result {
+            case .success(_):
+                for trip in TripController.shared.allTrips {
+                    print(trip.name)
+                    print(trip.owner)
+                    print("")
+                }
+            case .failure(_):
+                print("Failure")
+            }
+        }
+        
+        
+        
+        isSearching = false
+        switch sender.selectedSegmentIndex {
+        case 0:
+            UserController.shared.fetchFriends()
+            updateData(listOfUsers: UserController.shared.friends)
+        case 1:
+            UserController.shared.fetchSent()
+            updateData(listOfUsers: UserController.shared.sent)
+        case 2:
+            UserController.shared.fetchReceived()
+            updateData(listOfUsers: UserController.shared.received)
+        case 3:
+            UserController.shared.fetchAddable()
+            updateData(listOfUsers: [])
+        default:
+            break
+        }
+    }
+    
+    func setConstraints() {
+        
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        
+        
         NSLayoutConstraint.activate([
-            logoutButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            logoutButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            logoutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
-            logoutButton.heightAnchor.constraint(equalToConstant: 75)
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            
+            segmentedControl.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 5),
+            segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        
         ])
     }
+    
+}
 
+extension FriendsViewController : UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        var userToSelect: User?
+        
+        switch segmentedControl.selectedSegmentIndex {
+        case 0:
+            if isSearching {
+                userToSelect = UserController.shared.filtered[indexPath.row]
+            } else {
+                userToSelect = UserController.shared.friends[indexPath.row]
+            }
+        case 1:
+            if isSearching {
+                userToSelect = UserController.shared.filtered[indexPath.row]
+            } else {
+                userToSelect = UserController.shared.sent[indexPath.row]
+            }
+        case 2:
+            if isSearching {
+                userToSelect = UserController.shared.filtered[indexPath.row]
+            } else {
+                userToSelect = UserController.shared.received[indexPath.row]
+            }
+        case 3:
+            if isSearching {
+                userToSelect = UserController.shared.filtered[indexPath.row]
+            } else {
+                return
+            }
+        default:
+            break
+        }
+        
+        let destination = PersonDetailViewController()
+        destination.user = userToSelect
+        destination.delegate = self
+        destination.modalPresentationStyle = .pageSheet
+        present(destination, animated: true)
+    }
+    
+}
+
+extension FriendsViewController : UISearchBarDelegate {
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        isSearching = false
+        switch segmentedControl.selectedSegmentIndex {
+        case 0:
+            updateData(listOfUsers: UserController.shared.friends)
+        case 1:
+            updateData(listOfUsers: UserController.shared.sent)
+        case 2:
+            updateData(listOfUsers: UserController.shared.received)
+        case 3:
+            updateData(listOfUsers: [])
+        default:
+            break
+        }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        switch segmentedControl.selectedSegmentIndex {
+        case 0:
+            
+            guard searchText.count > 0 else {
+                updateData(listOfUsers: UserController.shared.friends)
+                isSearching = false
+                return }
+            
+            isSearching = true
+            UserController.shared.filterList(list: UserController.shared.friends, searchTerm: searchText)
+        case 1:
+            
+            guard searchText.count > 0 else {
+                updateData(listOfUsers: UserController.shared.sent)
+                isSearching = false
+                return }
+            
+            isSearching = true
+            UserController.shared.filterList(list: UserController.shared.sent, searchTerm: searchText)
+        case 2:
+            
+            guard searchText.count > 0 else {
+                updateData(listOfUsers: UserController.shared.received)
+                isSearching = false
+                return }
+            
+            isSearching = true
+            UserController.shared.filterList(list: UserController.shared.received, searchTerm: searchText)
+        case 3:
+            
+            guard searchText.count > 0 else {
+                updateData(listOfUsers: [])
+                isSearching = false
+                return }
+            
+            isSearching = true
+            UserController.shared.filterList(list: UserController.shared.addable, searchTerm: searchText)
+        default:
+            break
+        }
+        updateData(listOfUsers: UserController.shared.filtered)
+    }
+    
+}
+
+extension FriendsViewController : PersonDetailButtonProtocol {
+    func buttonSelected(title: String, message: String) {
+        segmentedControl.selectedSegmentIndex = 0
+        fetchUsers()
+        self.presentAlertOnMainThread(title: title, message: message, buttonTitle: "Ok")
+    }
 }
