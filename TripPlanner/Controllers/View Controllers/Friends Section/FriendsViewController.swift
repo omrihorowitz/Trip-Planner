@@ -109,8 +109,15 @@ class FriendsViewController: UIViewController {
             }
         }
         
-        
-        
+//        TripController.shared.updateTrip(trip: nil) { (result) in
+//            switch result{
+//            case .success(_):
+//                print("Yay")
+//            case .failure(_):
+//                print("Sad")
+//            }
+//        }
+//
         isSearching = false
         switch sender.selectedSegmentIndex {
         case 0:

@@ -21,8 +21,6 @@ class TripController {
     
     func addTrip(trip: Trip, completion: @escaping(Result<Bool, CustomError>) -> Void) {
         
-//        let trip = Trip(latitudes: [2.33], longitudes: [1.33], locationNames: ["San Diego", "San Francisco"], members: ["f7@7.com"], name: "Cali Trip", notes: "fun", owner: "f9@9.com", tasks: nil)
-        
         
         let batch = self.db.batch()
         
@@ -30,7 +28,7 @@ class TripController {
         let newTrip = db.collection("trips").document()
         
         //First add non optional values to db, then check for non nil values and add those to the database
-        batch.setData(["name" : trip.name, "longitudes" : trip.longitudes, "latitudes" : trip.latitudes, "locationNames" : trip.locationNames, "owner" : trip.owner], forDocument: newTrip)
+        batch.setData(["name" : trip.name, "longitudes" : trip.longitudes, "latitudes" : trip.latitudes, "locationNames" : trip.locationNames, "owner" : trip.owner, "startDate" : trip.startDate.dateToString(), "endDate" : trip.endDate.dateToString()], forDocument: newTrip)
         
         if let _ = trip.members {
             batch.updateData(["members" : trip.members], forDocument: newTrip)
@@ -42,6 +40,46 @@ class TripController {
         
         if let _ = trip.tasks {
             batch.updateData(["tasks" : trip.tasks], forDocument: newTrip)
+        }
+        
+        batch.commit { (error) in
+            if let error = error {
+                completion(.failure(.fireBaseError))
+            } else {
+                return completion(.success(true))
+            }
+        }
+    }
+    
+    func updateTrip(trip: Trip, completion: @escaping(Result<Bool, CustomError>) -> Void) {
+        
+        guard let id = trip.id else { return }
+        
+        
+        let batch = self.db.batch()
+        
+        let tripToUpdate = db.collection("trips").document(id)
+        
+        batch.updateData([
+            "name" : trip.name,
+            "longitudes" : trip.longitudes,
+            "latitudes" : trip.latitudes,
+            "locationNames" : trip.locationNames,
+            "owner" : trip.owner,
+            "startDate" : trip.startDate.dateToString(),
+            "endDate" : trip.endDate.dateToString()
+        ], forDocument: tripToUpdate)
+        
+        if let _ = trip.members {
+            batch.updateData(["members" : trip.members], forDocument: tripToUpdate)
+        }
+        
+        if let _ = trip.notes {
+            batch.updateData(["notes" : trip.notes], forDocument: tripToUpdate)
+        }
+        
+        if let _ = trip.tasks {
+            batch.updateData(["tasks" : trip.tasks], forDocument: tripToUpdate)
         }
         
         batch.commit { (error) in
@@ -67,143 +105,10 @@ class TripController {
         
     }
     
-    func addMember(trip: Trip, member: String, completion: @escaping(Result<Bool, CustomError>) -> Void) {
-        var trip = trip
-        guard let id = trip.id else { return }
-        
-        trip.members?.append(member)
-        
-        let tripFireBase = db.collection("trips").document(id)
-        
-        tripFireBase.updateData([
-            "members" : trip.members
-        ]) { (error) in
-            if let _ = error {
-                return completion(.failure(.fireBaseError))
-            } else {
-                return completion(.success(true))
-            }
-        }
-        
-        
-    }
-    
-    func removeMember(trip: Trip, member: String, completion: @escaping(Result<Bool, CustomError>) -> Void) {
-        
-        var trip = trip
-        guard let id = trip.id else { return completion(.failure(.noData)) }
-        
-        guard let indexToRemove = trip.members?.firstIndex(of: member) else { return completion(.failure(.noData))}
-        
-        trip.members?.remove(at: indexToRemove)
-        
-        let tripFireBase = db.collection("trips").document(id)
-        
-        tripFireBase.updateData([
-            "members" : trip.members
-        ]) { (error) in
-            if let _ = error {
-                return completion(.failure(.fireBaseError))
-            } else {
-                return completion(.success(true))
-            }
-        }
-        
-        
-    }
-    
     func updateDestination(trip: Trip, destination: Any, completion: @escaping(Result<Bool, CustomError>) -> Void) {
         
     }
-    
-    func addTask(trip: Trip, task: String, completion: @escaping(Result<Bool, CustomError>) -> Void) {
-        
-        var trip = trip
-        guard let id = trip.id else { return completion(.failure(.noData))}
-        
-        trip.tasks?.append(task)
-        
-        let tripFireBase = db.collection("trips").document(id)
-        
-        tripFireBase.updateData([
-            "tasks" : trip.tasks
-        ]) { (error) in
-            if let _ = error {
-                return completion(.failure(.fireBaseError))
-            } else {
-                return completion(.success(true))
-            }
-        }
-        
-    }
-    
-    func removeTask(trip: Trip, task: String, completion: @escaping(Result<Bool, CustomError>) -> Void) {
-        
-        var trip = trip
-        guard let id = trip.id else { return completion(.failure(.noData))}
-        
-        guard let indexToRemove = trip.tasks?.firstIndex(of: task) else { return completion(.failure(.noData))}
-        
-        trip.tasks?.remove(at: indexToRemove)
-        
-        let tripFireBase = db.collection("trips").document(id)
-        
-        tripFireBase.updateData([
-            "tasks" : trip.tasks
-        ]) { (error) in
-            if let _ = error {
-                return completion(.failure(.fireBaseError))
-            } else {
-                return completion(.success(true))
-            }
-        }
-        
-        
-        
-    }
-    
-    func updateName(trip: Trip, name: String, completion: @escaping(Result<Bool, CustomError>) -> Void) {
-        
-        var trip = trip
-        guard let id = trip.id else { return completion(.failure(.noData))}
-        
-        trip.name = name
-        
-        let tripFireBase = db.collection("trips").document(id)
-        
-        tripFireBase.updateData([
-            "name" : trip.name
-        ]) { (error) in
-            if let _ = error {
-                return completion(.failure(.fireBaseError))
-            } else {
-                return completion(.success(true))
-            }
-        }
-    }
-    
-    func updateNotes(trip: Trip, notes: String, completion: @escaping(Result<Bool, CustomError>) -> Void) {
-        
-        var trip = trip
-        guard let id = trip.id else { return completion(.failure(.noData))}
 
-        trip.notes = notes
-        
-        let tripFireBase = db.collection("trips").document(id)
-        
-        tripFireBase.updateData([
-            "notes" : trip.notes
-        ]) { (error) in
-            if let _ = error {
-                return completion(.failure(.fireBaseError))
-            } else {
-                return completion(.success(true))
-            }
-        }
-        
-        
-    }
-    
     func fetchMyTrips(completion: @escaping(Result<Bool, CustomError>) -> Void) {
         
         self.tripsIAmOwnerIn = []
@@ -231,8 +136,15 @@ class TripController {
                 let tasks = data["tasks"] as? [String]? ?? nil
                 let members = data["members"] as? [String]? ?? nil
                 let notes = data["notes"] as? String? ?? nil
+                let startDate = data["startDate"] as? String ?? nil
+                let endDate = data["endDate"] as? String ?? nil
                 
-                let tripToBuild = Trip(latitudes: latitudes, longitudes: longitudes, locationNames: locationNames, members: members, id: id, name: name, notes: notes, owner: owner, tasks: tasks)
+                //turn to date and add to trip
+                let startDateAsDate = startDate?.convertToDate() ?? Date()
+                let endDateAsDate = endDate?.convertToDate() ?? Date()
+                
+                
+                let tripToBuild = Trip(latitudes: latitudes, longitudes: longitudes, locationNames: locationNames, members: members, id: id, name: name, notes: notes, owner: owner, tasks: tasks, startDate: startDateAsDate, endDate: endDateAsDate)
                 
                 self.tripsIAmOwnerIn.append(tripToBuild)
                 
@@ -269,8 +181,14 @@ class TripController {
                 let tasks = data["tasks"] as? [String]? ?? nil
                 let members = data["members"] as? [String]? ?? nil
                 let notes = data["notes"] as? String? ?? nil
-
-                let tripToBuild = Trip(latitudes: latitudes, longitudes: longitudes, locationNames: locationNames, members: members, id: id, name: name, notes: notes, owner: owner, tasks: tasks)
+                let startDate = data["startDate"] as? String ?? nil
+                let endDate = data["endDate"] as? String ?? nil
+                
+                //turn to dates and save
+                let startDateAsDate = startDate?.convertToDate() ?? Date()
+                let endDateAsDate = endDate?.convertToDate() ?? Date()
+                
+                let tripToBuild = Trip(latitudes: latitudes, longitudes: longitudes, locationNames: locationNames, members: members, id: id, name: name, notes: notes, owner: owner, tasks: tasks, startDate: startDateAsDate, endDate: endDateAsDate)
 
                 self.tripsIBelongTo.append(tripToBuild)
 
@@ -302,3 +220,4 @@ class TripController {
     }
     
 }
+    
