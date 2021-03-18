@@ -144,7 +144,8 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISear
         etaLabel.translatesAutoresizingMaskIntoConstraints = false
         etaLabel.backgroundColor = .clear
         etaLabel.textAlignment = .center
-        etaLabel.textColor = .white
+        etaLabel.textColor = .systemGreen
+        etaLabel.font = .boldSystemFont(ofSize: 16)
         etaLabel.numberOfLines = 0
         NSLayoutConstraint.activate([
             etaLabel.heightAnchor.constraint(equalToConstant: 70),
@@ -342,15 +343,15 @@ extension MainMapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKPolyline {
         let renderer = MKPolylineRenderer(overlay: overlay)
-            renderer.strokeColor = .systemBlue
+            renderer.strokeColor = .systemGreen
             renderer.lineWidth = 4.0
         
             return renderer
         }
         if overlay is MKCircle {
             let renderer = MKCircleRenderer(overlay: overlay)
-            renderer.strokeColor = .magenta
-            renderer.fillColor = .magenta
+            renderer.strokeColor = .systemBlue
+            renderer.fillColor = .systemBlue
             renderer.alpha = 0.5
             return renderer
         }
