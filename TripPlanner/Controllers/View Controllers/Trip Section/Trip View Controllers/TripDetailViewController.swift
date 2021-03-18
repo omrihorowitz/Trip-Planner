@@ -9,6 +9,9 @@ import UIKit
 
 class TripDetailViewController: UIViewController {
     
+    
+    //fetch all trips. let trip = alltrips[0]
+    
     // MARK: - Properties
     let scrollView = UIScrollView()
     let contentView = UIView()
