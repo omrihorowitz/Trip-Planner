@@ -11,10 +11,23 @@ extension Date {
     
     
     func dateToString() -> String{
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMM d, yyyy"
-        return formatter.string(from: self)
+        
+        let dateFormatter = ISO8601DateFormatter()
+
+        dateFormatter.formatOptions = [
+            .withYear,
+            .withMonth,
+            .withDay,
+            .withTime
+        ]
+        
+        return dateFormatter.string(from: self)
+
     }
+    
+    
+    
+    
     
 }
 

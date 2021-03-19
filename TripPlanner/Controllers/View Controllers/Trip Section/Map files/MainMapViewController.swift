@@ -31,6 +31,13 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISear
     var etaTime: Double?
     var steps = [MKRoute.Step]()
     
+    var startLong: Float?
+    var endLong: Float?
+    var startLat: Float?
+    var endLat: Float?
+    var extraLong: Float?
+    var extraLat: Float?
+    
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
