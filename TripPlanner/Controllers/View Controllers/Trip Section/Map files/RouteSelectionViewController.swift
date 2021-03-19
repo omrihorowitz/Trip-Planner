@@ -46,7 +46,7 @@ class RouteSelectionViewController: UIViewController {
     
     func allConfiguration() {
         calculateButton.stylize()
-//        configureGestures()
+        configureGestures()
         configureTextFields()
         configureInputContainerView()
         configureOriginTextField()
@@ -79,20 +79,25 @@ class RouteSelectionViewController: UIViewController {
         view.addSubview(extraStopLabel)
     }
     
-//    private func configureGestures() {
-//        view.addGestureRecognizer(
-//            UITapGestureRecognizer(
-//                target: self,
-//                action: #selector(handleTap(_:))
-//            )
-//        )
-//        suggestionContainerView.addGestureRecognizer(
-//            UITapGestureRecognizer(
-//                target: self,
-//                action: #selector(suggestionTapped(_:))
-//            )
-//        )
-//    }
+    private func configureGestures() {
+        view.addGestureRecognizer(
+            UITapGestureRecognizer(
+                target: self,
+                action: #selector(handleTap(_:))
+            )
+        )
+        let suggestionTapRecognizer =   UITapGestureRecognizer(
+            target: self,
+            action: #selector(suggestionTapped(_:))
+        )
+        suggestionLabel.addGestureRecognizer(suggestionTapRecognizer)
+        suggestionLabel.addGestureRecognizer(
+            UITapGestureRecognizer(
+                target: self,
+                action: #selector(suggestionTapped(_:))
+            )
+        )
+    }
     
     private func configureTextFields() {
         originTextField.delegate = self
@@ -210,7 +215,7 @@ class RouteSelectionViewController: UIViewController {
         suggestionLabel.translatesAutoresizingMaskIntoConstraints = false
         suggestionLabel.backgroundColor?.withAlphaComponent(0)
         suggestionLabel.textColor = .black
-        suggestionLabel.textAlignment = .center
+        suggestionLabel.textAlignment = .left
         suggestionLabel.font = UIFont(name: "NotoSansMyanmar-Bold", size: 15)
         suggestionLabel.text = "(Address Suggestion)"
         
@@ -389,13 +394,12 @@ class RouteSelectionViewController: UIViewController {
         view.endEditing(true)
     }
     
-//    @objc func suggestionTapped(_ gesture: UITapGestureRecognizer) {
-//        hideSuggestionView(animated: true)
-//
-//        editingTextField?.text = suggestionLabel.text
-//        editingTextField = nil
-//    }
-    /// code to populate the text field with the suggestion
+    @objc func suggestionTapped(_ gesture: UITapGestureRecognizer) {
+        hideSuggestionView(animated: true)
+
+        editingTextField?.text = suggestionLabel.text
+        editingTextField = nil
+    }
     
     @objc func calculateButtonTapped(sender : UIButton!) {
         view.endEditing(true)
@@ -413,8 +417,8 @@ class RouteSelectionViewController: UIViewController {
         }
         
         let stopSegments: [RouteBuilder.Segment] = [
-            stopTextField.contents,
-            extraStopTextField.contents
+            extraStopTextField.contents,
+            stopTextField.contents
         ]
         .compactMap { contents in
             if let value = contents {
@@ -428,7 +432,7 @@ class RouteSelectionViewController: UIViewController {
             let originSegment = segment,
             !stopSegments.isEmpty
         else {
-            presentAlert(message: "Cannot calculate without origin and final destionation.")
+            presentAlert(message: "Cannot calculate without origin and final destinations.")
             activityIndicatorView.stopAnimating()
             calculateButton.isEnabled = true
             return
@@ -444,7 +448,9 @@ class RouteSelectionViewController: UIViewController {
             
             switch result {
             case .success(let route):
-                let viewController = DirectionsViewController(route: route)
+                //instantiate and pass it a trip
+                let viewController = MainMapViewController()
+                // to do
                 self.present(viewController, animated: true)
                 
             case .failure(let error):

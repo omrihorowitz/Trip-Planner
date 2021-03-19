@@ -4,7 +4,7 @@ class ModalTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        addCancelKeyboardGestureRecognizer()
     }
 
     // MARK: - Table view data source

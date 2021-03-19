@@ -49,6 +49,7 @@ class PersonDetailViewController: UIViewController {
         constrainLabels()
         configureStackView()
         addTargets()
+        addCancelKeyboardGestureRecognizer()
     }
     
     override func viewWillAppear(_ animated: Bool) {

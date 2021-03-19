@@ -35,7 +35,7 @@ class FriendsViewController: UIViewController {
         setUpDataSource()
         searchBar.delegate = self
         searchBar.autocapitalizationType = .none
-        
+        addCancelKeyboardGestureRecognizer()
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -30,13 +30,16 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISear
     var etaMiles: CLLocationDistance?
     var etaTime: Double?
     var steps = [MKRoute.Step]()
+    var route: Route?
     
-    var startLong: Float?
-    var endLong: Float?
-    var startLat: Float?
-    var endLat: Float?
-    var extraLong: Float?
-    var extraLat: Float?
+
+    //MARK: - Properties from RouteSelectionController
+    private var groupedRoutes: [(startItem: MKMapItem?, endItem: MKMapItem?)] = []
+    
+    private var mapRoutes: [MKRoute] = []
+    private let distanceFormatter = MKDistanceFormatter()
+    private var totalTravelTime: TimeInterval = 0
+    private var totalDistance: CLLocationDistance = 0
     
     //MARK: - Lifecycle
     
@@ -47,6 +50,9 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISear
         allConfiguration()
         checkLocationServices()
         addCancelKeyboardGestureRecognizer()
+        groupAndRequestDirections()
+        mapView.delegate = self
+//        mapView.showAnnotations(route.annotations, animated: false)
     }
     
     override func didReceiveMemoryWarning() {
@@ -65,14 +71,26 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISear
     }
     
     @objc func goButtonTapped(sender : UIButton!) {
+        guard let selectedPin = selectedPin else {
+            self.presentAlertOnMainThread(title: "Whoops!", message: "You need to select a destination first...", buttonTitle: "OK")
+            return
+        }
         self.mapView.overlays.forEach {
                 if ($0 is MKPolyline) {
                     self.mapView.removeOverlay($0)
                 }
             }
-        pinLocation = selectedPin?.coordinate
-        userLocation = locationManager.location!.coordinate
-        showRouteOnMap(startCoordinate: userLocation!, endCoordinate: pinLocation!) //fix the force unwrapping
+        pinLocation = selectedPin.coordinate
+        guard let location = locationManager.location else {
+            self.presentAlertOnMainThread(title: "Whoops!", message: "You need to authorize location access in settings first...", buttonTitle: "OK")
+            return
+        }
+        userLocation = location.coordinate
+        guard userLocation != nil else {
+            self.presentAlertOnMainThread(title: "Whoops!", message: "You need to authorize location access in settings first...", buttonTitle: "OK")
+            return
+        }
+        showRouteOnMap(startCoordinate: userLocation!, endCoordinate: pinLocation!)
     }
     
     @objc func textDirectionsButtonTapped(sender : UIButton!) {
@@ -81,8 +99,75 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISear
         destination.modalPresentationStyle = .pageSheet
         present(destination, animated: true)
     }
-    
+
     //MARK: - Methods
+    
+    private func groupAndRequestDirections() {
+        guard let firstStop = route?.stops.first else {
+        return
+      }
+
+        groupedRoutes.append((route?.origin, firstStop))
+
+        if route?.stops.count == 2 {
+            let secondStop = route?.stops[1]
+
+        groupedRoutes.append((firstStop, secondStop))
+            groupedRoutes.append((secondStop,route?.origin))
+      }
+
+      fetchNextRoute()
+    }
+    
+    private func fetchNextRoute() {
+      guard !groupedRoutes.isEmpty else {
+        return
+      }
+
+      let nextGroup = groupedRoutes.removeFirst()
+      let request = MKDirections.Request()
+
+      request.source = nextGroup.startItem
+      request.destination = nextGroup.endItem
+
+      let directions = MKDirections(request: request)
+
+      directions.calculate { response, error in
+        guard let mapRoute = response?.routes.first else {
+          return
+        }
+
+        self.updateView(with: mapRoute)
+        self.fetchNextRoute()
+      }
+    }
+    
+    private func updateView(with mapRoute: MKRoute) {
+      let padding: CGFloat = 8
+      mapView.addOverlay(mapRoute.polyline)
+      mapView.setVisibleMapRect(
+        mapView.visibleMapRect.union(
+          mapRoute.polyline.boundingMapRect
+        ),
+        edgePadding: UIEdgeInsets(
+          top: 0,
+          left: padding,
+          bottom: padding,
+          right: padding
+        ),
+        animated: true
+      )
+
+      totalDistance += mapRoute.distance
+      totalTravelTime += mapRoute.expectedTravelTime
+
+//      let informationComponents = [
+//        totalTravelTime.formatted,
+//        "• \(distanceFormatter.string(fromDistance: totalDistance))"
+//      ]
+      mapRoutes.append(mapRoute)
+        
+    }
     
     func allConfiguration() {
         configureMap()
@@ -334,7 +419,7 @@ extension MainMapViewController: MKMapViewDelegate {
             
             let etaMiles = (route.distance) * 0.000621
             let etaTime = (((route.expectedTravelTime) / 60) / 60)
-            self.etaLabel.text = "Miles: \(Int(etaMiles)) mi.\n Time: \(String(format: "%.2f", etaTime)) hrs."
+            self.etaLabel.text = "Miles: \(String(format: "%.2f", etaMiles)) mi.\n Time: \(String(format: "%.2f", etaTime)) hrs."
             
             self.locationManager.monitoredRegions.forEach({ self.locationManager.stopMonitoring(for: $0)})
             self.steps = route.steps
