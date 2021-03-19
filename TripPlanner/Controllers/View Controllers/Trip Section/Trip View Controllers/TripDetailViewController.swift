@@ -186,7 +186,7 @@ class TripDetailViewController: UIViewController {
      @objc func goToMap() {
         // if trip -- bring trip over to next, if not just give back normal mainmapviewcontroller with nothing
         // pull out coordinate and name from trip - create route
-        let map = MainMapViewController(route: route)
+        let map = MainMapViewController()
         map.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(map, animated: true)
     }

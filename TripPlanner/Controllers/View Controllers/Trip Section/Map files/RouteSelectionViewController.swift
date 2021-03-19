@@ -449,7 +449,8 @@ class RouteSelectionViewController: UIViewController {
             switch result {
             case .success(let route):
                 //instantiate and pass it a trip
-                let viewController = MainMapViewController(route: route)
+                let viewController = MainMapViewController()
+                // to do
                 self.present(viewController, animated: true)
                 
             case .failure(let error):

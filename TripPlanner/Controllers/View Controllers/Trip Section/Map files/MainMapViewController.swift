@@ -30,19 +30,11 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISear
     var etaMiles: CLLocationDistance?
     var etaTime: Double?
     var steps = [MKRoute.Step]()
-    private let route: Route?
+    var route: Route?
     
     //MARK: - Properties from RouteSelectionController
     private var groupedRoutes: [(startItem: MKMapItem?, endItem: MKMapItem?)] = []
     
-    init(route: Route) {
-        self.route = route
-        
-        super.init(nibName: String(describing: MainMapViewController.self), bundle: nil)
-    }
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     private var mapRoutes: [MKRoute] = []
     private let distanceFormatter = MKDistanceFormatter()
     private var totalTravelTime: TimeInterval = 0
