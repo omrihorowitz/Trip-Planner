@@ -4,7 +4,7 @@
 //
 //  Created by Chris Withers on 3/12/21.
 //
-
+import MapKit
 import UIKit
 
 class TripDetailViewController: UIViewController {
@@ -36,6 +36,8 @@ class TripDetailViewController: UIViewController {
     
     let saveButton = UIButton()
     
+    static let defaultMKMapItem = MKMapItem()
+    let defaultRoute = Route(origin: defaultMKMapItem, stops: [defaultMKMapItem])
     
     // MARK: - LifeCyle Functions
     override func viewDidLoad() {
@@ -182,7 +184,10 @@ class TripDetailViewController: UIViewController {
     }
     
      @objc func goToMap() {
-        let map = MainMapViewController()
+        // if trip -- bring trip over to next, if not just give back normal mainmapviewcontroller with nothing
+        // pull out coordinate and name from trip - create route
+        let map = MainMapViewController(route: route)
+        map.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(map, animated: true)
     }
     

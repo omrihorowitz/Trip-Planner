@@ -417,8 +417,8 @@ class RouteSelectionViewController: UIViewController {
         }
         
         let stopSegments: [RouteBuilder.Segment] = [
-            stopTextField.contents,
-            extraStopTextField.contents
+            extraStopTextField.contents,
+            stopTextField.contents
         ]
         .compactMap { contents in
             if let value = contents {
@@ -432,7 +432,7 @@ class RouteSelectionViewController: UIViewController {
             let originSegment = segment,
             !stopSegments.isEmpty
         else {
-            presentAlert(message: "Cannot calculate without origin and final destionation.")
+            presentAlert(message: "Cannot calculate without origin and final destinations.")
             activityIndicatorView.stopAnimating()
             calculateButton.isEnabled = true
             return
@@ -448,7 +448,8 @@ class RouteSelectionViewController: UIViewController {
             
             switch result {
             case .success(let route):
-                let viewController = DirectionsViewController(route: route)
+                //instantiate and pass it a trip
+                let viewController = MainMapViewController(route: route)
                 self.present(viewController, animated: true)
                 
             case .failure(let error):

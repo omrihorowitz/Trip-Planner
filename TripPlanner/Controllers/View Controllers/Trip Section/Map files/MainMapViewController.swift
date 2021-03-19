@@ -30,7 +30,24 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISear
     var etaMiles: CLLocationDistance?
     var etaTime: Double?
     var steps = [MKRoute.Step]()
+    private let route: Route?
     
+    //MARK: - Properties from RouteSelectionController
+    private var groupedRoutes: [(startItem: MKMapItem?, endItem: MKMapItem?)] = []
+    
+    init(route: Route) {
+        self.route = route
+        
+        super.init(nibName: String(describing: MainMapViewController.self), bundle: nil)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    private var mapRoutes: [MKRoute] = []
+    private let distanceFormatter = MKDistanceFormatter()
+    private var totalTravelTime: TimeInterval = 0
+    private var totalDistance: CLLocationDistance = 0
+
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -40,6 +57,9 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISear
         allConfiguration()
         checkLocationServices()
         addCancelKeyboardGestureRecognizer()
+        groupAndRequestDirections()
+        mapView.delegate = self
+//        mapView.showAnnotations(route.annotations, animated: false)
     }
     
     override func didReceiveMemoryWarning() {
@@ -77,7 +97,7 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISear
             self.presentAlertOnMainThread(title: "Whoops!", message: "You need to authorize location access in settings first...", buttonTitle: "OK")
             return
         }
-        showRouteOnMap(startCoordinate: userLocation!, endCoordinate: pinLocation!) 
+        showRouteOnMap(startCoordinate: userLocation!, endCoordinate: pinLocation!)
     }
     
     @objc func textDirectionsButtonTapped(sender : UIButton!) {
@@ -86,8 +106,75 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISear
         destination.modalPresentationStyle = .pageSheet
         present(destination, animated: true)
     }
-    
+
     //MARK: - Methods
+    
+    private func groupAndRequestDirections() {
+        guard let firstStop = route?.stops.first else {
+        return
+      }
+
+        groupedRoutes.append((route?.origin, firstStop))
+
+        if route?.stops.count == 2 {
+            let secondStop = route?.stops[1]
+
+        groupedRoutes.append((firstStop, secondStop))
+            groupedRoutes.append((secondStop,route?.origin))
+      }
+
+      fetchNextRoute()
+    }
+    
+    private func fetchNextRoute() {
+      guard !groupedRoutes.isEmpty else {
+        return
+      }
+
+      let nextGroup = groupedRoutes.removeFirst()
+      let request = MKDirections.Request()
+
+      request.source = nextGroup.startItem
+      request.destination = nextGroup.endItem
+
+      let directions = MKDirections(request: request)
+
+      directions.calculate { response, error in
+        guard let mapRoute = response?.routes.first else {
+          return
+        }
+
+        self.updateView(with: mapRoute)
+        self.fetchNextRoute()
+      }
+    }
+    
+    private func updateView(with mapRoute: MKRoute) {
+      let padding: CGFloat = 8
+      mapView.addOverlay(mapRoute.polyline)
+      mapView.setVisibleMapRect(
+        mapView.visibleMapRect.union(
+          mapRoute.polyline.boundingMapRect
+        ),
+        edgePadding: UIEdgeInsets(
+          top: 0,
+          left: padding,
+          bottom: padding,
+          right: padding
+        ),
+        animated: true
+      )
+
+      totalDistance += mapRoute.distance
+      totalTravelTime += mapRoute.expectedTravelTime
+
+//      let informationComponents = [
+//        totalTravelTime.formatted,
+//        "• \(distanceFormatter.string(fromDistance: totalDistance))"
+//      ]
+      mapRoutes.append(mapRoute)
+        
+    }
     
     func allConfiguration() {
         configureMap()

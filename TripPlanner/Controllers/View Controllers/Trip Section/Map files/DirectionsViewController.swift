@@ -40,8 +40,6 @@ class DirectionsViewController: UIViewController {
 
     groupAndRequestDirections()
 
-    headerLabel.text = route.label
-
     tableView.dataSource = self
 
     mapView.delegate = self
