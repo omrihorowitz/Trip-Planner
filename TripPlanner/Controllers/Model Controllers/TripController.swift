@@ -55,7 +55,6 @@ class TripController {
         
         guard let id = trip.id else { return }
         
-        
         let batch = self.db.batch()
         
         let tripToUpdate = db.collection("trips").document(id)
@@ -140,8 +139,8 @@ class TripController {
                 let endDate = data["endDate"] as? String ?? nil
                 
                 //turn to date and add to trip
-                let startDateAsDate = startDate?.convertToDate() ?? Date()
-                let endDateAsDate = endDate?.convertToDate() ?? Date()
+                let startDateAsDate = startDate?.stringToDate() ?? Date()
+                let endDateAsDate = endDate?.stringToDate() ?? Date()
                 
                 
                 let tripToBuild = Trip(latitudes: latitudes, longitudes: longitudes, locationNames: locationNames, members: members, id: id, name: name, notes: notes, owner: owner, tasks: tasks, startDate: startDateAsDate, endDate: endDateAsDate)
@@ -185,8 +184,8 @@ class TripController {
                 let endDate = data["endDate"] as? String ?? nil
                 
                 //turn to dates and save
-                let startDateAsDate = startDate?.convertToDate() ?? Date()
-                let endDateAsDate = endDate?.convertToDate() ?? Date()
+                let startDateAsDate = startDate?.stringToDate() ?? Date()
+                let endDateAsDate = endDate?.stringToDate() ?? Date()
                 
                 let tripToBuild = Trip(latitudes: latitudes, longitudes: longitudes, locationNames: locationNames, members: members, id: id, name: name, notes: notes, owner: owner, tasks: tasks, startDate: startDateAsDate, endDate: endDateAsDate)
 
