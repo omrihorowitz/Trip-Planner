@@ -22,6 +22,8 @@
 		FF298F302603D4A70017F999 /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF298F2F2603D4A70017F999 /* UIImage+Ext.swift */; };
 		FF298F332603D4C40017F999 /* UITextField+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF298F322603D4C40017F999 /* UITextField+Ext.swift */; };
 		FF298F362603D55A0017F999 /* RouteBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF298F352603D55A0017F999 /* RouteBuilder.swift */; };
+		FF298F3F2603FADA0017F999 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF298F3E2603FADA0017F999 /* Date+Ext.swift */; };
+		FF298F422603FB280017F999 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF298F412603FB280017F999 /* String+Ext.swift */; };
 		FF51912625FBD2CA0046642F /* FirstPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51912525FBD2CA0046642F /* FirstPageViewController.swift */; };
 		FF51912925FBD2D40046642F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51912825FBD2D40046642F /* LoginViewController.swift */; };
 		FF51912C25FBD2DD0046642F /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51912B25FBD2DD0046642F /* CreateAccountViewController.swift */; };
@@ -72,6 +74,8 @@
 		FF298F2F2603D4A70017F999 /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
 		FF298F322603D4C40017F999 /* UITextField+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Ext.swift"; sourceTree = "<group>"; };
 		FF298F352603D55A0017F999 /* RouteBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteBuilder.swift; sourceTree = "<group>"; };
+		FF298F3E2603FADA0017F999 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
+		FF298F412603FB280017F999 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		FF51912525FBD2CA0046642F /* FirstPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPageViewController.swift; sourceTree = "<group>"; };
 		FF51912825FBD2D40046642F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		FF51912B25FBD2DD0046642F /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
@@ -207,6 +211,8 @@
 				FF298F2C2603D4550017F999 /* UIButton+Ext.swift */,
 				FF298F2F2603D4A70017F999 /* UIImage+Ext.swift */,
 				FF298F322603D4C40017F999 /* UITextField+Ext.swift */,
+				FF298F3E2603FADA0017F999 /* Date+Ext.swift */,
+				FF298F412603FB280017F999 /* String+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -520,8 +526,10 @@
 				FF298F2D2603D4550017F999 /* UIButton+Ext.swift in Sources */,
 				FF298F0E2603CF8C0017F999 /* ModalTableViewController.swift in Sources */,
 				FF298F1E2603D1DC0017F999 /* DirectionsViewController.swift in Sources */,
+				FF298F3F2603FADA0017F999 /* Date+Ext.swift in Sources */,
 				FF51914825FBD3B00046642F /* AlertViewController.swift in Sources */,
 				FF298F182603D10A0017F999 /* RouteAnnotation.swift in Sources */,
+				FF298F422603FB280017F999 /* String+Ext.swift in Sources */,
 				FF298F212603D2220017F999 /* TextDirectionsTableViewController.swift in Sources */,
 				FF51915B25FBD6790046642F /* TPBodyLabel.swift in Sources */,
 				FF51917825FBDAEB0046642F /* TPTextField.swift in Sources */,

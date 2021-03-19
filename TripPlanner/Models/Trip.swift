@@ -17,4 +17,6 @@ struct Trip {
     var notes: String?
     var owner: String
     var tasks: [String]?
+    var startDate: Date
+    var endDate: Date
 }

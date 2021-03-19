@@ -32,6 +32,7 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISear
     var steps = [MKRoute.Step]()
     var route: Route?
     
+
     //MARK: - Properties from RouteSelectionController
     private var groupedRoutes: [(startItem: MKMapItem?, endItem: MKMapItem?)] = []
     
@@ -39,7 +40,7 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISear
     private let distanceFormatter = MKDistanceFormatter()
     private var totalTravelTime: TimeInterval = 0
     private var totalDistance: CLLocationDistance = 0
-
+    
     //MARK: - Lifecycle
     
     override func viewDidLoad() {

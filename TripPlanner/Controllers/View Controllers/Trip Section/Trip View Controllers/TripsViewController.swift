@@ -10,6 +10,7 @@ import UIKit
 class TripsViewController: UIViewController {
     
     let tableView = UITableView()
+    let cellID = "CellID"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,21 @@ class TripsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        fetchTrips()
+    }
+    
+    func fetchTrips() {
+        TripController.shared.fetchAllTrips { [weak self] (result) in
+            
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(_):
+                self.tableView.reloadData()
+            case .failure(_):
+                self.presentAlertOnMainThread(title: "Uh oh", message: "Can't seem to find your trips! Try again later", buttonTitle: "Ok")
+            }
+        }
     }
     
     
@@ -58,9 +74,10 @@ class TripsViewController: UIViewController {
         tableView.rowHeight = 40
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -78,17 +95,26 @@ class TripsViewController: UIViewController {
 
 extension TripsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return TripController.shared.allTrips.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
         
-        // Configure the cell...
+        cell.textLabel?.text = TripController.shared.allTrips[indexPath.row].name
         
-        return UITableViewCell()
+        return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let destination = TripDetailViewController()
+        let tripSelected = TripController.shared.allTrips[indexPath.row]
+        destination.trip = tripSelected
+        navigationController?.pushViewController(destination, animated: true)
+        
+        
+    }
     
 }
 

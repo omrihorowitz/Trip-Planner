@@ -109,8 +109,6 @@ class FriendsViewController: UIViewController {
             }
         }
         
-        
-        
         isSearching = false
         switch sender.selectedSegmentIndex {
         case 0:

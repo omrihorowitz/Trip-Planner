@@ -10,6 +10,14 @@ import UIKit
 class TripDetailViewController: UIViewController {
     
     // MARK: - Properties
+    
+    var trip: Trip? {
+        didSet {
+            loadViewIfNeeded()
+            loadTrip()
+        }
+    }
+    
     let scrollView = UIScrollView()
     let contentView = UIView()
     
@@ -32,7 +40,7 @@ class TripDetailViewController: UIViewController {
     let taskTableView = UITableView()
     let taskButton = UIButton()
     
-    let textView = UITextView()
+    let notesTextView = UITextView()
     
     let saveButton = UIButton()
     
@@ -50,6 +58,15 @@ class TripDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+    func loadTrip() {
+        guard let trip = trip else { return }
+        tripNameTextField.text = trip.name
+        startDate.date = trip.startDate
+        endDate.date = trip.endDate
+        notesTextView.text = trip.notes
+        
     }
     
     func setupViews(){
@@ -218,25 +235,25 @@ class TripDetailViewController: UIViewController {
     }
     
     func setupTextView() {
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(textView)
-        textView.center = self.view.center
-        textView.textAlignment = .justified
-        textView.backgroundColor = .lightGray
-        textView.font = .systemFont(ofSize: 20)
-        textView.isSelectable = true
-        textView.dataDetectorTypes = .link
-        textView.layer.cornerRadius = 10
-        textView.autocorrectionType = .yes
-        textView.spellCheckingType = .yes
-        textView.autocapitalizationType = .none
-        textView.isEditable = true
+        notesTextView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(notesTextView)
+        notesTextView.center = self.view.center
+        notesTextView.textAlignment = .justified
+        notesTextView.backgroundColor = .lightGray
+        notesTextView.font = .systemFont(ofSize: 20)
+        notesTextView.isSelectable = true
+        notesTextView.dataDetectorTypes = .link
+        notesTextView.layer.cornerRadius = 10
+        notesTextView.autocorrectionType = .yes
+        notesTextView.spellCheckingType = .yes
+        notesTextView.autocapitalizationType = .none
+        notesTextView.isEditable = true
         
         NSLayoutConstraint.activate([
-            textView.topAnchor.constraint(equalTo: taskButton.bottomAnchor, constant: 25),
-            textView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            textView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            textView.heightAnchor.constraint(equalToConstant: 100)
+            notesTextView.topAnchor.constraint(equalTo: taskButton.bottomAnchor, constant: 25),
+            notesTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            notesTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            notesTextView.heightAnchor.constraint(equalToConstant: 100)
         ])
     }
     
@@ -246,7 +263,7 @@ class TripDetailViewController: UIViewController {
         
         saveButton.setTitle("Save", for: .normal)
         saveButton.backgroundColor = .black
-        saveButton.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 25).isActive = true
+        saveButton.topAnchor.constraint(equalTo: notesTextView.bottomAnchor, constant: 25).isActive = true
         saveButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
         saveButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
         saveButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
@@ -277,17 +294,22 @@ class TripDetailViewController: UIViewController {
 
 extension TripDetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 15
+        guard let trip = self.trip else { return 0 }
+        guard let members = trip.members else { return 0 }
+        return members.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == tableView,
            let cell = tableView.dequeueReusableCell(withIdentifier: "friend")  {
-            cell.textLabel?.text = "Friend"
+            guard let trip = self.trip else { return UITableViewCell()}
+            guard let members = trip.members else { return UITableViewCell() }
+            cell.textLabel?.text = members[indexPath.row]
             return cell
         } else if tableView == taskTableView,
-                  let cell = tableView.dequeueReusableCell(withIdentifier: "task")  {
-            cell.textLabel?.text = "Task"
+            let cell = tableView.dequeueReusableCell(withIdentifier: "task")  {
+            guard let trip = self.trip else { return UITableViewCell()}
+            cell.textLabel?.text = trip.tasks?[indexPath.row]
             return cell
         }
         
