@@ -29,6 +29,7 @@ class TPTitleLabel: UILabel {
         adjustsFontSizeToFitWidth = true
         minimumScaleFactor = 0.9
         lineBreakMode = .byTruncatingTail
+        backgroundColor = .systemBackground
         translatesAutoresizingMaskIntoConstraints = false
     }
 

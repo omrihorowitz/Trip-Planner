@@ -24,6 +24,7 @@
 		FF298F362603D55A0017F999 /* RouteBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF298F352603D55A0017F999 /* RouteBuilder.swift */; };
 		FF298F3F2603FADA0017F999 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF298F3E2603FADA0017F999 /* Date+Ext.swift */; };
 		FF298F422603FB280017F999 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF298F412603FB280017F999 /* String+Ext.swift */; };
+		FF374E7D2609048B00078739 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF374E7C2609048B00078739 /* MapViewController.swift */; };
 		FF51912625FBD2CA0046642F /* FirstPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51912525FBD2CA0046642F /* FirstPageViewController.swift */; };
 		FF51912925FBD2D40046642F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51912825FBD2D40046642F /* LoginViewController.swift */; };
 		FF51912C25FBD2DD0046642F /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51912B25FBD2DD0046642F /* CreateAccountViewController.swift */; };
@@ -76,6 +77,7 @@
 		FF298F352603D55A0017F999 /* RouteBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteBuilder.swift; sourceTree = "<group>"; };
 		FF298F3E2603FADA0017F999 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		FF298F412603FB280017F999 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
+		FF374E7C2609048B00078739 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		FF51912525FBD2CA0046642F /* FirstPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPageViewController.swift; sourceTree = "<group>"; };
 		FF51912825FBD2D40046642F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		FF51912B25FBD2DD0046642F /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				FF298F1D2603D1DC0017F999 /* DirectionsViewController.swift */,
 				FF298F202603D2220017F999 /* TextDirectionsTableViewController.swift */,
 				FF298F232603D2480017F999 /* SearchBarTableViewController.swift */,
+				FF374E7C2609048B00078739 /* MapViewController.swift */,
 			);
 			path = "Map files";
 			sourceTree = "<group>";
@@ -504,6 +507,7 @@
 				FFDCED0925F71C2C001C2769 /* AppDelegate.swift in Sources */,
 				FF51914225FBD3570046642F /* TripDetailViewController.swift in Sources */,
 				FF298F272603D34B0017F999 /* TimeInterval+Ext.swift in Sources */,
+				FF374E7D2609048B00078739 /* MapViewController.swift in Sources */,
 				FF298F332603D4C40017F999 /* UITextField+Ext.swift in Sources */,
 				FF51914D25FBD5900046642F /* TPButton.swift in Sources */,
 				FF51913225FBD3060046642F /* FriendsViewController.swift in Sources */,
@@ -676,7 +680,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W578QLR797;
+				DEVELOPMENT_TEAM = 883MB467TW;
 				INFOPLIST_FILE = TripPlanner/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -696,7 +700,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W578QLR797;
+				DEVELOPMENT_TEAM = 883MB467TW;
 				INFOPLIST_FILE = TripPlanner/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

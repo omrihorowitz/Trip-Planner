@@ -10,7 +10,6 @@ import MapKit
 struct Route {
   let origin: MKMapItem
   let stops: [MKMapItem]
-
   var annotations: [MKAnnotation] {
     var annotations: [MKAnnotation] = []
 

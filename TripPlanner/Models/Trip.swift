@@ -8,6 +8,11 @@
 import Foundation
 
 struct Trip {
+    
+    //startlong
+    //endlong
+    //startlat
+    //endlat
     var latitudes: [Float]
     var longitudes: [Float]
     var locationNames: [String]

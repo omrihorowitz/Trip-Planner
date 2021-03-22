@@ -18,6 +18,12 @@ class TripDetailViewController: UIViewController {
         }
     }
     
+    var originLong: Double?
+    var destinationLong: Double?
+    
+    var originLat: Double?
+    var destinationLat: Double?
+    
     let scrollView = UIScrollView()
     let contentView = UIView()
     
@@ -200,11 +206,12 @@ class TripDetailViewController: UIViewController {
         
     }
     
-     @objc func goToMap() {
-        // if trip -- bring trip over to next, if not just give back normal mainmapviewcontroller with nothing
-        // pull out coordinate and name from trip - create route
-        let map = MainMapViewController()
+    @objc func goToMap() {
+        
+        let map = MapViewController()
+        
         map.modalPresentationStyle = .fullScreen
+        map.delegate = self
         navigationController?.pushViewController(map, animated: true)
     }
     
@@ -290,6 +297,29 @@ class TripDetailViewController: UIViewController {
         self.present(alert, animated: true)
     }
     
+    @objc func saveButtonTapped() {
+        //Check if we already were passed a trip. IN that case, update the trip
+        //If no trip, make a new trip.
+        
+        //First, check all required fields are filled out. 
+        
+        guard let name = tripNameLabel.text, !name.isEmpty, let owner = trip?.owner, let originLong = originLong, let originLat = originLat, let destinationLat = destinationLat, let destinationLong = destinationLong else {
+            self.presentAlertOnMainThread(title: "Uh oh", message: "Please fill out all fields & choose a route", buttonTitle: "Ok")
+            return
+        }
+        
+        if var trip = trip {
+            //update trip
+            trip.name = name
+            trip.owner = owner
+            
+        } else {
+             //Make new trip
+        }
+        
+        
+    }
+    
 }
 
 extension TripDetailViewController: UITableViewDelegate, UITableViewDataSource {
@@ -314,5 +344,18 @@ extension TripDetailViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         return UITableViewCell()
+    }
+}
+
+extension TripDetailViewController : MapViewGoButtonPressedDelegate {
+    func updateCoordinates(originLong: Double, originLat: Double, destinationLong: Double, destinationLat: Double) {
+        
+        self.originLong = originLong
+        self.originLat = originLat
+        self.destinationLong = destinationLong
+        self.destinationLat = destinationLat
+        
+        print(originLong, originLat, destinationLat, destinationLong)
+        
     }
 }
