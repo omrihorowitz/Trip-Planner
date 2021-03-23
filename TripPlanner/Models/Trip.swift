@@ -9,13 +9,11 @@ import Foundation
 
 struct Trip {
     
-    //startlong
-    //endlong
-    //startlat
-    //endlat
-    var latitudes: [Float]
-    var longitudes: [Float]
-    var locationNames: [String]
+    var originLong: Double
+    var originLat: Double
+    var destinationLong: Double
+    var destinationLat: Double
+    var locationNames: [String]?
     var members: [String]?
     var id: String?
     var name: String

@@ -25,6 +25,7 @@
 		FF298F3F2603FADA0017F999 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF298F3E2603FADA0017F999 /* Date+Ext.swift */; };
 		FF298F422603FB280017F999 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF298F412603FB280017F999 /* String+Ext.swift */; };
 		FF374E7D2609048B00078739 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF374E7C2609048B00078739 /* MapViewController.swift */; };
+		FF45B560260A519F005362FC /* DirectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF45B55F260A519F005362FC /* DirectionsTableViewController.swift */; };
 		FF51912625FBD2CA0046642F /* FirstPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51912525FBD2CA0046642F /* FirstPageViewController.swift */; };
 		FF51912925FBD2D40046642F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51912825FBD2D40046642F /* LoginViewController.swift */; };
 		FF51912C25FBD2DD0046642F /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51912B25FBD2DD0046642F /* CreateAccountViewController.swift */; };
@@ -78,6 +79,7 @@
 		FF298F3E2603FADA0017F999 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		FF298F412603FB280017F999 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		FF374E7C2609048B00078739 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		FF45B55F260A519F005362FC /* DirectionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsTableViewController.swift; sourceTree = "<group>"; };
 		FF51912525FBD2CA0046642F /* FirstPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPageViewController.swift; sourceTree = "<group>"; };
 		FF51912825FBD2D40046642F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		FF51912B25FBD2DD0046642F /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 				FF298F202603D2220017F999 /* TextDirectionsTableViewController.swift */,
 				FF298F232603D2480017F999 /* SearchBarTableViewController.swift */,
 				FF374E7C2609048B00078739 /* MapViewController.swift */,
+				FF45B55F260A519F005362FC /* DirectionsTableViewController.swift */,
 			);
 			path = "Map files";
 			sourceTree = "<group>";
@@ -513,6 +516,7 @@
 				FF51913225FBD3060046642F /* FriendsViewController.swift in Sources */,
 				FF61F93D26027736007A53C2 /* TripController.swift in Sources */,
 				FF298F2A2603D4380017F999 /* CLPlacemark+Ext.swift in Sources */,
+				FF45B560260A519F005362FC /* DirectionsTableViewController.swift in Sources */,
 				FF51916625FBD71A0046642F /* TPTitleLabel.swift in Sources */,
 				FF51913525FBD3100046642F /* TripsViewController.swift in Sources */,
 				FF61F94026029D3A007A53C2 /* Trip.swift in Sources */,

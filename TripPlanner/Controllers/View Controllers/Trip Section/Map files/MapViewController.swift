@@ -39,7 +39,7 @@ class MapViewController: UIViewController {
     //Delegates and data
     let cellID = "CellID"
     var matchingItems : [MKMapItem] = []
-    var steps = [MKRoute.Step]()
+    var steps: [MKRoute.Step] = []
     let locationManager = CLLocationManager()
     
     var delegate: MapViewGoButtonPressedDelegate?
@@ -49,6 +49,19 @@ class MapViewController: UIViewController {
     
     var originLat: Double?
     var destinationLat: Double?
+    
+    var trip: Trip? {
+        didSet {
+            self.originLong = trip?.originLong
+            self.originLat = trip?.originLat
+            self.destinationLong = trip?.destinationLong
+            self.destinationLat = trip?.destinationLat
+            loadViewIfNeeded()
+            goButtonTapped()
+            updateOriginSearchBar()
+            updateDestinationSearchBar()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +81,53 @@ class MapViewController: UIViewController {
         constrainSuggestionsTableView()
         addButtonTargets()
         
+    }
+    
+    func updateOriginSearchBar() {
+        
+        guard let originLong = self.originLong, let originLat = self.originLat else { return }
+        
+        let origin = CLLocation(latitude: originLat, longitude: originLong)
+    
+        let geocoder = CLGeocoder()
+        
+        geocoder.reverseGeocodeLocation(origin) { [weak self] (placemarks, error) in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                if let _ = error {
+                    self.originLocationSearchBar.text = "Unknown location"
+                }
+                
+                if let placemark = placemarks?[0] {
+                    let originName = placemark.locality
+                    self.originLocationSearchBar.text = originName
+                }
+            }
+        }
+    }
+    
+    func updateDestinationSearchBar() {
+        
+        guard let destinationLong = self.destinationLong, let destinationLat = self.destinationLat else { return }
+        
+        let destination = CLLocation(latitude: destinationLat, longitude: destinationLong)
+        
+        
+        let geocoder = CLGeocoder()
+        
+        geocoder.reverseGeocodeLocation(destination) { [weak self] (placemarks, error) in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                if let _ = error {
+                    self.destinationSearchBar.text = "Unknown location"
+                }
+                
+                if let placemark = placemarks?[0] {
+                    let destinationName = placemark.locality
+                    self.destinationSearchBar.text = destinationName
+                }
+            }
+        }
     }
     
     @objc func goButtonTapped() {
@@ -133,6 +193,7 @@ class MapViewController: UIViewController {
                 return
             }
             let route = response.routes[0]
+            self.steps = route.steps
             self.map.addOverlay((route.polyline), level: MKOverlayLevel.aboveRoads)
             let rect = route.polyline.boundingMapRect
             self.map.setRegion(MKCoordinateRegion(rect), animated: true)
@@ -191,10 +252,19 @@ class MapViewController: UIViewController {
         }
     }
     
+    @objc func goToDirections() {
+        
+        let directionViewController = DirectionsTableViewController()
+        directionViewController.modalPresentationStyle = .pageSheet
+        directionViewController.steps = self.steps
+        present(directionViewController, animated: true)
+        
+    }
     
     func addButtonTargets() {
         showOrHideSearchesButton.addTarget(self, action: #selector(hideOrShowButtonTapped(sender:)), for: .touchUpInside)
         goButton.addTarget(self, action: #selector(goButtonTapped), for: .touchUpInside)
+        directionsButton.addTarget(self, action: #selector(goToDirections), for: .touchUpInside)
     }
     
     

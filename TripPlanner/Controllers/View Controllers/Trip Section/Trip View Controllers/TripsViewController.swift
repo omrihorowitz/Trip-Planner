@@ -112,9 +112,27 @@ extension TripsViewController: UITableViewDelegate, UITableViewDataSource {
         let tripSelected = TripController.shared.allTrips[indexPath.row]
         destination.trip = tripSelected
         navigationController?.pushViewController(destination, animated: true)
-        
-        
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            let tripToDelete = TripController.shared.allTrips[indexPath.row]
+            TripController.shared.deleteTrip(trip: tripToDelete) { [weak self] (result) in
+                guard let self = self else { return }
+                switch result {
+                case .success(_):
+                    DispatchQueue.main.async {
+                        TripController.shared.allTrips.remove(at: indexPath.row)
+                        tableView.reloadData()
+                    }
+                case .failure(_):
+                    self.presentAlertOnMainThread(title: "Uh oh", message: "Could not remove trip at this time. Check internet and try again later.", buttonTitle: "Ok")
+                }
+            }
+        }
+    }
+    
     
 }
 
