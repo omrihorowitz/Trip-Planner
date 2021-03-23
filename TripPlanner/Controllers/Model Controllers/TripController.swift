@@ -28,7 +28,7 @@ class TripController {
         let newTrip = db.collection("trips").document()
         
         //First add non optional values to db, then check for non nil values and add those to the database
-        batch.setData(["name" : trip.name, "longitudes" : trip.longitudes, "latitudes" : trip.latitudes, "locationNames" : trip.locationNames, "owner" : trip.owner, "startDate" : trip.startDate.dateToString(), "endDate" : trip.endDate.dateToString()], forDocument: newTrip)
+        batch.setData(["name" : trip.name, "originLong" : trip.originLong, "originLat" : trip.originLat, "destinationLong" : trip.destinationLong, "destinationLat" : trip.destinationLat, "owner" : trip.owner, "startDate" : trip.startDate.dateToString(), "endDate" : trip.endDate.dateToString()], forDocument: newTrip)
         
         if let _ = trip.members {
             batch.updateData(["members" : trip.members], forDocument: newTrip)
@@ -40,6 +40,10 @@ class TripController {
         
         if let _ = trip.tasks {
             batch.updateData(["tasks" : trip.tasks], forDocument: newTrip)
+        }
+        
+        if let _ = trip.locationNames {
+            batch.updateData(["locationNames" : trip.locationNames], forDocument: newTrip)
         }
         
         batch.commit { (error) in
@@ -61,9 +65,10 @@ class TripController {
         
         batch.updateData([
             "name" : trip.name,
-            "longitudes" : trip.longitudes,
-            "latitudes" : trip.latitudes,
-            "locationNames" : trip.locationNames,
+            "originLong" : trip.originLong,
+            "originLat" : trip.originLat,
+            "destinationLong" : trip.destinationLong,
+            "destinationLat" : trip.destinationLat,
             "owner" : trip.owner,
             "startDate" : trip.startDate.dateToString(),
             "endDate" : trip.endDate.dateToString()
@@ -79,6 +84,10 @@ class TripController {
         
         if let _ = trip.tasks {
             batch.updateData(["tasks" : trip.tasks], forDocument: tripToUpdate)
+        }
+        
+        if let _ = trip.locationNames {
+            batch.updateData(["locationNames" : trip.locationNames], forDocument: tripToUpdate)
         }
         
         batch.commit { (error) in
@@ -127,8 +136,10 @@ class TripController {
                 let data = trip.data()
                 
                 let name = data["name"] as? String ?? ""
-                let latitudes = data["latitudes"] as? [Float] ?? []
-                let longitudes = data["longitudes"] as? [Float] ?? []
+                let originLong = data["originLong"] as? Double ?? 0.0
+                let originLat = data["originLat"] as? Double ?? 0.0
+                let destinationLong = data["destinationLong"] as? Double ?? 0.0
+                let destinationLat = data["destinationLat"] as? Double ?? 0.0
                 let locationNames = data["locationNames"] as? [String] ?? []
                 let owner = data["owner"] as? String ?? ""
                 let id = trip.documentID
@@ -143,7 +154,7 @@ class TripController {
                 let endDateAsDate = endDate?.stringToDate() ?? Date()
                 
                 
-                let tripToBuild = Trip(latitudes: latitudes, longitudes: longitudes, locationNames: locationNames, members: members, id: id, name: name, notes: notes, owner: owner, tasks: tasks, startDate: startDateAsDate, endDate: endDateAsDate)
+                let tripToBuild = Trip(originLong: originLong, originLat: originLat, destinationLong: destinationLong, destinationLat: destinationLat, locationNames: locationNames, members: members, id: id, name: name, notes: notes, owner: owner, tasks: tasks, startDate: startDateAsDate, endDate: endDateAsDate)
                 
                 self.tripsIAmOwnerIn.append(tripToBuild)
                 
@@ -172,8 +183,10 @@ class TripController {
                 let data = trip.data()
 
                 let name = data["name"] as? String ?? ""
-                let latitudes = data["latitudes"] as? [Float] ?? []
-                let longitudes = data["longitudes"] as? [Float] ?? []
+                let originLong = data["originLong"] as? Double ?? 0.0
+                let originLat = data["originLat"] as? Double ?? 0.0
+                let destinationLong = data["destinationLong"] as? Double ?? 0.0
+                let destinationLat = data["destinationLat"] as? Double ?? 0.0
                 let locationNames = data["locationNames"] as? [String] ?? []
                 let owner = data["owner"] as? String ?? ""
                 let id = trip.documentID
@@ -187,7 +200,7 @@ class TripController {
                 let startDateAsDate = startDate?.stringToDate() ?? Date()
                 let endDateAsDate = endDate?.stringToDate() ?? Date()
                 
-                let tripToBuild = Trip(latitudes: latitudes, longitudes: longitudes, locationNames: locationNames, members: members, id: id, name: name, notes: notes, owner: owner, tasks: tasks, startDate: startDateAsDate, endDate: endDateAsDate)
+                let tripToBuild = Trip(originLong: originLong, originLat: originLat, destinationLong: destinationLong, destinationLat: destinationLat, locationNames: locationNames, members: members, id: id, name: name, notes: notes, owner: owner, tasks: tasks, startDate: startDateAsDate, endDate: endDateAsDate)
 
                 self.tripsIBelongTo.append(tripToBuild)
 

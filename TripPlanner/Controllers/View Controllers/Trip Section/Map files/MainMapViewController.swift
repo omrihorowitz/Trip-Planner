@@ -463,7 +463,7 @@ extension MainMapViewController : HandleMapSearch {
         mapView.removeAnnotations(mapView.annotations)
         let annotation = MKPointAnnotation()
         annotation.coordinate = placemark.coordinate
-        //annotation.subtitle = "\(placemark.abbreviation)"
+        annotation.subtitle = "\(placemark.abbreviation)"
         mapView.addAnnotation(annotation)
         
         let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)

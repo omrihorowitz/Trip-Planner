@@ -18,6 +18,15 @@ class TripDetailViewController: UIViewController {
         }
     }
     
+    var originLong: Double?
+    var destinationLong: Double?
+    
+    var originLat: Double?
+    var destinationLat: Double?
+    
+    var members: [String] = []
+    var tasks: [String] = []
+    
     let scrollView = UIScrollView()
     let contentView = UIView()
     
@@ -28,7 +37,7 @@ class TripDetailViewController: UIViewController {
     let tripNameLabel = UILabel()
     let tripNameTextField = UITextField()
     
-    let friendLabel = UILabel()
+    let membersLabel = UILabel()
     let tableView = UITableView()
     let addPeopleButton = UIButton()
     
@@ -66,6 +75,10 @@ class TripDetailViewController: UIViewController {
         startDate.date = trip.startDate
         endDate.date = trip.endDate
         notesTextView.text = trip.notes
+        originLong = trip.originLong
+        originLat = trip.originLat
+        destinationLong = trip.destinationLong
+        destinationLat = trip.destinationLat
         
     }
     
@@ -135,30 +148,30 @@ class TripDetailViewController: UIViewController {
     }
     
     func setupFriendTable() {
-        friendLabel.translatesAutoresizingMaskIntoConstraints = false
+        membersLabel.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         addPeopleButton.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(friendLabel)
+        scrollView.addSubview(membersLabel)
         scrollView.addSubview(tableView)
         scrollView.addSubview(testLabel)
         scrollView.addSubview(addPeopleButton)
         
-        friendLabel.text = "Friends"
-        friendLabel.textAlignment = .center
-        friendLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        friendLabel.topAnchor.constraint(equalTo: tripNameTextField.bottomAnchor, constant: 25).isActive = true
-        friendLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
+        membersLabel.text = "Members"
+        membersLabel.textAlignment = .center
+        membersLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        membersLabel.topAnchor.constraint(equalTo: tripNameTextField.bottomAnchor, constant: 25).isActive = true
+        membersLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
         
         tableView.rowHeight = 40
         tableView.delegate = self
         tableView.dataSource = self
         tableView.heightAnchor.constraint(equalToConstant: 350).isActive = true
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "friend")
-        tableView.topAnchor.constraint(equalTo: friendLabel.bottomAnchor, constant: 25).isActive = true
+        tableView.topAnchor.constraint(equalTo: membersLabel.bottomAnchor, constant: 25).isActive = true
         tableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
         tableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
         
-        addPeopleButton.setTitle("Add Friend", for: .normal)
+        addPeopleButton.setTitle("Add Member", for: .normal)
         addPeopleButton.backgroundColor = .black
         addPeopleButton.addTarget(self, action: #selector(showModal), for: .touchUpInside)
         addPeopleButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
@@ -189,7 +202,7 @@ class TripDetailViewController: UIViewController {
         endDate.topAnchor.constraint(equalTo: addPeopleButton.bottomAnchor, constant: 25).isActive = true
         endDate.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30).isActive = true
         
-        destinationButton.setTitle("Add Destination", for: .normal)
+        destinationButton.setTitle("Plan Route", for: .normal)
         destinationButton.backgroundColor = .black
         destinationButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
         destinationButton.topAnchor.constraint(equalTo: endDate.bottomAnchor, constant: 25).isActive = true
@@ -200,11 +213,15 @@ class TripDetailViewController: UIViewController {
         
     }
     
-     @objc func goToMap() {
-        // if trip -- bring trip over to next, if not just give back normal mainmapviewcontroller with nothing
-        // pull out coordinate and name from trip - create route
-        let map = MainMapViewController()
+    @objc func goToMap() {
+        
+        let map = MapViewController()
+        
         map.modalPresentationStyle = .fullScreen
+        map.delegate = self
+        if let trip = self.trip {
+            map.trip = trip
+        }
         navigationController?.pushViewController(map, animated: true)
     }
     
@@ -267,6 +284,9 @@ class TripDetailViewController: UIViewController {
         saveButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
         saveButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
         saveButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
+        
+        saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+        
     }
     
     @objc func showModal() {
@@ -288,6 +308,61 @@ class TripDetailViewController: UIViewController {
         }))
 
         self.present(alert, animated: true)
+    }
+    
+    
+    @objc func saveButtonTapped() {
+        
+        guard let name = tripNameTextField.text, !name.isEmpty, let originLong = originLong, let originLat = originLat, let destinationLat = destinationLat, let destinationLong = destinationLong else {
+            self.presentAlertOnMainThread(title: "Uh oh", message: "Please fill out all fields & choose a route", buttonTitle: "Ok")
+            return
+        }
+        
+        guard let owner = UserController.shared.currentUser?.email else { return }
+        
+        if var trip = trip {
+            //update trip
+            
+            trip.destinationLong = destinationLong
+            trip.destinationLat = destinationLat
+            trip.originLong = originLong
+            trip.originLat = originLat
+            
+            trip.name = name
+            
+            trip.startDate = startDate.date
+            trip.endDate = endDate.date
+            
+            if let notes = notesTextView.text {
+                trip.notes = notes
+            }
+            
+            TripController.shared.updateTrip(trip: trip) { (result) in
+                switch result {
+                case .success(_):
+                    DispatchQueue.main.async {
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                case .failure(_):
+                    self.presentAlertOnMainThread(title: "Uh Oh!", message: "Cannot update trip at this time. Check internet and try again later", buttonTitle: "Ok")
+                }
+            }
+        } else {
+            let newTrip = Trip(originLong: originLong, originLat: originLat, destinationLong: destinationLong, destinationLat: destinationLat, locationNames: nil, members: members, id: nil, name: name, notes: notesTextView.text, owner: owner, tasks: tasks, startDate: startDate.date, endDate: endDate.date)
+            
+            TripController.shared.addTrip(trip: newTrip) { (result) in
+                switch result {
+                case .success(_):
+                    DispatchQueue.main.async {
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                case .failure(_):
+                    self.presentAlertOnMainThread(title: "Uh Oh!", message: "Cannot add trip at this time. Check internet and try again later", buttonTitle: "Ok")
+                }
+            }
+        }
+        
+        
     }
     
 }
@@ -314,5 +389,18 @@ extension TripDetailViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         return UITableViewCell()
+    }
+}
+
+extension TripDetailViewController : MapViewGoButtonPressedDelegate {
+    func updateCoordinates(originLong: Double, originLat: Double, destinationLong: Double, destinationLat: Double) {
+        
+        self.originLong = originLong
+        self.originLat = originLat
+        self.destinationLong = destinationLong
+        self.destinationLat = destinationLat
+        
+        print(originLong, originLat, destinationLat, destinationLong)
+        
     }
 }
