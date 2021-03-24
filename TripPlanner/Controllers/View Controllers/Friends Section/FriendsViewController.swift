@@ -175,11 +175,7 @@ extension FriendsViewController : UICollectionViewDelegate {
                 userToSelect = UserController.shared.received[indexPath.row]
             }
         case 3:
-            if isSearching {
-                userToSelect = UserController.shared.filtered[indexPath.row]
-            } else {
-                return
-            }
+            userToSelect = UserController.shared.filtered[indexPath.row]
         default:
             break
         }
@@ -205,7 +201,7 @@ extension FriendsViewController : UISearchBarDelegate {
         case 2:
             updateData(listOfUsers: UserController.shared.received)
         case 3:
-            updateData(listOfUsers: [])
+            updateData(listOfUsers: UserController.shared.filtered)
         default:
             break
         }

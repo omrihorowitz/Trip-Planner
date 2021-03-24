@@ -11,7 +11,7 @@ struct User : Hashable {
     
     let id: String
     let email: String
-    let name: String
+    var name: String
     var friends: [String]
     var blocked: [String]
     var pendingSent: [String]
