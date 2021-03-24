@@ -110,11 +110,44 @@ class TripController {
                 return completion(.success(true))
             }
         }
-        
     }
     
-    func updateDestination(trip: Trip, destination: Any, completion: @escaping(Result<Bool, CustomError>) -> Void) {
+    func deleteAllMyTrips(completion: @escaping(Result<Bool, CustomError>) -> Void) {
         
+        let batch = self.db.batch()
+        
+        guard let currentUser = UserController.shared.currentUser?.email else { return completion(.failure(.noData))}
+        
+        fetchAllTrips { (result) in
+            switch result {
+            case .success(_):
+                for trip in self.allTrips {
+                    if trip.owner == currentUser {
+                        guard let id = trip.id else { return completion(.failure(.noData))}
+                        let tripToDelete = self.db.collection("trips").document(id)
+                        batch.deleteDocument(tripToDelete)
+                    } else {
+                        
+                        var trip = trip
+                        guard let id = trip.id else { return completion(.failure(.noData))}
+                        
+                        let tripToUpdate = self.db.collection("trips").document(id)
+                        
+                        
+                        guard let indexOfUser = trip.members?.firstIndex(of: currentUser) else { break }
+                        
+                        trip.members?.remove(at: indexOfUser)
+                        batch.updateData(["members" : trip.members], forDocument: tripToUpdate)
+                        
+                        
+                    }
+                }
+                batch.commit()
+                return completion(.success(true))
+            case .failure(_):
+                return completion(.failure(.fireBaseError))
+            }
+        }
     }
 
     func fetchMyTrips(completion: @escaping(Result<Bool, CustomError>) -> Void) {

@@ -38,7 +38,7 @@ class TripDetailViewController: UIViewController {
     let tripNameTextField = UITextField()
     
     let membersLabel = UILabel()
-    let tableView = UITableView()
+    let memberTableView = UITableView()
     let addPeopleButton = UIButton()
     
     let tripDatesLabel = UILabel()
@@ -149,10 +149,10 @@ class TripDetailViewController: UIViewController {
     
     func setupFriendTable() {
         membersLabel.translatesAutoresizingMaskIntoConstraints = false
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        memberTableView.translatesAutoresizingMaskIntoConstraints = false
         addPeopleButton.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(membersLabel)
-        scrollView.addSubview(tableView)
+        scrollView.addSubview(memberTableView)
         scrollView.addSubview(testLabel)
         scrollView.addSubview(addPeopleButton)
         
@@ -162,20 +162,20 @@ class TripDetailViewController: UIViewController {
         membersLabel.topAnchor.constraint(equalTo: tripNameTextField.bottomAnchor, constant: 25).isActive = true
         membersLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
         
-        tableView.rowHeight = 40
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.heightAnchor.constraint(equalToConstant: 350).isActive = true
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "friend")
-        tableView.topAnchor.constraint(equalTo: membersLabel.bottomAnchor, constant: 25).isActive = true
-        tableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
+        memberTableView.rowHeight = 40
+        memberTableView.delegate = self
+        memberTableView.dataSource = self
+        memberTableView.heightAnchor.constraint(equalToConstant: 350).isActive = true
+        memberTableView.register(UITableViewCell.self, forCellReuseIdentifier: "friend")
+        memberTableView.topAnchor.constraint(equalTo: membersLabel.bottomAnchor, constant: 25).isActive = true
+        memberTableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
+        memberTableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
         
         addPeopleButton.setTitle("Add Member", for: .normal)
         addPeopleButton.backgroundColor = .black
         addPeopleButton.addTarget(self, action: #selector(showModal), for: .touchUpInside)
         addPeopleButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        addPeopleButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 25).isActive = true
+        addPeopleButton.topAnchor.constraint(equalTo: memberTableView.bottomAnchor, constant: 25).isActive = true
         addPeopleButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 70).isActive = true
         addPeopleButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -70).isActive = true
         
@@ -291,6 +291,13 @@ class TripDetailViewController: UIViewController {
     
     @objc func showModal() {
         let modalTableViewController = ModalTableViewController()
+        modalTableViewController.delegate = self
+        if (trip != nil){
+            modalTableViewController.members = trip?.members ?? []
+        }else {
+            modalTableViewController.members = members
+        }
+        
         modalTableViewController.modalPresentationStyle = .automatic
         present(modalTableViewController, animated: true, completion: nil)
     }
@@ -302,11 +309,21 @@ class TripDetailViewController: UIViewController {
         alert.addTextField(configurationHandler: { textField in
             textField.placeholder = "Enter task here..."
         })
-
+        
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-
+            guard let newTask = alert.textFields?.first?.text, !newTask.isEmpty else { return }
+            if (self.trip != nil) {
+                if let tasks = self.trip?.tasks {
+                    self.trip?.tasks?.append(newTask)
+                } else {
+                    self.trip?.tasks = [newTask]
+                }
+            } else {
+                self.tasks.append(newTask)
+            }
+            self.taskTableView.reloadData()
         }))
-
+        
         self.present(alert, animated: true)
     }
     
@@ -369,26 +386,74 @@ class TripDetailViewController: UIViewController {
 
 extension TripDetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let trip = self.trip else { return 0 }
-        guard let members = trip.members else { return 0 }
-        return members.count
+        if tableView == taskTableView {
+            if (trip != nil) {
+                guard let tasks = trip?.tasks else { return 0 }
+                return tasks.count
+            } else {
+                return tasks.count
+            }
+        }
+        
+        if tableView == memberTableView{
+            if (trip != nil){
+                //guard let trip = self.trip else { return 0 }
+                guard let members = trip?.members else { return 0 }
+                return members.count
+            }else {
+                return members.count
+            }
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableView == tableView,
-           let cell = tableView.dequeueReusableCell(withIdentifier: "friend")  {
-            guard let trip = self.trip else { return UITableViewCell()}
-            guard let members = trip.members else { return UITableViewCell() }
-            cell.textLabel?.text = members[indexPath.row]
+        if tableView == memberTableView {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "friend") else {return UITableViewCell()}
+            if (trip != nil){
+                guard let members = trip?.members else {return UITableViewCell()}
+                UserController.shared.fetchFriends()
+                let currentMember = members[indexPath.row]
+                let matchingFriend = UserController.shared.friends.filter({$0.email == currentMember})[0]
+                cell.textLabel?.text = matchingFriend.name
+            } else {
+                UserController.shared.fetchFriends()
+                let currentMember = members[indexPath.row]
+                let matchingFriend = UserController.shared.friends.filter({$0.email == currentMember})[0]
+                cell.textLabel?.text = matchingFriend.name
+            }
             return cell
-        } else if tableView == taskTableView,
-            let cell = tableView.dequeueReusableCell(withIdentifier: "task")  {
-            guard let trip = self.trip else { return UITableViewCell()}
-            cell.textLabel?.text = trip.tasks?[indexPath.row]
+        } else if tableView == taskTableView {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "task") else { return UITableViewCell() }
+            if (trip != nil) {
+                guard let tasks = trip?.tasks else { return UITableViewCell() }
+                cell.textLabel?.text = tasks[indexPath.row]
+            } else {
+                cell.textLabel?.text = tasks[indexPath.row]
+            }
             return cell
         }
-        
         return UITableViewCell()
+}
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            if tableView == taskTableView {
+                if (trip != nil) {
+                    self.trip?.tasks?.remove(at: indexPath.row)
+                } else {
+                    self.tasks.remove(at: indexPath.row)
+                }
+                taskTableView.deleteRows(at: [indexPath], with: .fade)
+            } else if tableView == memberTableView {
+                if (trip != nil){
+                    self.trip?.members?.remove(at: indexPath.row)
+                }else {
+                    self.members.remove(at: indexPath.row)
+                }
+                memberTableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        }
     }
 }
 
@@ -402,5 +467,18 @@ extension TripDetailViewController : MapViewGoButtonPressedDelegate {
         
         print(originLong, originLat, destinationLat, destinationLong)
         
+    }
+}
+
+extension TripDetailViewController: MemberSelectedDelegate {
+    func memberAdded(members: [String]) {
+        if (trip != nil){
+            trip?.members = members
+        }else {
+            self.members = members
+        }
+        DispatchQueue.main.async {
+            self.memberTableView.reloadData()
+        }
     }
 }

@@ -56,7 +56,7 @@ class UserController {
     }
     
     func uploadPhotoForUser(imageData: Data, email: String, completion: @escaping(Result<String, CustomError>) -> Void) {
-        storage.child("images/\(email).png").putData(imageData, metadata: nil) { (_, error) in
+        storage.child("images/\(email.lowercased()).png").putData(imageData, metadata: nil) { (_, error) in
             guard error == nil else {
                 return completion(.failure(.fireBaseError))
             }
@@ -463,4 +463,121 @@ class UserController {
             }
         }
     }
+    
+    func removeAllReferences(completion: @escaping(Result<Bool, CustomError>) -> Void) {
+        
+        let batch = self.db.batch()
+        
+        guard let currentUser = UserController.shared.currentUser?.email else { return completion(.failure(.noData))}
+        
+        for user in users {
+            
+            var user = user
+            
+            let userToUpdate = db.collection("users").document(user.id)
+            
+            if user.blocked.contains(currentUser) {
+                guard let indexOfUser = user.blocked.firstIndex(of: currentUser) else { return  completion(.failure(.noData)) }
+                user.blocked.remove(at: indexOfUser)
+                batch.updateData(["blocked" : user.blocked], forDocument: userToUpdate)
+            }
+            
+            if user.friends.contains(currentUser) {
+                guard let indexOfUser = user.friends.firstIndex(of: currentUser) else { return  completion(.failure(.noData)) }
+                user.friends.remove(at: indexOfUser)
+                batch.updateData(["friends" : user.friends], forDocument: userToUpdate)
+            }
+            
+            if user.pendingSent.contains(currentUser) {
+                guard let indexOfUser = user.pendingSent.firstIndex(of: currentUser) else { return  completion(.failure(.noData)) }
+                user.pendingSent.remove(at: indexOfUser)
+                batch.updateData(["pendingSent" : user.pendingSent], forDocument: userToUpdate)
+            }
+            
+            if user.pendingReceived.contains(currentUser) {
+                guard let indexOfUser = user.pendingReceived.firstIndex(of: currentUser) else { return  completion(.failure(.noData)) }
+                user.pendingReceived.remove(at: indexOfUser)
+                batch.updateData(["pendingReceived" : user.pendingReceived], forDocument: userToUpdate)
+            }
+            
+        }
+        batch.commit { (error) in
+            if let _ = error {
+                return completion(.failure(.fireBaseError))
+            }
+            return completion(.success(true))
+        }
+    }
+    
+    func removePhotoInCloud() {
+        
+        guard let currentUser = UserController.shared.currentUser?.email else { return }
+        
+        if UserController.shared.currentUser?.downloadURL != "No" {
+            let picStorage = storage.child("images/\(currentUser).png")
+            
+            picStorage.delete { (error) in
+                if let _ = error {
+                    print("error")
+                }
+            }
+        }
+    }
+    
+    func removeUserFromDatabase(completion: @escaping(Result<Bool, CustomError>) -> Void) {
+        
+        guard let currentUser = UserController.shared.currentUser else { return }
+        
+        let userFireBase = db.collection("users").document(currentUser.id)
+        
+        userFireBase.delete { (error) in
+            if let _ = error {
+                return completion(.failure(.fireBaseError))
+            }
+            return completion(.success(true))
+        }
+        
+    }
+    
+    func deleteAccount(completion: @escaping(Result<Bool, CustomError>) -> Void) {
+        TripController.shared.deleteAllMyTrips() { (result) in
+            switch result {
+            case .success(_):
+                UserController.shared.removeAllReferences { (result) in
+                    switch result {
+                    case .success(_):
+                        print("Removed all trips and references")
+                        
+                        UserController.shared.removePhotoInCloud()
+                        
+                        self.removeUserFromDatabase { (result) in
+                            
+                            switch result {
+                            case .success(_):
+                                
+                                let currentUser = Auth.auth().currentUser
+                                
+                                currentUser?.delete(completion: { (error) in
+                                    if let _ = error {
+                                        return completion(.failure(.fireBaseError))
+                                    }
+                                    return completion(.success(true))
+                                })
+                                
+                            case .failure(_):
+                                return completion(.failure(.fireBaseError))
+                            }
+                        }
+                    case .failure(_):
+                        return completion(.failure(.fireBaseError))
+                    }
+                }
+            case .failure(_):
+                return completion(.failure(.fireBaseError))
+            }
+        }
+    }
+    
 }
+    
+
