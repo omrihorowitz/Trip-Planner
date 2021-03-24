@@ -67,22 +67,45 @@ class AccountViewController: UIViewController {
         logoutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
         deleteAccountButton.addTarget(self, action: #selector(deleteAccountButtonPressed), for: .touchUpInside)
         saveNameButton.addTarget(self, action: #selector(saveNameButtonTapped), for: .touchUpInside)
+        changePhotoButton.addTarget(self, action: #selector(changePhotoButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func changePhotoButtonTapped() {
+        
+        let picker = UIImagePickerController()
+        picker.sourceType = .photoLibrary
+        picker.allowsEditing = true
+        picker.delegate = self
+        present(picker, animated: true)
+        /*
+         Request permission if we don't have it
+         pull up picker view.
+         Upon choosing a photo, first check if user already had a photo. If they did, delete it in cloud. Then upload new photo and get new dowloadURL and save it
+         If they didn't have a photo, upload photo, get downloadURL and save it.
+         */
+        
+        
+        
     }
     
     @objc func saveNameButtonTapped() {
-        
-        //Make sure it's not empty
-        //then save.
-        //Then pop up alert saying it saved
-        guard let currentUser = UserController.shared.currentUser else { return }
-        
         
         guard let newName = nameTextField.text, !newName.isEmpty else {
             presentAlertOnMainThread(title: "Uh Oh", message: "Please enter a name", buttonTitle: "Ok")
             return
         }
         
-       // UserController.shared.currentUser?.name = newName
+        UserController.shared.currentUser?.name = newName
+        
+        UserController.shared.updateName(user: UserController.shared.currentUser) { (result) in
+            switch result {
+            case .success(_):
+                self.presentAlertOnMainThread(title: "Success!", message: "Name updated!", buttonTitle: "Ok")
+            case .failure(_):
+                self.presentAlertOnMainThread(title: "Uh Oh!", message: "Can't update name at this time. Check internet and try again later.", buttonTitle: "Ok")
+            }
+        }
+        
         
         
         
@@ -179,5 +202,58 @@ class AccountViewController: UIViewController {
             deleteAccountButton.heightAnchor.constraint(equalToConstant: 75)
         ])
     }
+    
+}
+
+extension AccountViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        picker.dismiss(animated: true)
+        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
+        
+        //Check if they had an image already, and then replace it with this
+        
+        guard let imageData = image.pngData() else { return }
+        
+        profileImageView.image = image
+        
+        guard let currentUser = UserController.shared.currentUser else { return }
+        
+        let db = Firestore.firestore()
+        
+        let fireBaseForCurrentUser = db.collection("users").document(currentUser.id)
+        
+        if UserController.shared.currentUser?.downloadURL != "No" {
+            //We have an old image
+            UserController.shared.removePhotoInCloud { (result) in
+                switch result {
+                case .success(_):
+                    UserController.shared.uploadPhotoForUser(imageData: imageData, email: currentUser.email) { (result) in
+                        switch result {
+                        case .success(let url):
+                            fireBaseForCurrentUser.updateData(["downloadURL" : url])
+                        case .failure(_):
+                            self.presentAlertOnMainThread(title: "Uh oh", message: "Could not change photo at this time. Check internet and try again later.", buttonTitle: "Ok")
+                        }
+                    }
+                case .failure(_):
+                    self.presentAlertOnMainThread(title: "Uh oh", message: "Could not change photo at this time. Check internet and try again later.", buttonTitle: "Ok")
+                }
+            }
+        } else {
+            //We don't have an old photo
+            UserController.shared.uploadPhotoForUser(imageData: imageData, email: currentUser.email) { (result) in
+                switch result {
+                case .success(let url):
+                    fireBaseForCurrentUser.updateData(["downloadURL" : url])
+                case .failure(_):
+                    self.presentAlertOnMainThread(title: "Uh oh", message: "Could not change photo at this time. Check internet and try again later.", buttonTitle: "Ok")
+                }
+            }
+        }
+        
+    }
+    
     
 }

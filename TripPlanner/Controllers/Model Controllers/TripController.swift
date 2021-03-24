@@ -138,8 +138,6 @@ class TripController {
                         
                         trip.members?.remove(at: indexOfUser)
                         batch.updateData(["members" : trip.members], forDocument: tripToUpdate)
-                        
-                        
                     }
                 }
                 batch.commit()

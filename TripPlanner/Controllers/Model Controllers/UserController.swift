@@ -509,7 +509,7 @@ class UserController {
         }
     }
     
-    func removePhotoInCloud() {
+    func removePhotoInCloud(completion: @escaping(Result<Bool, CustomError>) -> Void) {
         
         guard let currentUser = UserController.shared.currentUser?.email else { return }
         
@@ -518,8 +518,9 @@ class UserController {
             
             picStorage.delete { (error) in
                 if let _ = error {
-                    print("error")
+                    return completion(.failure(.fireBaseError))
                 }
+                return completion(.success(true))
             }
         }
     }
@@ -548,7 +549,14 @@ class UserController {
                     case .success(_):
                         print("Removed all trips and references")
                         
-                        UserController.shared.removePhotoInCloud()
+                        UserController.shared.removePhotoInCloud { (result) in
+                            switch result {
+                            case .success(_):
+                                print("Done")
+                            case .failure(_):
+                                print("Error")
+                            }
+                        }
                         
                         self.removeUserFromDatabase { (result) in
                             
@@ -575,6 +583,22 @@ class UserController {
             case .failure(_):
                 return completion(.failure(.fireBaseError))
             }
+        }
+    }
+    
+    func updateName(user: User?, completion: @escaping(Result<Bool, CustomError>) -> Void) {
+        
+        guard let currentUser = UserController.shared.currentUser else { return }
+        
+        let userFireBase = db.collection("users").document(currentUser.id)
+        
+        userFireBase.updateData([
+            "name" : currentUser.name
+        ]) { (error) in
+            if let _ = error {
+                return completion(.failure(.fireBaseError))
+            }
+            return completion(.success(true))
         }
     }
     
