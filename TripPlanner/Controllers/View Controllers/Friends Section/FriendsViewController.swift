@@ -81,8 +81,6 @@ class FriendsViewController: UIViewController {
         UserController.shared.fetchAllUsers { (result) in
             switch result {
             case .success(_):
-                //UserController.shared.fetchFriends()
-                //self.updateData(listOfUsers: UserController.shared.friends)
             break
             case .failure(_):
                 print("Nay")
@@ -96,19 +94,6 @@ class FriendsViewController: UIViewController {
     }
     
     @objc func segmentControlChanged(sender: UISegmentedControl) {
-        
-//        TripController.shared.fetchAllTrips { (result) in
-//            switch result {
-//            case .success(_):
-//                for trip in TripController.shared.allTrips {
-//                    print(trip.name)
-//                    print(trip.owner)
-//                    print("")
-//                }
-//            case .failure(_):
-//                print("Failure")
-//            }
-//        }
         
         isSearching = false
         switch sender.selectedSegmentIndex {

@@ -200,7 +200,7 @@ class TripDetailViewController: UIViewController {
         memberTableView.delegate = self
         memberTableView.dataSource = self
         memberTableView.heightAnchor.constraint(equalToConstant: 350).isActive = true
-        memberTableView.register(UITableViewCell.self, forCellReuseIdentifier: "friend")
+        memberTableView.register(MemberTableViewCell.self, forCellReuseIdentifier: MemberTableViewCell.cellID)
         memberTableView.topAnchor.constraint(equalTo: membersLabel.bottomAnchor, constant: 25).isActive = true
         memberTableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
         memberTableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
@@ -443,14 +443,14 @@ extension TripDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == memberTableView {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "friend") else {return UITableViewCell()}
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: MemberTableViewCell.cellID) as? MemberTableViewCell else {return UITableViewCell()}
             if (trip != nil){
                 guard let members = trip?.members else {return UITableViewCell()}
                 if UserController.shared.currentUser?.email == trip?.owner {
                     UserController.shared.fetchFriends()
                     let currentMember = members[indexPath.row]
                     let matchingFriend = UserController.shared.friends.filter({$0.email == currentMember})[0]
-                    cell.textLabel?.text = matchingFriend.name
+                    cell.set(user: matchingFriend)
                 } else {
                     let currentMembersEmail = members[indexPath.row]
                     
@@ -501,6 +501,14 @@ extension TripDetailViewController: UITableViewDelegate, UITableViewDataSource {
                 }
                 memberTableView.deleteRows(at: [indexPath], with: .fade)
             }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if tableView == memberTableView {
+            return 100
+        } else {
+            return 50
         }
     }
 }
