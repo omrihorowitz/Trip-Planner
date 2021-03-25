@@ -69,8 +69,18 @@ class TripDetailViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if isMovingFromParent {
+            saveButtonTapped()
+        }
+    }
+    
     func loadTrip() {
         guard let trip = trip else { return }
+        
+        
         tripNameTextField.text = trip.name
         startDate.date = trip.startDate
         endDate.date = trip.endDate
@@ -79,6 +89,28 @@ class TripDetailViewController: UIViewController {
         originLat = trip.originLat
         destinationLong = trip.destinationLong
         destinationLat = trip.destinationLat
+        
+        if trip.owner != UserController.shared.currentUser?.email {
+            tripNameTextField.isUserInteractionEnabled = false
+            startDate.isUserInteractionEnabled = false
+            endDate.isUserInteractionEnabled = false
+            addPeopleButton.isUserInteractionEnabled = false
+            notesTextView.isUserInteractionEnabled = false
+            taskButton.isUserInteractionEnabled = false
+            saveButton.isUserInteractionEnabled = false
+        }
+        
+        //If we are the owner of the trip, just put current users name up there
+        if trip.owner == UserController.shared.currentUser?.email {
+            ownerLabel.text = "Creator: \(UserController.shared.currentUser?.name ?? "Unknown")"
+        } else {
+            // users = [User]
+            // trip owner: String
+            let tripOwner = UserController.shared.users.filter({$0.email == trip.owner}).first
+            
+            ownerLabel.text = "Creator: \(tripOwner?.name ?? "Unknown")"
+        }
+        
         
     }
     
@@ -115,7 +147,7 @@ class TripDetailViewController: UIViewController {
     func setupOwnerLabel() {
         ownerLabel.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(ownerLabel)
-        ownerLabel.text = "Owner"
+        ownerLabel.text = "New Trip"
         ownerLabel.textAlignment = .center
         ownerLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         ownerLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
@@ -331,7 +363,7 @@ class TripDetailViewController: UIViewController {
     @objc func saveButtonTapped() {
         
         guard let name = tripNameTextField.text, !name.isEmpty, let originLong = originLong, let originLat = originLat, let destinationLat = destinationLat, let destinationLong = destinationLong else {
-            self.presentAlertOnMainThread(title: "Uh oh", message: "Please fill out all fields & choose a route", buttonTitle: "Ok")
+            self.presentAlertOnMainThread(title: "Uh oh", message: "Please fill out all fields & choose a route in order to save.", buttonTitle: "Ok")
             return
         }
         
@@ -412,10 +444,24 @@ extension TripDetailViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "friend") else {return UITableViewCell()}
             if (trip != nil){
                 guard let members = trip?.members else {return UITableViewCell()}
-                UserController.shared.fetchFriends()
-                let currentMember = members[indexPath.row]
-                let matchingFriend = UserController.shared.friends.filter({$0.email == currentMember})[0]
-                cell.textLabel?.text = matchingFriend.name
+                if UserController.shared.currentUser?.email == trip?.owner {
+                    UserController.shared.fetchFriends()
+                    let currentMember = members[indexPath.row]
+                    let matchingFriend = UserController.shared.friends.filter({$0.email == currentMember})[0]
+                    cell.textLabel?.text = matchingFriend.name
+                } else {
+                    let currentMembersEmail = members[indexPath.row]
+                    
+                    if currentMembersEmail == UserController.shared.currentUser?.email {
+                        cell.textLabel?.text = UserController.shared.currentUser?.name
+                    } else {
+                        let currentMemberAsUser = UserController.shared.users.filter({$0.email == currentMembersEmail})[0]
+                        
+                        cell.textLabel?.text = currentMemberAsUser.name
+                    }
+                    
+                    
+                }
             } else {
                 UserController.shared.fetchFriends()
                 let currentMember = members[indexPath.row]
