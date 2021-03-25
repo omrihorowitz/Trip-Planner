@@ -376,13 +376,50 @@ class UserController {
         
         userToUnfriendFireBase.updateData([
             "friends" : userToUnfriend.friends
-        ]) { (error) in
+        ]) { [weak self] (error) in
+            guard let self = self else { return }
             if let _ = error {
                 return completion(.failure(.fireBaseError))
             } else {
+                self.removeUnfriendedPersonFromTrips(userToRemove: userToUnfriend)
                 return completion(.success(true))
             }
         }
+    }
+    
+    func removeUnfriendedPersonFromTrips(userToRemove: User) {
+        
+        let batch = self.db.batch()
+        
+        //Call fetch trips I own
+        TripController.shared.fetchMyTrips { [weak self] (result) in
+            guard let self = self else { return }
+            switch result {
+            case .success(_):
+                for trip in TripController.shared.tripsIAmOwnerIn {
+                    guard let id = trip.id else { return }
+                    let currentTrip = self.db.collection("trips").document(id)
+                    if var members = trip.members {
+                        if members.contains(userToRemove.email) {
+                            guard let indexToRemove = members.firstIndex(of: userToRemove.email) else {
+                                return
+                            }
+                            members.remove(at: indexToRemove)
+                            batch.updateData(["members" : members], forDocument: currentTrip)
+                        }
+                    }
+                    
+                }
+                batch.commit()
+            case .failure(_):
+                break
+            }
+        }
+        
+        
+        
+        
+        
     }
     
     func blockUser(userToBlock: User, completion: @escaping(Result<Bool, CustomError>) -> Void) {

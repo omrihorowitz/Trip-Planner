@@ -21,7 +21,7 @@ class LoginViewController: UIViewController {
         view.addSubviews(emailTextField, passwordTextField, loginButton)
         constrainViews()
         setButtonTarget()
-        emailTextField.text = "g@g.com"
+        emailTextField.text = "b@b.com"
         passwordTextField.text = "123456"
         addCancelKeyboardGestureRecognizer()
     }

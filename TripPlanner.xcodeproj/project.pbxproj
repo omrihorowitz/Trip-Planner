@@ -53,6 +53,7 @@
 		FFDCED0B25F71C2C001C2769 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0A25F71C2C001C2769 /* SceneDelegate.swift */; };
 		FFDCED1225F71C2D001C2769 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFDCED1125F71C2D001C2769 /* Assets.xcassets */; };
 		FFDCED1525F71C2D001C2769 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFDCED1325F71C2D001C2769 /* LaunchScreen.storyboard */; };
+		FFE22624260D312D003573C3 /* MemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE22623260D312D003573C3 /* MemberTableViewCell.swift */; };
 		FFE4DBE12601178A00DAC744 /* TPImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE4DBE02601178A00DAC744 /* TPImageView.swift */; };
 		FFE4DBE52601182100DAC744 /* TPPersonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE4DBE42601182100DAC744 /* TPPersonCollectionViewCell.swift */; };
 		FFE4DBEE26011CBA00DAC744 /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE4DBED26011CBA00DAC744 /* UIHelper.swift */; };
@@ -109,6 +110,7 @@
 		FFDCED1125F71C2D001C2769 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FFDCED1425F71C2D001C2769 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FFDCED1625F71C2D001C2769 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FFE22623260D312D003573C3 /* MemberTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberTableViewCell.swift; sourceTree = "<group>"; };
 		FFE4DBE02601178A00DAC744 /* TPImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageView.swift; sourceTree = "<group>"; };
 		FFE4DBE42601182100DAC744 /* TPPersonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPPersonCollectionViewCell.swift; sourceTree = "<group>"; };
 		FFE4DBED26011CBA00DAC744 /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 			isa = PBXGroup;
 			children = (
 				FFE4DBE42601182100DAC744 /* TPPersonCollectionViewCell.swift */,
+				FFE22623260D312D003573C3 /* MemberTableViewCell.swift */,
 			);
 			path = "Custom Cells";
 			sourceTree = "<group>";
@@ -504,6 +507,7 @@
 				FF298F242603D2480017F999 /* SearchBarTableViewController.swift in Sources */,
 				FF51912925FBD2D40046642F /* LoginViewController.swift in Sources */,
 				FF298F152603D0E70017F999 /* Route.swift in Sources */,
+				FFE22624260D312D003573C3 /* MemberTableViewCell.swift in Sources */,
 				FF51912625FBD2CA0046642F /* FirstPageViewController.swift in Sources */,
 				FF298F302603D4A70017F999 /* UIImage+Ext.swift in Sources */,
 				FF51915225FBD6250046642F /* TPContainerView.swift in Sources */,

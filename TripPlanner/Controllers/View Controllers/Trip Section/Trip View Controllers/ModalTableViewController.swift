@@ -18,7 +18,7 @@ class ModalTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "addFriends")
+        tableView.register(MemberTableViewCell.self, forCellReuseIdentifier: MemberTableViewCell.cellID)
         addCancelKeyboardGestureRecognizer()
     }
     
@@ -37,9 +37,9 @@ class ModalTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "addFriends", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MemberTableViewCell.cellID) as? MemberTableViewCell else { return UITableViewCell() }
         
-        cell.textLabel?.text = friends[indexPath.row].name
+        cell.set(user: friends[indexPath.row])
         
         return cell
     }
@@ -61,5 +61,9 @@ class ModalTableViewController: UITableViewController {
         
         dismiss(animated: true, completion: nil)
         
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
 }
