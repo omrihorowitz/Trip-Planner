@@ -256,8 +256,7 @@ extension FriendsViewController : UISearchBarDelegate {
 
 extension FriendsViewController : PersonDetailButtonProtocol {
     func buttonSelected(title: String, message: String) {
-        segmentedControl.selectedSegmentIndex = 0
-        fetchUsers()
+        updateCollectionView()
         self.presentAlertOnMainThread(title: title, message: message, buttonTitle: "Ok")
     }
 }
