@@ -81,8 +81,9 @@ class FriendsViewController: UIViewController {
         UserController.shared.fetchAllUsers { (result) in
             switch result {
             case .success(_):
-                UserController.shared.fetchFriends()
-                self.updateData(listOfUsers: UserController.shared.friends)
+                //UserController.shared.fetchFriends()
+                //self.updateData(listOfUsers: UserController.shared.friends)
+            break
             case .failure(_):
                 print("Nay")
             }
