@@ -60,6 +60,9 @@ class MapViewController: UIViewController {
             goButtonTapped()
             updateOriginSearchBar()
             updateDestinationSearchBar()
+            if trip?.owner != UserController.shared.currentUser?.email {
+                goButton.isUserInteractionEnabled = false
+            }
         }
     }
     

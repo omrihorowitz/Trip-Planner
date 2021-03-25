@@ -602,6 +602,13 @@ class UserController {
         }
     }
     
+    func someoneHasBlockedThisPerson(personToCheck: User, membersInTrip: [String]) -> Bool {
+        
+        let membersInTripAsUsers = friends.filter({membersInTrip.contains($0.email)})
+        
+        return membersInTripAsUsers.filter({$0.blocked.contains(personToCheck.email)}).count >= 1
+    }
+    
 }
     
 

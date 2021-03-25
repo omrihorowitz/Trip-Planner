@@ -45,10 +45,19 @@ class ModalTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let friendSelected = friends[indexPath.row]
-        members.append(friendSelected.email)
-        delegate?.memberAdded(members: members)
         
+        
+        let friendSelected = friends[indexPath.row]
+        
+        if UserController.shared.someoneHasBlockedThisPerson(personToCheck: friendSelected, membersInTrip: members) {
+            //show pop up
+            presentAlertOnMainThread(title: "Uh oh", message: "Someone in the group blocked this member! You can't add them to this trip.", buttonTitle: "Ok")
+            return
+        } else {
+            //add them
+            members.append(friendSelected.email)
+            delegate?.memberAdded(members: members)
+        }
         
         dismiss(animated: true, completion: nil)
         
