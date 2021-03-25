@@ -455,11 +455,12 @@ extension TripDetailViewController: UITableViewDelegate, UITableViewDataSource {
                     let currentMembersEmail = members[indexPath.row]
                     
                     if currentMembersEmail == UserController.shared.currentUser?.email {
-                        cell.textLabel?.text = UserController.shared.currentUser?.name
+                        guard let currentUser = UserController.shared.currentUser else { return UITableViewCell () }
+                        cell.set(user: currentUser)
                     } else {
                         let currentMemberAsUser = UserController.shared.users.filter({$0.email == currentMembersEmail})[0]
                         
-                        cell.textLabel?.text = currentMemberAsUser.name
+                        cell.set(user: currentMemberAsUser)
                     }
                     
                     
@@ -468,8 +469,9 @@ extension TripDetailViewController: UITableViewDelegate, UITableViewDataSource {
                 UserController.shared.fetchFriends()
                 let currentMember = members[indexPath.row]
                 let matchingFriend = UserController.shared.friends.filter({$0.email == currentMember})[0]
-                cell.textLabel?.text = matchingFriend.name
+                cell.set(user: matchingFriend)
             }
+            cell.isUserInteractionEnabled = false
             return cell
         } else if tableView == taskTableView {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "task") else { return UITableViewCell() }
