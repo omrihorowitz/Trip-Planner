@@ -8,6 +8,12 @@
 import Foundation
 import Firebase
 
+protocol FireBaseUpdatedDelegate: AnyObject {
+    
+    func updateCollectionView()
+    
+}
+
 class UserController {
     
     static var shared = UserController()
@@ -17,6 +23,8 @@ class UserController {
     private let storage = Storage.storage().reference()
     
     var currentUser: User?
+    
+    var delegate: FireBaseUpdatedDelegate?
     
     var users: [User] = []
     
@@ -97,9 +105,10 @@ class UserController {
            
            //
            
-           self.users = []
+          
            
-           db.collectionGroup("users").getDocuments { (users, error) in
+           db.collectionGroup("users").addSnapshotListener { (users, error) in
+               self.users = []
                if let error = error {
                    print("You have an error \(error.localizedDescription)")
                    return completion(.failure(error))
@@ -118,6 +127,7 @@ class UserController {
                            print("Couldn't parse")
                        }
                    }
+                self.delegate?.updateCollectionView()
                    return completion(.success(true))
                }
            }

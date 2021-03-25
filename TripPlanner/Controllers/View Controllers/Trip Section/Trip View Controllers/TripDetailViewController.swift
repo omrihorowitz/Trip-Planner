@@ -73,7 +73,9 @@ class TripDetailViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if isMovingFromParent {
-            saveButtonTapped()
+            if trip?.owner == UserController.shared.currentUser?.email {
+                saveButtonTapped()
+            }
         }
     }
     

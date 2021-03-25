@@ -34,6 +34,7 @@ class FriendsViewController: UIViewController {
         fetchUsers()
         setUpDataSource()
         searchBar.delegate = self
+        UserController.shared.delegate = self
         searchBar.autocapitalizationType = .none
         addCancelKeyboardGestureRecognizer()
     }
@@ -88,7 +89,6 @@ class FriendsViewController: UIViewController {
         }
     }
     
-    
     func setUpSegmentedControl() {
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(segmentControlChanged(sender:)), for: .valueChanged)
@@ -96,18 +96,18 @@ class FriendsViewController: UIViewController {
     
     @objc func segmentControlChanged(sender: UISegmentedControl) {
         
-        TripController.shared.fetchAllTrips { (result) in
-            switch result {
-            case .success(_):
-                for trip in TripController.shared.allTrips {
-                    print(trip.name)
-                    print(trip.owner)
-                    print("")
-                }
-            case .failure(_):
-                print("Failure")
-            }
-        }
+//        TripController.shared.fetchAllTrips { (result) in
+//            switch result {
+//            case .success(_):
+//                for trip in TripController.shared.allTrips {
+//                    print(trip.name)
+//                    print(trip.owner)
+//                    print("")
+//                }
+//            case .failure(_):
+//                print("Failure")
+//            }
+//        }
         
         isSearching = false
         switch sender.selectedSegmentIndex {
@@ -256,8 +256,30 @@ extension FriendsViewController : UISearchBarDelegate {
 
 extension FriendsViewController : PersonDetailButtonProtocol {
     func buttonSelected(title: String, message: String) {
-        segmentedControl.selectedSegmentIndex = 0
-        fetchUsers()
+        updateCollectionView()
         self.presentAlertOnMainThread(title: title, message: message, buttonTitle: "Ok")
     }
+}
+
+extension FriendsViewController : FireBaseUpdatedDelegate {
+    func updateCollectionView() {
+        print("Called!")
+        switch segmentedControl.selectedSegmentIndex {
+        case 0:
+            UserController.shared.fetchFriends()
+            updateData(listOfUsers: UserController.shared.friends)
+        case 1:
+            UserController.shared.fetchSent()
+            updateData(listOfUsers: UserController.shared.sent)
+        case 2:
+            UserController.shared.fetchReceived()
+            updateData(listOfUsers: UserController.shared.received)
+        case 3:
+            UserController.shared.fetchAddable()
+            updateData(listOfUsers: [])
+        default:
+            break
+        }
+    }
+    
 }
