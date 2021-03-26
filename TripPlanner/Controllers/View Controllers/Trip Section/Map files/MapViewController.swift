@@ -349,8 +349,8 @@ class MapViewController: UIViewController {
         }
         if overlay is MKCircle {
             let renderer = MKCircleRenderer(overlay: overlay)
-            renderer.strokeColor = .systemBlue
-            renderer.fillColor = .systemBlue
+            renderer.strokeColor = .systemYellow
+            renderer.fillColor = .systemYellow
             renderer.alpha = 0.5
             return renderer
         }
