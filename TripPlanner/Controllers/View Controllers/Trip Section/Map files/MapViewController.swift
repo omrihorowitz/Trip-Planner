@@ -32,9 +32,11 @@ class MapViewController: UIViewController {
     
     let map = MKMapView()
     
-    let directionsButton = TPButton(backgroundColor: .systemGreen, title: " Directions ")
+    let directionsButton = TPButton(backgroundColor: .systemGreen, title: " Press for Details ")
     
     let searchStackView = UIStackView()
+    
+    let etaLabel = UILabel()
     
     //Delegates and data
     let cellID = "CellID"
@@ -76,12 +78,14 @@ class MapViewController: UIViewController {
         map.delegate = self
         suggestionsTableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
         view.addSubviews(map, directionsButton)
+        view.addSubviews(etaLabel)
         map.addSubview(searchStackView)
         map.addSubview(suggestionsTableView)
         constrainStackView()
         constrainMapView()
         constrainDirectionsButton()
         constrainSuggestionsTableView()
+        constrainETALabel()
         addButtonTargets()
         
     }
@@ -153,14 +157,9 @@ class MapViewController: UIViewController {
         
         let sourceAnnotation = MKPointAnnotation()
         
-        //COME BACK TO SET UP PHOTOS
-//        let view = MKAnnotationView(annotation: sourceAnnotation, reuseIdentifier: "profilepic")
-//        view.image = #imageLiteral(resourceName: "profilepic")
-//        view.layer.cornerRadius = view.frame.size.height/2
-//        view.layer.masksToBounds = true
-        
         sourceAnnotation.coordinate = sourcePlacemark.coordinate
-        sourceAnnotation.subtitle = "Me"
+        sourceAnnotation.subtitle = "Start"
+    
         map.addAnnotation(sourceAnnotation)
 
         if let location = sourcePlacemark.location {
@@ -170,7 +169,7 @@ class MapViewController: UIViewController {
         let destinationAnnotation = MKPointAnnotation()
         
         destinationAnnotation.coordinate = destinationPlacemark.coordinate
-        destinationAnnotation.subtitle = "Destination"
+        destinationAnnotation.subtitle = "Stop"
         map.addAnnotation(destinationAnnotation)
 
         if let location = destinationPlacemark.location {
@@ -203,7 +202,7 @@ class MapViewController: UIViewController {
             
             let etaMiles = (route.distance) * 0.000621
             let etaTime = (((route.expectedTravelTime) / 60) / 60)
-            //self.etaLabel.text = "Miles: \(String(format: "%.2f", etaMiles)) mi.\n Time: \(String(format: "%.2f", etaTime)) hrs."
+            self.etaLabel.text = "Miles: \(String(format: "%.2f", etaMiles)) mi.\n Time: \(String(format: "%.2f", etaTime)) hrs."
             
             self.locationManager.monitoredRegions.forEach({ self.locationManager.stopMonitoring(for: $0)})
             self.steps = route.steps
@@ -332,10 +331,10 @@ class MapViewController: UIViewController {
     }
     
     func constrainDirectionsButton() {
-        
+        directionsButton.sizeToFit()
         NSLayoutConstraint.activate([
-            directionsButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -25),
-            directionsButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40)
+            directionsButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -14),
+            directionsButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
         ])
         
     }
@@ -343,7 +342,7 @@ class MapViewController: UIViewController {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKPolyline {
         let renderer = MKPolylineRenderer(overlay: overlay)
-            renderer.strokeColor = .systemGreen
+            renderer.strokeColor = .systemOrange
             renderer.lineWidth = 4.0
         
             return renderer
@@ -358,6 +357,22 @@ class MapViewController: UIViewController {
         return MKOverlayRenderer()
     }
 
+    func constrainETALabel() {
+        etaLabel.translatesAutoresizingMaskIntoConstraints = false
+        etaLabel.backgroundColor = .systemGreen
+        etaLabel.textAlignment = .center
+        etaLabel.textColor = .white
+        etaLabel.font = .boldSystemFont(ofSize: 14)
+        etaLabel.numberOfLines = 0
+        etaLabel.layer.cornerRadius = 10
+        etaLabel.clipsToBounds = true
+        NSLayoutConstraint.activate([
+            etaLabel.heightAnchor.constraint(equalToConstant: 50),
+            etaLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            etaLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 5),
+        ])
+    }
+    
 }
 
 extension MapViewController : UISearchBarDelegate {
@@ -455,24 +470,23 @@ extension MapViewController : MKMapViewDelegate {
     
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        switch annotation {
-        // 1
-        case let user as MKUserLocation:
-            // 2
-            if let existingView = mapView
-                .dequeueReusableAnnotationView(withIdentifier: "profilepic") {
-                return existingView
-            } else {
-                // 3
-                let view = MKAnnotationView(annotation: user, reuseIdentifier: "profilepic")
-                view.image = #imageLiteral(resourceName: "profilepic")
-                view.layer.cornerRadius = view.frame.size.height/2
-                view.layer.masksToBounds = true
-        
-                return view
-            }
-        default:
+        let identifier = "MyPin"
+
+        if annotation is MKUserLocation {
             return nil
         }
+
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView?.canShowCallout = true
+            annotationView?.image = UIImage(named: "orangutan.png")
+
+        } else {
+            annotationView?.annotation = annotation
+        }
+
+        return annotationView
     }
 }
