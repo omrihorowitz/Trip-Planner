@@ -373,8 +373,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         etaLabel.clipsToBounds = true
         NSLayoutConstraint.activate([
             etaLabel.heightAnchor.constraint(equalToConstant: 80),
-            etaLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 80),
-            etaLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -180),
+            etaLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 60),
+            etaLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -160),
             etaLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10)
         ])
     }
