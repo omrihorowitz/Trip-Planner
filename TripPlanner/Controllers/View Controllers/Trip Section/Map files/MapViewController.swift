@@ -15,9 +15,15 @@ protocol MapViewGoButtonPressedDelegate: AnyObject {
     
 }
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, CLLocationManagerDelegate {
 
     //View items
+    let locationManager = CLLocationManager()
+    var userLocation: CLLocationCoordinate2D? = nil
+    var currentPlace: CLPlacemark?
+    var userPinView: MKAnnotationView!
+
+    
     let originLocationLabel = TPTitleLabel(textAlignment: .center, fontSize: 16)
     let destinationLocationLabel = TPTitleLabel(textAlignment: .center, fontSize: 16)
     
@@ -42,7 +48,6 @@ class MapViewController: UIViewController {
     let cellID = "CellID"
     var matchingItems : [MKMapItem] = []
     var steps: [MKRoute.Step] = []
-    let locationManager = CLLocationManager()
     
     var delegate: MapViewGoButtonPressedDelegate?
     
@@ -275,7 +280,7 @@ class MapViewController: UIViewController {
         searchStackView.translatesAutoresizingMaskIntoConstraints = false
         searchStackView.axis = .vertical
         searchStackView.distribution = .fillProportionally
-        searchStackView.backgroundColor = .systemBackground
+        searchStackView.backgroundColor = .clear
         searchStackView.spacing = 5
         
         originLocationSearchBar.showsCancelButton = true
@@ -374,6 +379,47 @@ class MapViewController: UIViewController {
         ])
     }
     
+    func setupLocationManager() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    }
+    
+    func checkLocationServices() {
+        if CLLocationManager.locationServicesEnabled() {
+            setupLocationManager()
+            checkLocationAuthorization()
+        } else {
+            // show alert letting user know they have to turn this on
+        }
+    }
+    
+    func checkLocationAuthorization() {
+        switch locationManager.authorizationStatus {
+        case .authorizedWhenInUse:
+            startTrackingUserLocation()
+        case .denied:
+            // show alert instructing them to turn on permissions
+            break
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        case .restricted:
+            // show an alert letting them know what's up
+            break
+        case .authorizedAlways:
+            startTrackingUserLocation()
+        @unknown default:
+            break
+        }
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        checkLocationAuthorization()
+    }
+    
+    func startTrackingUserLocation() {
+        map.showsUserLocation = true
+        locationManager.startUpdatingLocation()
+    }
 }
 
 extension MapViewController : UISearchBarDelegate {
@@ -475,8 +521,11 @@ extension MapViewController : MKMapViewDelegate {
         let identifier = "MyPin"
 
         if annotation is MKUserLocation {
-            return nil
-        }
+            let pin = mapView.view(for: annotation) ?? MKAnnotationView(annotation: annotation, reuseIdentifier: nil)
+             pin.image = UIImage(named: "orangutan")
+             userPinView = pin
+             return pin
+         }
 
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
 
@@ -488,7 +537,6 @@ extension MapViewController : MKMapViewDelegate {
         } else {
             annotationView?.annotation = annotation
         }
-
         return annotationView
     }
 }
