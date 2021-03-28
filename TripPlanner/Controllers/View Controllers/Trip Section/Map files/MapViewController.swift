@@ -32,7 +32,7 @@ class MapViewController: UIViewController {
     
     let map = MKMapView()
     
-    let directionsButton = TPButton(backgroundColor: .systemGreen, title: " Press for Details ")
+    let directionsButton = TPButton(backgroundColor: .systemGreen, title: " Detail Directions ")
     
     let searchStackView = UIStackView()
     
@@ -202,7 +202,7 @@ class MapViewController: UIViewController {
             
             let etaMiles = (route.distance) * 0.000621
             let etaTime = (((route.expectedTravelTime) / 60) / 60)
-            self.etaLabel.text = "Miles: \(String(format: "%.2f", etaMiles)) mi.\n Time: \(String(format: "%.2f", etaTime)) hrs."
+            self.etaLabel.text = "ETA\n Miles: \(String(format: "%.2f", etaMiles)) mi.\n Time: \(String(format: "%.2f", etaTime)) hrs."
             
             self.locationManager.monitoredRegions.forEach({ self.locationManager.stopMonitoring(for: $0)})
             self.steps = route.steps
@@ -333,8 +333,8 @@ class MapViewController: UIViewController {
     func constrainDirectionsButton() {
         directionsButton.sizeToFit()
         NSLayoutConstraint.activate([
-            directionsButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -14),
-            directionsButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
+            directionsButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -13),
+            directionsButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40)
         ])
         
     }
@@ -342,7 +342,7 @@ class MapViewController: UIViewController {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKPolyline {
         let renderer = MKPolylineRenderer(overlay: overlay)
-            renderer.strokeColor = .systemOrange
+            renderer.strokeColor = .systemBlue
             renderer.lineWidth = 4.0
         
             return renderer
@@ -359,17 +359,18 @@ class MapViewController: UIViewController {
 
     func constrainETALabel() {
         etaLabel.translatesAutoresizingMaskIntoConstraints = false
-        etaLabel.backgroundColor = .systemGreen
+        etaLabel.backgroundColor = .white
         etaLabel.textAlignment = .center
-        etaLabel.textColor = .white
-        etaLabel.font = .boldSystemFont(ofSize: 14)
+        etaLabel.textColor = .systemGreen
+        etaLabel.font = .boldSystemFont(ofSize: 18)
         etaLabel.numberOfLines = 0
         etaLabel.layer.cornerRadius = 10
         etaLabel.clipsToBounds = true
         NSLayoutConstraint.activate([
-            etaLabel.heightAnchor.constraint(equalToConstant: 50),
-            etaLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            etaLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 5),
+            etaLabel.heightAnchor.constraint(equalToConstant: 80),
+            etaLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 80),
+            etaLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -180),
+            etaLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10)
         ])
     }
     
@@ -470,6 +471,7 @@ extension MapViewController : MKMapViewDelegate {
     
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
         let identifier = "MyPin"
 
         if annotation is MKUserLocation {
@@ -481,7 +483,7 @@ extension MapViewController : MKMapViewDelegate {
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             annotationView?.canShowCallout = true
-            annotationView?.image = UIImage(named: "orangutan.png")
+            annotationView?.image = UIImage(named: "pin.png")
 
         } else {
             annotationView?.annotation = annotation
