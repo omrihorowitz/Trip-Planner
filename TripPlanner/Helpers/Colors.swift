@@ -9,11 +9,11 @@ import UIKit
 
 struct Colors {
     
-    static let lightGreen = UIColor(named: "lightGreen")
-    static let darkGreen = UIColor(named: "darkGreen")
-    static let peach = UIColor(named: "peach")
-    static let solidGreen = UIColor(named: "solidGreen")
-    static let sand = UIColor(named: "sand")
+    static let darkBrown = UIColor(named: "darkBrown")
+    static let lightBrown = UIColor(named: "lightBrown")
+    static let brown = UIColor(named: "brown")
+    static let darkBlue = UIColor(named: "darkBlue")
+    static let lightBlue = UIColor(named: "lightBlue")
     
     
 }
