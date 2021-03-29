@@ -18,6 +18,15 @@ class TripDetailViewController: UIViewController {
         }
     }
     
+    //colors
+    let drkPurple = UIColor(red: 60/255, green: 33/255, blue: 173/255, alpha: 1)
+    let medPurple = UIColor(red: 105/255, green: 66/255, blue: 194/255, alpha: 1)
+    let lgtPurple = UIColor(red: 176/255, green: 167/255, blue: 247/255, alpha: 1)
+    let text = UIColor(red: 218/255, green: 224/255, blue: 239/255, alpha: 1)
+    let accentColor = UIColor(red: 86/255, green: 79/255, blue: 80/255, alpha: 1)
+    
+    
+    
     var originLong: Double?
     var destinationLong: Double?
     
@@ -41,7 +50,8 @@ class TripDetailViewController: UIViewController {
     let memberTableView = UITableView()
     let addPeopleButton = UIButton()
     
-    let tripDatesLabel = UILabel()
+    let startDateLabel = UILabel()
+    let endDateLabel = UILabel()
     let startDate = UIDatePicker()
     let endDate = UIDatePicker()
     let destinationButton = UIButton()
@@ -49,6 +59,7 @@ class TripDetailViewController: UIViewController {
     let taskTableView = UITableView()
     let taskButton = UIButton()
     
+    let notesLabel = UILabel()
     let notesTextView = UITextView()
     
     let saveButton = UIButton()
@@ -73,7 +84,9 @@ class TripDetailViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if isMovingFromParent {
-            if trip?.owner == UserController.shared.currentUser?.email {
+            if trip?.owner == UserController.shared.currentUser?.email{
+                saveButtonTapped()
+            }else if (trip == nil){
                 saveButtonTapped()
             }
         }
@@ -124,8 +137,9 @@ class TripDetailViewController: UIViewController {
         setupDestinationInfo()
         setupTaskTable()
         setupTaskButton()
+        setupNotesLabel()
         setupTextView()
-        setupSaveButton()
+        //setupSaveButton()
     }
     
     // MARK: - Constraint Methods
@@ -134,6 +148,7 @@ class TripDetailViewController: UIViewController {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
+        scrollView.backgroundColor = medPurple
         
         scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         scrollView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
@@ -150,9 +165,11 @@ class TripDetailViewController: UIViewController {
         ownerLabel.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(ownerLabel)
         ownerLabel.text = "New Trip"
+        ownerLabel.textColor = text
+        ownerLabel.font = UIFont.systemFont(ofSize: 30)
         ownerLabel.textAlignment = .center
         ownerLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        ownerLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        ownerLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20).isActive = true
         ownerLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
     }
     
@@ -162,11 +179,14 @@ class TripDetailViewController: UIViewController {
         scrollView.addSubview(tripNameLabel)
         scrollView.addSubview(tripNameTextField)
         
-        tripNameLabel.text = "Trip Name:"
-        tripNameLabel.topAnchor.constraint(equalTo: ownerLabel.bottomAnchor, constant: 25).isActive = true
-        tripNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30).isActive = true
+        tripNameLabel.text = "Trip Name"
+        tripNameLabel.textColor = text
+        tripNameLabel.font = UIFont.systemFont(ofSize: 20)
+        tripNameLabel.topAnchor.constraint(equalTo: ownerLabel.bottomAnchor, constant: 20).isActive = true
+        tripNameLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         
         tripNameTextField.placeholder = "Enter trip name..."
+        tripNameTextField.backgroundColor = lgtPurple
         tripNameTextField.font = UIFont.systemFont(ofSize: 15)
         tripNameTextField.borderStyle = UITextField.BorderStyle.roundedRect
         tripNameTextField.autocorrectionType = UITextAutocorrectionType.no
@@ -174,8 +194,8 @@ class TripDetailViewController: UIViewController {
         tripNameTextField.returnKeyType = UIReturnKeyType.done
         tripNameTextField.clearButtonMode = UITextField.ViewMode.whileEditing
         tripNameTextField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
-        tripNameTextField.topAnchor.constraint(equalTo: ownerLabel.bottomAnchor, constant: 20).isActive = true
-        tripNameTextField.leadingAnchor.constraint(equalTo: tripNameLabel.trailingAnchor, constant: 15).isActive = true
+        tripNameTextField.topAnchor.constraint(equalTo: tripNameLabel.bottomAnchor, constant: 10).isActive = true
+        tripNameTextField.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         let widthConstraint = tripNameTextField.widthAnchor.constraint(equalToConstant: 250)
         widthConstraint.priority = UILayoutPriority.defaultHigh
         widthConstraint.isActive = true
@@ -191,24 +211,28 @@ class TripDetailViewController: UIViewController {
         scrollView.addSubview(addPeopleButton)
         
         membersLabel.text = "Members"
+        membersLabel.textColor = text
+        membersLabel.font = UIFont.systemFont(ofSize: 20)
         membersLabel.textAlignment = .center
         membersLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         membersLabel.topAnchor.constraint(equalTo: tripNameTextField.bottomAnchor, constant: 25).isActive = true
         membersLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
         
-        memberTableView.rowHeight = 40
+        memberTableView.rowHeight = 100
         memberTableView.delegate = self
         memberTableView.dataSource = self
+        memberTableView.backgroundColor = lgtPurple
         memberTableView.heightAnchor.constraint(equalToConstant: 350).isActive = true
         memberTableView.register(MemberTableViewCell.self, forCellReuseIdentifier: MemberTableViewCell.cellID)
-        memberTableView.topAnchor.constraint(equalTo: membersLabel.bottomAnchor, constant: 25).isActive = true
+        memberTableView.topAnchor.constraint(equalTo: membersLabel.bottomAnchor, constant: 20).isActive = true
         memberTableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
         memberTableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
         
         addPeopleButton.setTitle("Add Member", for: .normal)
-        addPeopleButton.backgroundColor = .black
+        addPeopleButton.backgroundColor = drkPurple
         addPeopleButton.addTarget(self, action: #selector(showModal), for: .touchUpInside)
-        addPeopleButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        addPeopleButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        addPeopleButton.widthAnchor.constraint(equalToConstant: 75).isActive = true
         addPeopleButton.topAnchor.constraint(equalTo: memberTableView.bottomAnchor, constant: 25).isActive = true
         addPeopleButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 70).isActive = true
         addPeopleButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -70).isActive = true
@@ -216,33 +240,49 @@ class TripDetailViewController: UIViewController {
     }
     
     func setupDestinationInfo(){
-        tripDatesLabel.translatesAutoresizingMaskIntoConstraints = false
+        startDateLabel.translatesAutoresizingMaskIntoConstraints = false
+        endDateLabel.translatesAutoresizingMaskIntoConstraints = false
         startDate.translatesAutoresizingMaskIntoConstraints = false
         endDate.translatesAutoresizingMaskIntoConstraints = false
         destinationButton.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(tripDatesLabel)
+        scrollView.addSubview(startDateLabel)
+        scrollView.addSubview(endDateLabel)
         scrollView.addSubview(startDate)
         scrollView.addSubview(endDate)
         scrollView.addSubview(destinationButton)
         
+        startDateLabel.text = "Start Date"
+        startDateLabel.font = UIFont.systemFont(ofSize: 20)
+        startDateLabel.textColor = text
+        startDateLabel.topAnchor.constraint(equalTo: addPeopleButton.bottomAnchor, constant: 20).isActive = true
+        startDateLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        
         startDate.timeZone = NSTimeZone.local
-        startDate.backgroundColor = UIColor.white
+        startDate.backgroundColor = lgtPurple
         startDate.datePickerMode = .date
-        startDate.topAnchor.constraint(equalTo: addPeopleButton.bottomAnchor, constant: 25).isActive = true
-        startDate.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30).isActive = true
+        startDate.topAnchor.constraint(equalTo: startDateLabel.bottomAnchor, constant: 10).isActive = true
+        startDate.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        
+        endDateLabel.text = "End Date"
+        endDateLabel.font = UIFont.systemFont(ofSize: 20)
+        endDateLabel.textColor = text
+        endDateLabel.topAnchor.constraint(equalTo: startDate.bottomAnchor, constant: 20).isActive = true
+        endDateLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         
         endDate.timeZone = NSTimeZone.local
         endDate.datePickerMode = .date
-        endDate.topAnchor.constraint(equalTo: addPeopleButton.bottomAnchor, constant: 25).isActive = true
-        endDate.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30).isActive = true
+        endDate.backgroundColor = lgtPurple
+        endDate.topAnchor.constraint(equalTo: endDateLabel.bottomAnchor, constant: 10).isActive = true
+        endDate.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         
         destinationButton.setTitle("Plan Route", for: .normal)
-        destinationButton.backgroundColor = .black
-        destinationButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        destinationButton.topAnchor.constraint(equalTo: endDate.bottomAnchor, constant: 25).isActive = true
+        destinationButton.backgroundColor = drkPurple
+        destinationButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        destinationButton.widthAnchor.constraint(equalToConstant: 75).isActive = true
+        destinationButton.topAnchor.constraint(equalTo: endDate.bottomAnchor, constant: 20).isActive = true
+        destinationButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
         destinationButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 70).isActive = true
         destinationButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -70).isActive = true
-        
         destinationButton.addTarget(self, action: #selector(goToMap), for: .touchUpInside)
         
     }
@@ -265,6 +305,7 @@ class TripDetailViewController: UIViewController {
         taskTableView.rowHeight = 40
         taskTableView.delegate = self
         taskTableView.dataSource = self
+        taskTableView.backgroundColor = lgtPurple
         taskTableView.heightAnchor.constraint(equalToConstant: 350).isActive = true
         taskTableView.register(UITableViewCell.self, forCellReuseIdentifier: "task")
         taskTableView.topAnchor.constraint(equalTo: destinationButton.bottomAnchor, constant: 25).isActive = true
@@ -276,13 +317,25 @@ class TripDetailViewController: UIViewController {
         taskButton.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(taskButton)
         taskButton.setTitle("Add Task", for: .normal)
-        taskButton.backgroundColor = .black
+        taskButton.backgroundColor = drkPurple
         taskButton.addTarget(self, action: #selector(showTaskAlert), for: .touchUpInside)
-        taskButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        taskButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        taskButton.widthAnchor.constraint(equalToConstant: 75).isActive = true
         taskButton.topAnchor.constraint(equalTo: taskTableView.bottomAnchor, constant: 25).isActive = true
         taskButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 70).isActive = true
         taskButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -70).isActive = true
-        //taskButton.bottomAnchor.constraint(equalTo: textView.bottomAnchor, constant: -20).isActive = true
+    }
+    
+    func setupNotesLabel() {
+        notesLabel.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(notesLabel)
+        notesLabel.text = "Notes:"
+        notesLabel.textColor = text
+        notesLabel.font = UIFont.systemFont(ofSize: 20)
+        notesLabel.textAlignment = .center
+        notesLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        notesLabel.topAnchor.constraint(equalTo: taskButton.bottomAnchor, constant: 20).isActive = true
+        notesLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
     }
     
     func setupTextView() {
@@ -290,7 +343,7 @@ class TripDetailViewController: UIViewController {
         scrollView.addSubview(notesTextView)
         notesTextView.center = self.view.center
         notesTextView.textAlignment = .justified
-        notesTextView.backgroundColor = .lightGray
+        notesTextView.backgroundColor = lgtPurple
         notesTextView.font = .systemFont(ofSize: 20)
         notesTextView.isSelectable = true
         notesTextView.dataDetectorTypes = .link
@@ -301,27 +354,28 @@ class TripDetailViewController: UIViewController {
         notesTextView.isEditable = true
         
         NSLayoutConstraint.activate([
-            notesTextView.topAnchor.constraint(equalTo: taskButton.bottomAnchor, constant: 25),
+            notesTextView.topAnchor.constraint(equalTo: notesLabel.bottomAnchor, constant: 15),
             notesTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             notesTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            notesTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
             notesTextView.heightAnchor.constraint(equalToConstant: 100)
         ])
     }
     
-    func setupSaveButton() {
-        saveButton.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(saveButton)
-        
-        saveButton.setTitle("Save", for: .normal)
-        saveButton.backgroundColor = .black
-        saveButton.topAnchor.constraint(equalTo: notesTextView.bottomAnchor, constant: 25).isActive = true
-        saveButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
-        saveButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
-        saveButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
-        
-        saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
-        
-    }
+//    func setupSaveButton() {
+//        saveButton.translatesAutoresizingMaskIntoConstraints = false
+//        scrollView.addSubview(saveButton)
+//
+//        saveButton.setTitle("Save", for: .normal)
+//        saveButton.backgroundColor = .black
+//        saveButton.topAnchor.constraint(equalTo: notesTextView.bottomAnchor, constant: 25).isActive = true
+//        saveButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
+//        saveButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
+//        saveButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
+//
+//        saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+//
+//    }
     
     @objc func showModal() {
         let modalTableViewController = ModalTableViewController()

@@ -9,6 +9,10 @@ import UIKit
 import Firebase
 
 class AccountViewController: UIViewController {
+    
+    let scrollView = UIScrollView()
+    
+    let contentView = UIView()
 
     let logoutButton = TPButton(backgroundColor: .systemGray, title: "Logout")
     
@@ -24,7 +28,7 @@ class AccountViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubviews(logoutButton, deleteAccountButton, profileImageView, changePhotoButton, nameTextField, saveNameButton)
+        constrainScrollView()
         constrainImageView()
         constrainChangePhotoButton()
         constrainNameTextField()
@@ -145,14 +149,32 @@ class AccountViewController: UIViewController {
         
     }
     
+    func constrainScrollView(){
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        
+        scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        scrollView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+        contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+    }
+    
     func constrainImageView() {
         
         profileImageView.tintColor = .black
+        scrollView.addSubview(profileImageView)
         
         NSLayoutConstraint.activate([
         
-            profileImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            profileImageView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 20),
+            profileImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             profileImageView.heightAnchor.constraint(equalToConstant: 100),
             profileImageView.widthAnchor.constraint(equalTo: profileImageView.heightAnchor)
         ])
@@ -161,44 +183,59 @@ class AccountViewController: UIViewController {
     
     func constrainChangePhotoButton() {
         
+        scrollView.addSubview(changePhotoButton)
+        
         NSLayoutConstraint.activate([
-            changePhotoButton.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 5),
-            changePhotoButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50),
-            changePhotoButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50)
+            changePhotoButton.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 20),
+            changePhotoButton.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 50),
+            changePhotoButton.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -50)
         ])
         
     }
     
     func constrainNameTextField() {
+        
+        scrollView.addSubview(nameTextField)
+        
         NSLayoutConstraint.activate([
-            nameTextField.topAnchor.constraint(equalTo: changePhotoButton.bottomAnchor, constant: 5),
-            nameTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50),
-            nameTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50)
+            nameTextField.topAnchor.constraint(equalTo: changePhotoButton.bottomAnchor, constant: 15),
+            nameTextField.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 50),
+            nameTextField.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -50)
         ])
     }
     
     func constrainSaveNameButton() {
+        
+        scrollView.addSubview(saveNameButton)
+        
         NSLayoutConstraint.activate([
-            saveNameButton.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 5),
-            saveNameButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50),
-            saveNameButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50)
+            saveNameButton.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 15),
+            saveNameButton.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 50),
+            saveNameButton.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -50)
         ])
     }
     
     func constrainLogout() {
+        
+        scrollView.addSubview(logoutButton)
+        
         NSLayoutConstraint.activate([
-            logoutButton.topAnchor.constraint(equalTo: saveNameButton.bottomAnchor, constant: 5),
-            logoutButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            logoutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            logoutButton.topAnchor.constraint(equalTo: saveNameButton.bottomAnchor, constant: 20),
+            logoutButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
+            logoutButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
             logoutButton.heightAnchor.constraint(equalToConstant: 75)
         ])
     }
     
     func constrainDeleteAccountButton() {
+        
+        scrollView.addSubview(deleteAccountButton)
+        
         NSLayoutConstraint.activate([
             deleteAccountButton.topAnchor.constraint(equalTo: logoutButton.bottomAnchor, constant: 20),
-            deleteAccountButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            deleteAccountButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            deleteAccountButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
+            deleteAccountButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
+            deleteAccountButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
             deleteAccountButton.heightAnchor.constraint(equalToConstant: 75)
         ])
     }

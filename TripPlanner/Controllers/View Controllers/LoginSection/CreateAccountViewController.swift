@@ -11,6 +11,8 @@ import Firebase
 
 class CreateAccountViewController: UIViewController {
 
+    let scrollView = UIScrollView()
+    let contentView = UIView()
     let imageView = UIImageView()
     let changeImageButton = TPButton(backgroundColor: .systemGray, title: " Change Image ")
     let nameTextField = TPTextField(placeHolder: "Name", isSecure: false)
@@ -30,6 +32,7 @@ class CreateAccountViewController: UIViewController {
         navigationController?.navigationBar.isHidden = false
         view.backgroundColor = .systemBackground
         view.addSubviews(nameTextField, emailTextField, passwordTextField, confirmPasswordTextField, createAccountButton, imageView, changeImageButton)
+        constrainScrollView()
         constrainViews()
         setUpButtonTargets()
         addCancelKeyboardGestureRecognizer()
@@ -98,6 +101,23 @@ class CreateAccountViewController: UIViewController {
         }
     }
     
+    func constrainScrollView(){
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        
+        scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        scrollView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+        contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+    }
+    
     func constrainViews() {
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -107,40 +127,42 @@ class CreateAccountViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             
-            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imageView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 20),
+            imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             imageView.heightAnchor.constraint(equalToConstant: 100),
             imageView.widthAnchor.constraint(equalToConstant: 100),
             
-            changeImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5),
-            changeImageButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            changeImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
+            changeImageButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             changeImageButton.heightAnchor.constraint(equalToConstant: 30),
             
-            emailTextField.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            emailTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            emailTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            emailTextField.topAnchor.constraint(equalTo: changeImageButton.bottomAnchor, constant: 20),
+            emailTextField.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            emailTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
+            emailTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
             emailTextField.heightAnchor.constraint(equalToConstant: 50),
             
             
             
-            nameTextField.bottomAnchor.constraint(equalTo: emailTextField.topAnchor, constant: -20),
-            nameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            nameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            nameTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 20),
+            nameTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
+            nameTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
             nameTextField.heightAnchor.constraint(equalToConstant: 50),
             
             passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 20),
-            passwordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            passwordTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            passwordTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
+            passwordTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
             passwordTextField.heightAnchor.constraint(equalToConstant: 50),
             
             confirmPasswordTextField.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20),
-            confirmPasswordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            confirmPasswordTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            confirmPasswordTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
+            confirmPasswordTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
             confirmPasswordTextField.heightAnchor.constraint(equalToConstant: 50),
             
             createAccountButton.topAnchor.constraint(equalTo: confirmPasswordTextField.bottomAnchor, constant: 20),
-            createAccountButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            createAccountButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            createAccountButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
+            createAccountButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
+            createAccountButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
             createAccountButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
