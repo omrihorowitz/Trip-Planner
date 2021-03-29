@@ -50,11 +50,15 @@ class PersonDetailViewController: UIViewController {
         configureStackView()
         addTargets()
         addCancelKeyboardGestureRecognizer()
+        
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
+      //  self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.dismiss))
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -162,7 +166,7 @@ class PersonDetailViewController: UIViewController {
     
     func showMessageAndPopView(title: String, message: String) {
         delegate?.buttonSelected(title: title, message: message)
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     func setUpViewsForUser() {

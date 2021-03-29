@@ -169,8 +169,7 @@ extension FriendsViewController : UICollectionViewDelegate {
         let destination = PersonDetailViewController()
         destination.user = userToSelect
         destination.delegate = self
-        destination.modalPresentationStyle = .pageSheet
-        present(destination, animated: true)
+        navigationController?.pushViewController(destination, animated: true)
     }
     
 }

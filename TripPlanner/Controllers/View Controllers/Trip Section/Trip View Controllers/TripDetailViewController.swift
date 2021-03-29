@@ -115,6 +115,8 @@ class TripDetailViewController: UIViewController {
             notesTextView.isUserInteractionEnabled = false
             taskButton.isUserInteractionEnabled = false
             saveButton.isUserInteractionEnabled = false
+            memberTableView.isUserInteractionEnabled = false
+            taskTableView.isUserInteractionEnabled = false
         }
         
         //If we are the owner of the trip, just put current users name up there
@@ -365,25 +367,10 @@ class TripDetailViewController: UIViewController {
             notesTextView.topAnchor.constraint(equalTo: notesLabel.bottomAnchor, constant: 15),
             notesTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             notesTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            notesTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
+            notesTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -250),
             notesTextView.heightAnchor.constraint(equalToConstant: 100)
         ])
     }
-    
-//    func setupSaveButton() {
-//        saveButton.translatesAutoresizingMaskIntoConstraints = false
-//        scrollView.addSubview(saveButton)
-//
-//        saveButton.setTitle("Save", for: .normal)
-//        saveButton.backgroundColor = .black
-//        saveButton.topAnchor.constraint(equalTo: notesTextView.bottomAnchor, constant: 25).isActive = true
-//        saveButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
-//        saveButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
-//        saveButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
-//
-//        saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
-//
-//    }
     
     @objc func showModal() {
         let modalTableViewController = ModalTableViewController()
