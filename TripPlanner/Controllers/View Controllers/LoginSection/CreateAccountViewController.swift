@@ -152,7 +152,7 @@ extension CreateAccountViewController : UIImagePickerControllerDelegate, UINavig
         picker.dismiss(animated: true)
         guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
         
-        guard let imageData = image.pngData() else { return }
+        guard let imageData = image.jpegData(compressionQuality: 0.5) else { return }
         self.imageData = imageData
         imageView.image = image
     }

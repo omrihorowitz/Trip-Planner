@@ -24,6 +24,11 @@ class MemberTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        profilePhotoImageView.configure()
+    }
+    
     func set(user: User) {
         
         userName.text = user.name

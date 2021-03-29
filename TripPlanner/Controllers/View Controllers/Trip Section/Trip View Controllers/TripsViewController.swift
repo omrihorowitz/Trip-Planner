@@ -74,7 +74,7 @@ class TripsViewController: UIViewController {
         tableView.rowHeight = 40
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
+        tableView.register(TripTableViewCell.self, forCellReuseIdentifier: TripTableViewCell.cellID)
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -99,11 +99,17 @@ extension TripsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
+       guard let cell = tableView.dequeueReusableCell(withIdentifier: TripTableViewCell.cellID) as? TripTableViewCell else { return UITableViewCell ()}
         
-        cell.textLabel?.text = TripController.shared.allTrips[indexPath.row].name
+        let currentTrip = TripController.shared.allTrips[indexPath.row]
+        
+        cell.configure(trip: currentTrip)
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
