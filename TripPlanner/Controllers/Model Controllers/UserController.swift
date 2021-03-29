@@ -22,6 +22,8 @@ class UserController {
     
     private let storage = Storage.storage().reference()
     
+    let cache = NSCache<NSString, UIImage>()
+    
     var currentUser: User?
     
     var delegate: FireBaseUpdatedDelegate?
@@ -64,12 +66,13 @@ class UserController {
     }
     
     func uploadPhotoForUser(imageData: Data, email: String, completion: @escaping(Result<String, CustomError>) -> Void) {
-        storage.child("images/\(email.lowercased()).png").putData(imageData, metadata: nil) { (_, error) in
+        
+        storage.child("images/\(email.lowercased()).jpg").putData(imageData, metadata: nil) { (_, error) in
             guard error == nil else {
                 return completion(.failure(.fireBaseError))
             }
             
-            self.storage.child("images/\(email).png").downloadURL { (url, error) in
+            self.storage.child("images/\(email).jpg").downloadURL { (url, error) in
                 
                 guard let url = url, error == nil else {
                     return completion(.failure(.invalidURL))
@@ -83,7 +86,14 @@ class UserController {
     
     func fetchPhotoForUser(user: User, completion: @escaping(Result<UIImage, CustomError>) -> Void ) {
         
+        if let image = cache.object(forKey: user.downloadURL as NSString) {
+            completion(.success(image))
+            return
+        }
+        
         guard let downloadURL = URL(string: user.downloadURL) else { return completion(.failure(.invalidURL))}
+        
+        
         
         URLSession.shared.dataTask(with: downloadURL) { (data, _, error) in
             if let _ = error {
@@ -92,6 +102,7 @@ class UserController {
             
             if let data = data {
                 guard let userImage = UIImage(data: data) else { return completion(.failure(.noData))}
+                self.cache.setObject(userImage, forKey: user.downloadURL as NSString)
                 return completion(.success(userImage))
             }
             
@@ -561,7 +572,7 @@ class UserController {
         guard let currentUser = UserController.shared.currentUser?.email else { return }
         
         if UserController.shared.currentUser?.downloadURL != "No" {
-            let picStorage = storage.child("images/\(currentUser).png")
+            let picStorage = storage.child("images/\(currentUser).jpg")
             
             picStorage.delete { (error) in
                 if let _ = error {
