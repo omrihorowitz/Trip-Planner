@@ -124,17 +124,22 @@ extension TripsViewController: UITableViewDelegate, UITableViewDataSource {
         
         if editingStyle == .delete {
             let tripToDelete = TripController.shared.allTrips[indexPath.row]
-            TripController.shared.deleteTrip(trip: tripToDelete) { [weak self] (result) in
-                guard let self = self else { return }
-                switch result {
-                case .success(_):
-                    DispatchQueue.main.async {
-                        TripController.shared.allTrips.remove(at: indexPath.row)
-                        tableView.reloadData()
+            
+            if tripToDelete.owner == UserController.shared.currentUser?.email {
+                TripController.shared.deleteTrip(trip: tripToDelete) { [weak self] (result) in
+                    guard let self = self else { return }
+                    switch result {
+                    case .success(_):
+                        DispatchQueue.main.async {
+                            TripController.shared.allTrips.remove(at: indexPath.row)
+                            tableView.reloadData()
+                        }
+                    case .failure(_):
+                        self.presentAlertOnMainThread(title: "Uh oh", message: "Could not remove trip at this time. Check internet and try again later.", buttonTitle: "Ok")
                     }
-                case .failure(_):
-                    self.presentAlertOnMainThread(title: "Uh oh", message: "Could not remove trip at this time. Check internet and try again later.", buttonTitle: "Ok")
                 }
+            } else {
+                self.presentAlertOnMainThread(title: "Uh oh", message: "You can't delete a trip you are not the owner of!", buttonTitle: "Ok")
             }
         }
     }

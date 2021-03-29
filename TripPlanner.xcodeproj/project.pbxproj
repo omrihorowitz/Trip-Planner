@@ -58,6 +58,7 @@
 		FFE4DBE12601178A00DAC744 /* TPImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE4DBE02601178A00DAC744 /* TPImageView.swift */; };
 		FFE4DBE52601182100DAC744 /* TPPersonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE4DBE42601182100DAC744 /* TPPersonCollectionViewCell.swift */; };
 		FFE4DBEE26011CBA00DAC744 /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE4DBED26011CBA00DAC744 /* UIHelper.swift */; };
+		FFEAC01B261269F900AE4B6F /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEAC01A261269F900AE4B6F /* Colors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -116,6 +117,7 @@
 		FFE4DBE02601178A00DAC744 /* TPImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageView.swift; sourceTree = "<group>"; };
 		FFE4DBE42601182100DAC744 /* TPPersonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPPersonCollectionViewCell.swift; sourceTree = "<group>"; };
 		FFE4DBED26011CBA00DAC744 /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
+		FFEAC01A261269F900AE4B6F /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -387,6 +389,7 @@
 			children = (
 				FFE4DBED26011CBA00DAC744 /* UIHelper.swift */,
 				FF298F352603D55A0017F999 /* RouteBuilder.swift */,
+				FFEAC01A261269F900AE4B6F /* Colors.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -530,6 +533,7 @@
 				FF61F94026029D3A007A53C2 /* Trip.swift in Sources */,
 				FF51912F25FBD2EE0046642F /* TabBarViewController.swift in Sources */,
 				FFE4DBEE26011CBA00DAC744 /* UIHelper.swift in Sources */,
+				FFEAC01B261269F900AE4B6F /* Colors.swift in Sources */,
 				FFDCED0B25F71C2C001C2769 /* SceneDelegate.swift in Sources */,
 				FFE4DBE12601178A00DAC744 /* TPImageView.swift in Sources */,
 				FF51913F25FBD3380046642F /* PersonDetailViewController.swift in Sources */,
@@ -692,7 +696,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RGFY4NFFB9;
+				DEVELOPMENT_TEAM = 883MB467TW;
 				INFOPLIST_FILE = TripPlanner/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -712,7 +716,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RGFY4NFFB9;
+				DEVELOPMENT_TEAM = 883MB467TW;
 				INFOPLIST_FILE = TripPlanner/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

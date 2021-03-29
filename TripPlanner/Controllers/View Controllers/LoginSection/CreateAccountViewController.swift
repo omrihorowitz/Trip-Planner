@@ -31,7 +31,6 @@ class CreateAccountViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = false
         view.backgroundColor = .systemBackground
-        view.addSubviews(nameTextField, emailTextField, passwordTextField, confirmPasswordTextField, createAccountButton, imageView, changeImageButton)
         constrainScrollView()
         constrainViews()
         setUpButtonTargets()
@@ -107,9 +106,11 @@ class CreateAccountViewController: UIViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         
+        contentView.addSubviews(nameTextField, emailTextField, passwordTextField, confirmPasswordTextField, createAccountButton, imageView, changeImageButton)
+        
         scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         scrollView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
         contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
@@ -132,22 +133,21 @@ class CreateAccountViewController: UIViewController {
             imageView.heightAnchor.constraint(equalToConstant: 100),
             imageView.widthAnchor.constraint(equalToConstant: 100),
             
-            changeImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
+            changeImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5),
             changeImageButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             changeImageButton.heightAnchor.constraint(equalToConstant: 30),
             
-            emailTextField.topAnchor.constraint(equalTo: changeImageButton.bottomAnchor, constant: 20),
+            nameTextField.topAnchor.constraint(equalTo: changeImageButton.bottomAnchor, constant: 20),
+            nameTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
+            nameTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
+            nameTextField.heightAnchor.constraint(equalToConstant: 50),
+            
+            emailTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 20),
             emailTextField.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             emailTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
             emailTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
             emailTextField.heightAnchor.constraint(equalToConstant: 50),
             
-            
-            
-            nameTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 20),
-            nameTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
-            nameTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
-            nameTextField.heightAnchor.constraint(equalToConstant: 50),
             
             passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 20),
             passwordTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
@@ -162,7 +162,7 @@ class CreateAccountViewController: UIViewController {
             createAccountButton.topAnchor.constraint(equalTo: confirmPasswordTextField.bottomAnchor, constant: 20),
             createAccountButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
             createAccountButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
-            createAccountButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
+            createAccountButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -250),
             createAccountButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }

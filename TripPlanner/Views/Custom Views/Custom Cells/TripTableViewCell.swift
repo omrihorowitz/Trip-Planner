@@ -43,7 +43,139 @@ class TripTableViewCell: UITableViewCell {
 
     func configure(trip: Trip) {
         tripNameLabel.text = trip.name
-        print(trip.members)
+        //Find the user object for the owner.
+        
+        if trip.owner == UserController.shared.currentUser?.email {
+            guard let currentUser = UserController.shared.currentUser else {return}
+            if currentUser.downloadURL != "No" {
+                UserController.shared.fetchPhotoForUser(user: currentUser) { [weak self] (result) in
+                    guard let self = self else { return }
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(let image):
+                            self.ownerImageView.image = image
+                        case .failure(_):
+                            break
+                        }
+                    }
+                }
+            }
+        } else {
+            let owner = UserController.shared.users.filter({$0.email == trip.owner})[0]
+            
+            if owner.downloadURL != "No" {
+                UserController.shared.fetchPhotoForUser(user: owner) { [weak self] (result) in
+                    guard let self = self else { return }
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(let image):
+                            self.ownerImageView.image = image
+                        case .failure(_):
+                            break
+                        }
+                    }
+                }
+            }
+        }
+        
+        setMember1Image(trip: trip)
+        setMember2Image(trip: trip)
+        
+        
+    }
+    
+    func setMember1Image(trip: Trip) {
+        
+        if let members = trip.members {
+            if members.count >= 1 {
+                DispatchQueue.main.async {
+                    //Make image view not hidden and fetch photo
+                    self.member1ImageView.isHidden = false
+                    guard let currentUser = UserController.shared.currentUser else { return }
+                    if members[0] == currentUser.email {
+                        //If owner is the current user
+                        UserController.shared.fetchPhotoForUser(user: currentUser) { [weak self] (result) in
+                            guard let self = self else { return }
+                            DispatchQueue.main.async {
+                                switch result {
+                                case .success(let image):
+                                    self.member1ImageView.image = image
+                                case .failure(_):
+                                    break
+                                }
+                            }
+                        }
+                    } else {
+                        //If owner is not current user
+                        let member1 = UserController.shared.users.filter({$0.email == members[0]})[0]
+                        UserController.shared.fetchPhotoForUser(user: member1) { [weak self] (result) in
+                            guard let self = self else { return }
+                            DispatchQueue.main.async {
+                                switch result {
+                                case .success(let image):
+                                    self.member1ImageView.image = image
+                                case .failure(_):
+                                    break
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                //Make image view hidden
+                DispatchQueue.main.async {
+                    self.member1ImageView.isHidden = true
+                }
+            }
+        }
+        
+        
+    }
+    
+    func setMember2Image(trip: Trip) {
+        
+        if let members = trip.members {
+            if members.count > 1 {
+                DispatchQueue.main.async {
+                    //Make image view not hidden and fetch photo
+                    self.member2ImageView.isHidden = false
+                    guard let currentUser = UserController.shared.currentUser else { return }
+                    if members[1] == currentUser.email {
+                        UserController.shared.fetchPhotoForUser(user: currentUser) { [weak self] (result) in
+                            guard let self = self else { return }
+                            DispatchQueue.main.async {
+                                switch result {
+                                case .success(let image):
+                                    self.member2ImageView.image = image
+                                case .failure(_):
+                                    break
+                                }
+                            }
+                        }
+                    } else {
+                        let member2 = UserController.shared.users.filter({$0.email == members[1]})[0]
+                        UserController.shared.fetchPhotoForUser(user: member2) { [weak self] (result) in
+                            guard let self = self else { return }
+                            DispatchQueue.main.async {
+                                switch result {
+                                case .success(let image):
+                                    self.member2ImageView.image = image
+                                case .failure(_):
+                                    break
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                //Make image view hidden
+                DispatchQueue.main.async {
+                    self.member2ImageView.isHidden = true
+                }
+            }
+        }
+        
+        
     }
     
     func constrainCellViewItems() {
@@ -88,8 +220,8 @@ class TripTableViewCell: UITableViewCell {
             pic.layer.borderColor = UIColor.white.cgColor
             pic.clipsToBounds = true
             
-            
         }
+        ownerImageView.layer.borderColor = UIColor.systemGreen.cgColor
     }
     
 }
