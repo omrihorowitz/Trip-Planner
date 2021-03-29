@@ -12,7 +12,7 @@ class LoginViewController: UIViewController {
     
     let emailTextField = TPTextField(placeHolder: "Email", isSecure: false)
     let passwordTextField = TPTextField(placeHolder: "Password", isSecure: true)
-    let loginButton = TPButton(backgroundColor: .systemGreen, title: "Go!")
+    let loginButton = TPButton(backgroundColor: Colors.lightGreen ?? .systemGreen, title: "Ignition!")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +54,9 @@ class LoginViewController: UIViewController {
     
     func constrainViews() {
         
+        loginButton.setTitleColor(Colors.darkGreen, for: .normal)
+        loginButton.titleLabel?.font = UIFont(name: "AmericanTypewriter-Bold", size: 25)
+
         NSLayoutConstraint.activate([
         
             emailTextField.bottomAnchor.constraint(equalTo: passwordTextField.topAnchor, constant: -20),
@@ -66,6 +69,7 @@ class LoginViewController: UIViewController {
             passwordTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             passwordTextField.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             passwordTextField.heightAnchor.constraint(equalToConstant: 50),
+            
             
             loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20),
             loginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),

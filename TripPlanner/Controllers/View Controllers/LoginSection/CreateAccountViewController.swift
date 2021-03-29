@@ -14,12 +14,12 @@ class CreateAccountViewController: UIViewController {
     let scrollView = UIScrollView()
     let contentView = UIView()
     let imageView = UIImageView()
-    let changeImageButton = TPButton(backgroundColor: .systemGray, title: " Change Image ")
+    let changeImageButton = TPButton(backgroundColor: Colors.darkGreen ?? .systemGray, title: " Select Image ")
     let nameTextField = TPTextField(placeHolder: "Name", isSecure: false)
     let emailTextField = TPTextField(placeHolder: "Email", isSecure: false)
     let passwordTextField = TPTextField(placeHolder: "Password", isSecure: true)
     let confirmPasswordTextField = TPTextField(placeHolder: "Confirm Password", isSecure: true)
-    let createAccountButton = TPButton(backgroundColor: .systemTeal, title: "Let's Go!")
+    let createAccountButton = TPButton(backgroundColor: Colors.sand ?? .systemTeal, title: "Hit the road!")
     
     var imageData: Data?
     
@@ -121,19 +121,23 @@ class CreateAccountViewController: UIViewController {
     
     func constrainViews() {
         
+        changeImageButton.setTitleColor(Colors.sand, for: .normal)
+        changeImageButton.titleLabel?.font = UIFont(name: "AmericanTypewriter-Bold", size: 15)
+        createAccountButton.setTitleColor(Colors.darkGreen, for: .normal)
+        createAccountButton.titleLabel?.font = UIFont(name: "AmericanTypewriter-Bold", size: 25)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         imageView.image = UIImage(systemName: "person.circle.fill")
-        imageView.tintColor = .black
+        imageView.tintColor = Colors.solidGreen
         
         NSLayoutConstraint.activate([
             
             imageView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 20),
             imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            imageView.heightAnchor.constraint(equalToConstant: 100),
-            imageView.widthAnchor.constraint(equalToConstant: 100),
+            imageView.heightAnchor.constraint(equalToConstant: 250),
+            imageView.widthAnchor.constraint(equalToConstant: 250),
             
-            changeImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5),
+            changeImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -30),
             changeImageButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             changeImageButton.heightAnchor.constraint(equalToConstant: 30),
             

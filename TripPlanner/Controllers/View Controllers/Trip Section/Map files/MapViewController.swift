@@ -295,7 +295,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         searchStackView.translatesAutoresizingMaskIntoConstraints = false
         searchStackView.axis = .vertical
         searchStackView.distribution = .fillProportionally
-        searchStackView.backgroundColor = .clear
+        searchStackView.backgroundColor = .white
         searchStackView.spacing = 5
         
         originLocationSearchBar.showsCancelButton = true
