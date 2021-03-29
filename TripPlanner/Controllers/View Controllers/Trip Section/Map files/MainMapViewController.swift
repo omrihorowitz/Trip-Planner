@@ -332,6 +332,10 @@ class MainMapViewController: UIViewController, CLLocationManagerDelegate, UISear
         
         return CLLocation(latitude: latitude, longitude: longitutde)
     }
+    
+    func addAnnotations() {
+        
+    }
 }
 
 //MARK: - Extensions
