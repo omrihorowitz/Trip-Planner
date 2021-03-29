@@ -125,6 +125,12 @@ class AccountViewController: UIViewController {
         }
     }
     
+    @objc func rateButtonTapped() {
+        guard let writeReviewURL = URL(string: "https://apps.apple.com/app/id1555323056?action=write-review")
+        else { fatalError("Expected a valid URL") }
+        UIApplication.shared.open(writeReviewURL, options: [:], completionHandler: nil)
+    }
+    
     @objc func deleteAccountButtonPressed() {
         
         
@@ -251,7 +257,7 @@ extension AccountViewController : UIImagePickerControllerDelegate, UINavigationC
         
         //Check if they had an image already, and then replace it with this
         
-        guard let imageData = image.pngData() else { return }
+        guard let imageData = image.jpegData(compressionQuality: 0.5) else { return }
         
         profileImageView.image = image
         

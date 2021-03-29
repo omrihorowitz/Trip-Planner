@@ -87,6 +87,20 @@ class MapViewController: UIViewController {
         
     }
     
+
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if trip == nil {
+            if let originLong = originLong, let originLat = originLat, let destinationLong = destinationLong, let destinationLat = destinationLat {
+                goButtonTapped()
+                updateOriginSearchBar()
+                updateDestinationSearchBar()
+            }
+        }
+        
+    }
+
     
     func updateOriginSearchBar() {
         

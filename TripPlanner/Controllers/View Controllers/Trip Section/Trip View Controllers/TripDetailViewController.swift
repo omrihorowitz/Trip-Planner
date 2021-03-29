@@ -88,6 +88,8 @@ class TripDetailViewController: UIViewController {
                 saveButtonTapped()
             }else if (trip == nil){
                 saveButtonTapped()
+            } else if trip == nil {
+                saveButtonTapped()
             }
         }
     }
@@ -295,7 +297,13 @@ class TripDetailViewController: UIViewController {
         map.delegate = self
         if let trip = self.trip {
             map.trip = trip
+        } else if let originLong = originLong, let originLat = originLat, let destinationLong = destinationLong, let destinationLat = destinationLat {
+            map.originLong = originLong
+            map.originLat = originLat
+            map.destinationLong = destinationLong
+            map.destinationLat = destinationLat
         }
+        
         navigationController?.pushViewController(map, animated: true)
     }
     

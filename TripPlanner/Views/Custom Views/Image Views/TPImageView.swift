@@ -9,7 +9,7 @@ import UIKit
 
 class TPImageView: UIImageView {
 
-    var placeholderImage = UIImage(systemName: "person.circle.fill")
+    var placeholderImage = UIImage(named: "defaultAvatar")
     
     override init(frame: CGRect) {
         super.init(frame: frame)
