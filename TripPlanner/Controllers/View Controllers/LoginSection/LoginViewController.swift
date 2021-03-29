@@ -21,7 +21,7 @@ class LoginViewController: UIViewController {
         view.addSubviews(emailTextField, passwordTextField, loginButton)
         constrainViews()
         setButtonTarget()
-        emailTextField.text = "b@b.com"
+        emailTextField.text = "tdavis1736@gmail.com"
         passwordTextField.text = "123456"
         addCancelKeyboardGestureRecognizer()
     }
@@ -56,14 +56,15 @@ class LoginViewController: UIViewController {
         
         NSLayoutConstraint.activate([
         
-            emailTextField.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            emailTextField.bottomAnchor.constraint(equalTo: passwordTextField.topAnchor, constant: -20),
             emailTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             emailTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             emailTextField.heightAnchor.constraint(equalToConstant: 50),
             
-            passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 20),
+            passwordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 20),
             passwordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             passwordTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            passwordTextField.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             passwordTextField.heightAnchor.constraint(equalToConstant: 50),
             
             loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20),

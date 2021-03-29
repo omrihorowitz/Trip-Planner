@@ -21,19 +21,22 @@ class TabBarViewController: UITabBarController {
     
     private func setUpFriendsVC() -> UIViewController {
         let friendsVC = FriendsViewController()
-        friendsVC.tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 0)
+        friendsVC.tabBarItem.image = UIImage(named: "popluarman")
+        friendsVC.tabBarItem.title = "Friends"
         return friendsVC
     }
     
     private func setUpTripsVC() -> UIViewController {
         let TripsVC = TripsViewController()
-        TripsVC.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
+        TripsVC.tabBarItem.image = UIImage(named: "roadicon")
+        TripsVC.tabBarItem.title = "Trips"
         return TripsVC
     }
     
     private func setUpAccountVC() -> UIViewController {
         let AccountVC = AccountViewController()
-        AccountVC.tabBarItem = UITabBarItem(tabBarSystemItem: .history, tag: 2)
+        AccountVC.tabBarItem.image = UIImage(named: "accounticon")
+        AccountVC.tabBarItem.title = "Account"
         return AccountVC
     }
 
