@@ -47,6 +47,7 @@
 		FF51919225FC11AD0046642F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51919125FC11AD0046642F /* User.swift */; };
 		FF51919625FC13CC0046642F /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51919525FC13CC0046642F /* UserController.swift */; };
 		FF51919A25FC1A380046642F /* CustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF51919925FC1A380046642F /* CustomError.swift */; };
+		FF59A4FF260E40250068B0A3 /* TripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF59A4FE260E40250068B0A3 /* TripTableViewCell.swift */; };
 		FF61F93D26027736007A53C2 /* TripController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF61F93C26027736007A53C2 /* TripController.swift */; };
 		FF61F94026029D3A007A53C2 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF61F93F26029D3A007A53C2 /* Trip.swift */; };
 		FFDCED0925F71C2C001C2769 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCED0825F71C2C001C2769 /* AppDelegate.swift */; };
@@ -102,6 +103,7 @@
 		FF51919125FC11AD0046642F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FF51919525FC13CC0046642F /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 		FF51919925FC1A380046642F /* CustomError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomError.swift; sourceTree = "<group>"; };
+		FF59A4FE260E40250068B0A3 /* TripTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripTableViewCell.swift; sourceTree = "<group>"; };
 		FF61F93C26027736007A53C2 /* TripController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripController.swift; sourceTree = "<group>"; };
 		FF61F93F26029D3A007A53C2 /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 		FFDCED0525F71C2C001C2769 /* TripPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TripPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -375,6 +377,7 @@
 			children = (
 				FFE4DBE42601182100DAC744 /* TPPersonCollectionViewCell.swift */,
 				FFE22623260D312D003573C3 /* MemberTableViewCell.swift */,
+				FF59A4FE260E40250068B0A3 /* TripTableViewCell.swift */,
 			);
 			path = "Custom Cells";
 			sourceTree = "<group>";
@@ -517,6 +520,7 @@
 				FF374E7D2609048B00078739 /* MapViewController.swift in Sources */,
 				FF298F332603D4C40017F999 /* UITextField+Ext.swift in Sources */,
 				FF51914D25FBD5900046642F /* TPButton.swift in Sources */,
+				FF59A4FF260E40250068B0A3 /* TripTableViewCell.swift in Sources */,
 				FF51913225FBD3060046642F /* FriendsViewController.swift in Sources */,
 				FF61F93D26027736007A53C2 /* TripController.swift in Sources */,
 				FF298F2A2603D4380017F999 /* CLPlacemark+Ext.swift in Sources */,
@@ -688,7 +692,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W578QLR797;
+				DEVELOPMENT_TEAM = RGFY4NFFB9;
 				INFOPLIST_FILE = TripPlanner/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -708,7 +712,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W578QLR797;
+				DEVELOPMENT_TEAM = RGFY4NFFB9;
 				INFOPLIST_FILE = TripPlanner/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

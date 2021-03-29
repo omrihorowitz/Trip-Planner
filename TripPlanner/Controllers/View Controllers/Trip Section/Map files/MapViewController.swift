@@ -93,7 +93,23 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         constrainETALabel()
         addButtonTargets()
         
+        
     }
+    
+
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if trip == nil {
+            if let originLong = originLong, let originLat = originLat, let destinationLong = destinationLong, let destinationLat = destinationLat {
+                goButtonTapped()
+                updateOriginSearchBar()
+                updateDestinationSearchBar()
+            }
+        }
+        
+    }
+
     
     func updateOriginSearchBar() {
         
@@ -109,7 +125,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
                 if let _ = error {
                     self.originLocationSearchBar.text = "Unknown location"
                 }
-                
                 if let placemark = placemarks?[0] {
                     let originName = placemark.locality
                     self.originLocationSearchBar.text = originName
