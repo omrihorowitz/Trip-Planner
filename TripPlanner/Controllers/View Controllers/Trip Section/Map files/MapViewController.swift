@@ -84,8 +84,11 @@ class MapViewController: UIViewController {
         constrainSuggestionsTableView()
         addButtonTargets()
         
+        
     }
     
+
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if trip == nil {
@@ -97,6 +100,7 @@ class MapViewController: UIViewController {
         }
         
     }
+
     
     func updateOriginSearchBar() {
         
@@ -112,7 +116,6 @@ class MapViewController: UIViewController {
                 if let _ = error {
                     self.originLocationSearchBar.text = "Unknown location"
                 }
-                
                 if let placemark = placemarks?[0] {
                     let originName = placemark.locality
                     self.originLocationSearchBar.text = originName
