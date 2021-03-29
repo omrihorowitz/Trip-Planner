@@ -21,7 +21,7 @@ class TPImageView: UIImageView {
     }
     
     func configure() {
-        layer.cornerRadius = 10
+        layer.cornerRadius = 50
         clipsToBounds = true
         image = placeholderImage
         translatesAutoresizingMaskIntoConstraints = false

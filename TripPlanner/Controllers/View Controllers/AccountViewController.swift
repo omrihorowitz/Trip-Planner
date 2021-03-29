@@ -13,8 +13,10 @@ class AccountViewController: UIViewController {
     let scrollView = UIScrollView()
     
     let contentView = UIView()
+    
+    let rateButton = TPButton(backgroundColor: Colors.lightBlue ?? UIColor(), title: "Rate App!")
 
-    let logoutButton = TPButton(backgroundColor: .systemGray, title: "Logout")
+    let logoutButton = TPButton(backgroundColor: Colors.darkBlue ?? UIColor(), title: "Logout")
     
     let deleteAccountButton = TPButton(backgroundColor: .systemRed, title: "Delete Account")
     
@@ -29,6 +31,7 @@ class AccountViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         constrainScrollView()
+        constrainRateButton()
         constrainImageView()
         constrainChangePhotoButton()
         constrainNameTextField()
@@ -37,7 +40,7 @@ class AccountViewController: UIViewController {
         constrainDeleteAccountButton()
         addButtonTargets()
         loadDataForView()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = Colors.lightBrown
         addCancelKeyboardGestureRecognizer()
     }
     
@@ -172,6 +175,17 @@ class AccountViewController: UIViewController {
         contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
     }
     
+    func constrainRateButton(){
+        scrollView.addSubview(rateButton)
+        
+        NSLayoutConstraint.activate([
+            rateButton.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 20),
+            rateButton.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            rateButton.widthAnchor.constraint(equalToConstant: 90),
+            rateButton.heightAnchor.constraint(equalToConstant: 40)
+        ])
+    }
+    
     func constrainImageView() {
         
         profileImageView.tintColor = .black
@@ -190,9 +204,11 @@ class AccountViewController: UIViewController {
     func constrainChangePhotoButton() {
         
         scrollView.addSubview(changePhotoButton)
+        changePhotoButton.backgroundColor = Colors.brown
+        //changePhotoButton.setTitleColor(Colors.darkGreen, for: .normal)
         
         NSLayoutConstraint.activate([
-            changePhotoButton.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 20),
+            changePhotoButton.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 40),
             changePhotoButton.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 50),
             changePhotoButton.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -50)
         ])
@@ -202,6 +218,7 @@ class AccountViewController: UIViewController {
     func constrainNameTextField() {
         
         scrollView.addSubview(nameTextField)
+        nameTextField.backgroundColor = Colors.lightBrown
         
         NSLayoutConstraint.activate([
             nameTextField.topAnchor.constraint(equalTo: changePhotoButton.bottomAnchor, constant: 15),
@@ -213,6 +230,7 @@ class AccountViewController: UIViewController {
     func constrainSaveNameButton() {
         
         scrollView.addSubview(saveNameButton)
+        saveNameButton.backgroundColor = Colors.darkBlue
         
         NSLayoutConstraint.activate([
             saveNameButton.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 15),
@@ -226,7 +244,7 @@ class AccountViewController: UIViewController {
         scrollView.addSubview(logoutButton)
         
         NSLayoutConstraint.activate([
-            logoutButton.topAnchor.constraint(equalTo: saveNameButton.bottomAnchor, constant: 20),
+            logoutButton.topAnchor.constraint(equalTo: saveNameButton.bottomAnchor, constant: 250),
             logoutButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
             logoutButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
             logoutButton.heightAnchor.constraint(equalToConstant: 75)
