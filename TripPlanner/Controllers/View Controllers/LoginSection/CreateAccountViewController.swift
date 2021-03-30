@@ -13,7 +13,7 @@ class CreateAccountViewController: UIViewController {
 
     let scrollView = UIScrollView()
     let contentView = UIView()
-    let imageView = TPImageView(frame: .zero)
+    let imageView = UIImageView(image: UIImage(named: "defaultAvatar"))
     let changeImageButton = TPButton(backgroundColor: Colors.darkBrown!, title: " Choose Profile Pic ")
     let nameTextField = TPTextField(placeHolder: "Name", isSecure: false)
     let emailTextField = TPTextField(placeHolder: "Email", isSecure: false)
@@ -40,18 +40,6 @@ class CreateAccountViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
         super.viewWillAppear(animated)
-    }
-    
-//    override func viewWillLayoutSubviews() {
-//        super.viewWillLayoutSubviews()
-//        imageView.layer.cornerRadius = imageView.frame.height / 2
-//        imageView.clipsToBounds = true
-//    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        imageView.layer.cornerRadius = imageView.frame.height / 2
-        imageView.clipsToBounds = true
     }
     
     func setUpButtonTargets() {
@@ -132,14 +120,16 @@ class CreateAccountViewController: UIViewController {
     
     func constrainViews() {
         
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "defaultAvatar")
-        
         changeImageButton.setTitleColor(.white, for: .normal)
         changeImageButton.titleLabel?.font = UIFont(name: "AmericanTypewriter-Bold", size: 15)
 
         createAccountButton.setTitleColor(.white, for: .normal)
         createAccountButton.titleLabel?.font = UIFont(name: "AmericanTypewriter-Bold", size: 20)
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 125
+        imageView.clipsToBounds = true
         
         NSLayoutConstraint.activate([
             

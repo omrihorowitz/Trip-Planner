@@ -57,13 +57,13 @@ class FriendsViewController: UIViewController {
         segmentedControl.selectedSegmentTintColor = Colors.darkBrown
         segmentedControl.backgroundColor = Colors.brown
         collectionView.backgroundColor = Colors.brown
+//        let font = [NSAttributedString.Key.font : UIFont(name: "AmericanTypewriter-Bold", size: 15)]
         let titleTextAttributesForSelected = [NSAttributedString.Key.foregroundColor: Colors.lightBlue]
         let titleTextAttributesForNormal = [NSAttributedString.Key.foregroundColor: Colors.darkBlue]
         segmentedControl.setTitleTextAttributes(titleTextAttributesForSelected as [NSAttributedString.Key : Any], for: .selected)
         segmentedControl.setTitleTextAttributes(titleTextAttributesForNormal as [NSAttributedString.Key : Any], for: .normal)
-//        let font = UIFont(name: "AmericanTypewriter-Bold", size: 15)
-//        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: font as Any], for: .normal)
-//
+//        segmentedControl.setTitleTextAttributes(font as [NSAttributedString.Key : Any], for: .normal)
+//        segmentedControl.setTitleTextAttributes(font as [NSAttributedString.Key : Any], for: .selected)
     }
     
     func setUpCollectionView() {
