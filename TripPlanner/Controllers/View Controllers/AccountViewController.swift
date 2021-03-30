@@ -84,14 +84,6 @@ class AccountViewController: UIViewController {
         picker.allowsEditing = true
         picker.delegate = self
         present(picker, animated: true)
-        /*
-         Request permission if we don't have it
-         pull up picker view.
-         Upon choosing a photo, first check if user already had a photo. If they did, delete it in cloud. Then upload new photo and get new dowloadURL and save it
-         If they didn't have a photo, upload photo, get downloadURL and save it.
-         */
-        
-        
         
     }
     

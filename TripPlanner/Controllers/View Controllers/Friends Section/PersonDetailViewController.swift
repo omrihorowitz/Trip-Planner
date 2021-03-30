@@ -13,20 +13,20 @@ protocol PersonDetailButtonProtocol: AnyObject {
 
 class PersonDetailViewController: UIViewController {
     
-    let profileImageView = UIImageView()
+    let profileImageView = TPImageView(frame: .zero)
 
     let nameLabel = TPTitleLabel(textAlignment: .center, fontSize: 20)
     let friendStatusLabel = TPBodyLabel(textAlignment: .center)
     
     let friendUnfriendButton = TPButton(backgroundColor: .systemGreen, title: "Friend")
     
-    let acceptButton = TPButton(backgroundColor: .systemBlue, title: "Accept Friend Request")
+    let acceptButton = TPButton(backgroundColor: .systemGreen, title: "Accept Friend Request")
     
-    let rejectButton = TPButton(backgroundColor: .systemOrange, title: "Reject Friend Request")
+    let rejectButton = TPButton(backgroundColor: .systemPink, title: "Reject Friend Request")
     
     let cancelRequestButton = TPButton(backgroundColor: .systemPink, title: "Cancel Sent Request")
     
-    let blockUnblockButton = TPButton(backgroundColor: .systemTeal, title: "Block")
+    let blockUnblockButton = TPButton(backgroundColor: .systemRed, title: "Block")
     
     let reportButton = TPButton(backgroundColor: .systemYellow, title: "Report")
     
@@ -43,7 +43,7 @@ class PersonDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        
         view.addSubviews(profileImageView, nameLabel, friendStatusLabel, buttonStackView)
         constrainImageView()
         constrainLabels()
@@ -58,7 +58,6 @@ class PersonDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
-      //  self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.dismiss))
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -66,10 +65,29 @@ class PersonDetailViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
+    override func viewWillLayoutSubviews() {
+        profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
+        setUpColors()
+    }
+    
     func addTargets() {
         for button in [friendUnfriendButton, acceptButton, rejectButton, cancelRequestButton, blockUnblockButton, reportButton] {
             button.addTarget(self, action: #selector(actionButtonSelected(sender:)), for: .touchUpInside)
         }
+    }
+    
+    func setUpColors() {
+        view.backgroundColor = Colors.lightBrown
+        nameLabel.textColor = Colors.darkBlue
+        nameLabel.backgroundColor = Colors.lightBrown
+        friendStatusLabel.textColor = Colors.darkBrown
+        
+        friendUnfriendButton.backgroundColor = Colors.darkBlue
+        acceptButton.backgroundColor = Colors.darkBlue
+        rejectButton.backgroundColor = Colors.darkBlue
+        blockUnblockButton.backgroundColor = Colors.darkBlue
+        reportButton.backgroundColor = Colors.darkBlue
+        cancelRequestButton.backgroundColor = Colors.darkBlue
     }
     
     @objc func actionButtonSelected(sender: UIButton) {
@@ -275,11 +293,10 @@ class PersonDetailViewController: UIViewController {
         buttonStackView.addArrangedSubview(reportButton)
         
         buttonStackView.axis = .vertical
-        buttonStackView.distribution = .fillEqually
+        buttonStackView.distribution = .fillProportionally
         buttonStackView.spacing = 10
         
         NSLayoutConstraint.activate([
-            buttonStackView.topAnchor.constraint(equalTo: view.centerYAnchor),
             buttonStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50),
             buttonStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
             buttonStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -297,8 +314,8 @@ class PersonDetailViewController: UIViewController {
         NSLayoutConstraint.activate([
             profileImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
             profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            profileImageView.widthAnchor.constraint(equalToConstant: 75),
-            profileImageView.heightAnchor.constraint(equalToConstant: 75)
+            profileImageView.widthAnchor.constraint(equalToConstant: 100),
+            profileImageView.heightAnchor.constraint(equalToConstant: 100)
         ])
         
     }

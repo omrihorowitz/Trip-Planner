@@ -29,6 +29,11 @@ class TPPersonCollectionViewCell: UICollectionViewCell {
         profileImageView.configure()
     }
     
+    override func layoutSubviews() {
+        nameLabel.textColor = Colors.darkBlue
+        nameLabel.backgroundColor = Colors.brown
+    }
+    
     func set(user: User) {
         nameLabel.text = user.name
         if user.downloadURL != "No" {
