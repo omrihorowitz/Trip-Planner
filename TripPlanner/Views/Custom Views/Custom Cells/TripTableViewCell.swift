@@ -43,6 +43,7 @@ class TripTableViewCell: UITableViewCell {
 
     func configure(trip: Trip) {
         tripNameLabel.text = trip.name
+        tripNameLabel.textColor = Colors.darkBlue
         //Find the user object for the owner.
         
         if trip.owner == UserController.shared.currentUser?.email {
