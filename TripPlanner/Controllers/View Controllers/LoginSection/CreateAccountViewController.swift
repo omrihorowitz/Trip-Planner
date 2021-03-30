@@ -13,7 +13,7 @@ class CreateAccountViewController: UIViewController {
 
     let scrollView = UIScrollView()
     let contentView = UIView()
-    let imageView = UIImageView()
+    let imageView = TPImageView(frame: .zero)
     let changeImageButton = TPButton(backgroundColor: Colors.darkBrown!, title: " Choose Profile Pic ")
     let nameTextField = TPTextField(placeHolder: "Name", isSecure: false)
     let emailTextField = TPTextField(placeHolder: "Email", isSecure: false)
@@ -121,10 +121,7 @@ class CreateAccountViewController: UIViewController {
     
     func constrainViews() {
         
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(systemName: "person.circle.fill")
-        imageView.tintColor = Colors.brown
+        
         
         changeImageButton.setTitleColor(Colors.lightBrown, for: .normal)
         changeImageButton.titleLabel?.font = UIFont(name: "AmericanTypewriter-Bold", size: 15)
@@ -171,6 +168,7 @@ class CreateAccountViewController: UIViewController {
             createAccountButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -250),
             createAccountButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+        
     }
 }
 
