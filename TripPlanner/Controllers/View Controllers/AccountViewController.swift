@@ -14,7 +14,7 @@ class AccountViewController: UIViewController {
     
     let contentView = UIView()
     
-    let rateButton = TPButton(backgroundColor: Colors.lightBlue ?? UIColor(), title: "Rate App!")
+    let rateButton = TPButton(backgroundColor: Colors.darkBlue ?? UIColor(), title: "Rate App!")
 
     let logoutButton = TPButton(backgroundColor: Colors.darkBlue ?? UIColor(), title: "Logout")
     
@@ -24,7 +24,7 @@ class AccountViewController: UIViewController {
     
     let changePhotoButton = TPButton(backgroundColor: .systemGray, title: "Change photo")
     
-    let nameTextField = TPTextField(placeHolder: "", isSecure: false)
+    let nameTextField = TPTextField(placeHolder: "Enter name here...", isSecure: false)
     
     let saveNameButton = TPButton(backgroundColor: .systemGreen, title: "Save name")
     
@@ -75,6 +75,7 @@ class AccountViewController: UIViewController {
         deleteAccountButton.addTarget(self, action: #selector(deleteAccountButtonPressed), for: .touchUpInside)
         saveNameButton.addTarget(self, action: #selector(saveNameButtonTapped), for: .touchUpInside)
         changePhotoButton.addTarget(self, action: #selector(changePhotoButtonTapped), for: .touchUpInside)
+        rateButton.addTarget(self, action: #selector(rateButtonTapped), for: .touchUpInside)
     }
     
     @objc func changePhotoButtonTapped() {
@@ -196,7 +197,7 @@ class AccountViewController: UIViewController {
     func constrainChangePhotoButton() {
         
         scrollView.addSubview(changePhotoButton)
-        changePhotoButton.backgroundColor = Colors.brown
+        changePhotoButton.backgroundColor = Colors.darkBrown
         //changePhotoButton.setTitleColor(Colors.darkGreen, for: .normal)
         
         NSLayoutConstraint.activate([
@@ -211,6 +212,7 @@ class AccountViewController: UIViewController {
         
         scrollView.addSubview(nameTextField)
         nameTextField.backgroundColor = Colors.lightBrown
+        //nameTextField.textColor = Colors.
         
         NSLayoutConstraint.activate([
             nameTextField.topAnchor.constraint(equalTo: changePhotoButton.bottomAnchor, constant: 15),
@@ -222,7 +224,7 @@ class AccountViewController: UIViewController {
     func constrainSaveNameButton() {
         
         scrollView.addSubview(saveNameButton)
-        saveNameButton.backgroundColor = Colors.darkBlue
+        saveNameButton.backgroundColor = Colors.darkBrown
         
         NSLayoutConstraint.activate([
             saveNameButton.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 15),
