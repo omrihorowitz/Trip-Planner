@@ -12,7 +12,7 @@ class LoginViewController: UIViewController {
     
     let emailTextField = TPTextField(placeHolder: "Email", isSecure: false)
     let passwordTextField = TPTextField(placeHolder: "Password", isSecure: true)
-    let loginButton = TPButton(backgroundColor: Colors.lightBlue!, title: "Ignition!")
+    let loginButton = TPButton(backgroundColor: Colors.darkBlue!, title: "Ignition!")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +23,7 @@ class LoginViewController: UIViewController {
         emailTextField.text = "b@b.com"
         passwordTextField.text = "123456"
         addCancelKeyboardGestureRecognizer()
+        view.backgroundColor = Colors.lightBrown
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,8 +54,17 @@ class LoginViewController: UIViewController {
     
     func constrainViews() {
         
-        loginButton.setTitleColor(Colors.darkBlue, for: .normal)
+        loginButton.setTitleColor(.white, for: .normal)
         loginButton.titleLabel?.font = UIFont(name: "AmericanTypewriter-Bold", size: 20)
+        emailTextField.backgroundColor = Colors.lightBrown
+        emailTextField.textColor = Colors.darkBlue
+        let attributes = [NSAttributedString.Key.font : UIFont(name: "AmericanTypewriter-Bold", size: 20)!]
+        emailTextField.attributedPlaceholder = NSAttributedString(string: "Email here...", attributes:attributes)
+        emailTextField.font = UIFont(name: "AmericanTypewriter-Bold", size: 20)
+        passwordTextField.backgroundColor = Colors.lightBrown
+        passwordTextField.textColor = Colors.darkBlue
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password here...", attributes:attributes)
+        passwordTextField.font = UIFont(name: "AmericanTypewriter-Bold", size: 20)
 
         NSLayoutConstraint.activate([
         
