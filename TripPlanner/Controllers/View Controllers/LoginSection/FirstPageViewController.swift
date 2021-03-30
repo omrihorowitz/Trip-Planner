@@ -9,15 +9,17 @@ import UIKit
 
 class FirstPageViewController: UIViewController {
 
-    let loginButton = TPButton(backgroundColor: Colors.lightBlue!, title: "Login")
-    let createAccountButton = TPButton(backgroundColor: Colors.lightBrown!, title: "Create Account")
+    let logo = UIImageView(image: UIImage(named: "logo"))
+    let loginButton = TPButton(backgroundColor: Colors.darkBlue!, title: "Login")
+    let createAccountButton = TPButton(backgroundColor: Colors.darkBrown!, title: "Create Account")
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = Colors.lightBrown
         navigationController?.navigationBar.isHidden = true
         view.addSubviews(loginButton, createAccountButton)
         constrainButtons()
+        constrainLogo()
         addTargets()
         addCancelKeyboardGestureRecognizer()
     }
@@ -30,9 +32,9 @@ class FirstPageViewController: UIViewController {
     
     func constrainButtons() {
         
-        loginButton.setTitleColor(Colors.darkBlue, for: .normal)
+        loginButton.setTitleColor(.white, for: .normal)
         loginButton.titleLabel?.font = UIFont(name: "AmericanTypewriter-Bold", size: 25)
-        createAccountButton.setTitleColor(Colors.darkBrown, for: .normal)
+        createAccountButton.setTitleColor(.white, for: .normal)
         createAccountButton.titleLabel?.font = UIFont(name: "AmericanTypewriter-Bold", size: 25)
         
         NSLayoutConstraint.activate([
@@ -48,6 +50,18 @@ class FirstPageViewController: UIViewController {
         
         
         ])
+    }
+    
+    func constrainLogo() {
+        
+//        logo.translatesAutoresizingMaskIntoConstraints = false
+//        logo.contentMode = .scaleAspectFit
+//            
+//        NSLayoutConstraint.activate([
+//            logo.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+//            logo.bottomAnchor.constraint(equalTo: loginButton.topAnchor, constant: -20),
+//            logo.heightAnchor.constraint(equalToConstant: 50)
+//        ])
     }
     
     @objc func ActionButtonPressed(sender: UIButton) {
