@@ -9,8 +9,8 @@ import UIKit
 
 class FirstPageViewController: UIViewController {
 
-    let loginButton = TPButton(backgroundColor: .systemGreen, title: "Login")
-    let createAccountButton = TPButton(backgroundColor: .systemTeal, title: "Create Account")
+    let loginButton = TPButton(backgroundColor: Colors.lightBlue!, title: "Login")
+    let createAccountButton = TPButton(backgroundColor: Colors.lightBrown!, title: "Create Account")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +29,11 @@ class FirstPageViewController: UIViewController {
     }
     
     func constrainButtons() {
+        
+        loginButton.setTitleColor(Colors.darkBlue, for: .normal)
+        loginButton.titleLabel?.font = UIFont(name: "AmericanTypewriter-Bold", size: 25)
+        createAccountButton.setTitleColor(Colors.darkBrown, for: .normal)
+        createAccountButton.titleLabel?.font = UIFont(name: "AmericanTypewriter-Bold", size: 25)
         
         NSLayoutConstraint.activate([
             loginButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),

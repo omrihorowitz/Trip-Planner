@@ -30,7 +30,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     let originLocationSearchBar = UISearchBar()
     let destinationSearchBar = UISearchBar()
     
-    let goButton = TPButton(backgroundColor: .systemGreen, title: "Go")
+    let goButton = TPButton(backgroundColor: .systemGreen, title: "Show Route")
     
     let showOrHideSearchesButton = TPButton(backgroundColor: .systemPink, title: "-")
     
@@ -38,7 +38,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     let map = MKMapView()
     
-    let directionsButton = TPButton(backgroundColor: .systemGreen, title: " Detail Directions ")
+    let directionsButton = TPButton(backgroundColor: .systemGreen, title: " Direction Details ")
     
     let searchStackView = UIStackView()
     
@@ -295,7 +295,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         searchStackView.translatesAutoresizingMaskIntoConstraints = false
         searchStackView.axis = .vertical
         searchStackView.distribution = .fillProportionally
-        searchStackView.backgroundColor = .clear
+        searchStackView.backgroundColor = .white
         searchStackView.spacing = 5
         
         originLocationSearchBar.showsCancelButton = true
