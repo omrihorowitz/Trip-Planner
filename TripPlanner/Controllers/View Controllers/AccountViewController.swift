@@ -122,7 +122,7 @@ class AccountViewController: UIViewController {
     }
     
     @objc func rateButtonTapped() {
-        guard let writeReviewURL = URL(string: "https://apps.apple.com/app/id1555323056?action=write-review")
+        guard let writeReviewURL = URL(string: "https://apps.apple.com/app/id1560717810?action=write-review")
         else { fatalError("Expected a valid URL") }
         UIApplication.shared.open(writeReviewURL, options: [:], completionHandler: nil)
     }
