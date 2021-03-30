@@ -48,21 +48,21 @@ class TripDetailViewController: UIViewController {
     
     let membersLabel = UILabel()
     let memberTableView = UITableView()
-    let addPeopleButton = UIButton()
+    let addPeopleButton = TPButton()
     
     let startDateLabel = UILabel()
     let endDateLabel = UILabel()
     let startDate = UIDatePicker()
     let endDate = UIDatePicker()
-    let destinationButton = UIButton()
+    let destinationButton = TPButton()
     
     let taskTableView = UITableView()
-    let taskButton = UIButton()
+    let taskButton = TPButton()
     
     let notesLabel = UILabel()
     let notesTextView = UITextView()
     
-    let saveButton = UIButton()
+    let saveButton = TPButton()
     
     static let defaultMKMapItem = MKMapItem()
     let defaultRoute = Route(origin: defaultMKMapItem, stops: [defaultMKMapItem])
@@ -78,6 +78,7 @@ class TripDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        self.navigationController?.navigationBar.barTintColor = Colors.lightBrown
     }
     
     
@@ -122,6 +123,7 @@ class TripDetailViewController: UIViewController {
         //If we are the owner of the trip, just put current users name up there
         if trip.owner == UserController.shared.currentUser?.email {
             ownerLabel.text = "Creator: \(UserController.shared.currentUser?.name ?? "Unknown")"
+            ownerLabel.font = UIFont(name: "AmericanTypeWriter-Bold", size: 25)
         } else {
             // users = [User]
             // trip owner: String
@@ -170,7 +172,7 @@ class TripDetailViewController: UIViewController {
         scrollView.addSubview(ownerLabel)
         ownerLabel.text = "New Trip"
         ownerLabel.textColor = Colors.darkBlue
-        ownerLabel.font = UIFont.systemFont(ofSize: 30)
+        ownerLabel.font = UIFont(name: "AmericanTypeWriter-Bold", size: 20)
         ownerLabel.textAlignment = .center
         ownerLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         ownerLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20).isActive = true
@@ -185,13 +187,14 @@ class TripDetailViewController: UIViewController {
         
         tripNameLabel.text = "Trip Name"
         tripNameLabel.textColor = Colors.darkBlue
-        tripNameLabel.font = UIFont.systemFont(ofSize: 20)
+        tripNameLabel.font = UIFont(name: "AmericanTypeWriter-Bold", size: 20)
         tripNameLabel.topAnchor.constraint(equalTo: ownerLabel.bottomAnchor, constant: 20).isActive = true
         tripNameLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         
         tripNameTextField.placeholder = "Enter trip name..."
         tripNameTextField.backgroundColor = Colors.darkBlue
-        tripNameTextField.font = UIFont.systemFont(ofSize: 15)
+        tripNameTextField.textColor = .white
+        tripNameTextField.font = UIFont(name: "AmericanTypeWriter-Bold", size: 15)
         tripNameTextField.borderStyle = UITextField.BorderStyle.roundedRect
         tripNameTextField.autocorrectionType = UITextAutocorrectionType.no
         tripNameTextField.keyboardType = UIKeyboardType.default
@@ -215,8 +218,8 @@ class TripDetailViewController: UIViewController {
         scrollView.addSubview(addPeopleButton)
         
         membersLabel.text = "Members"
-        membersLabel.textColor = Colors.lightBrown
-        membersLabel.font = UIFont.systemFont(ofSize: 20)
+        membersLabel.textColor = Colors.darkBlue
+        membersLabel.font = UIFont(name: "AmericanTypeWriter-Bold", size: 20)
         membersLabel.textAlignment = .center
         membersLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         membersLabel.topAnchor.constraint(equalTo: tripNameTextField.bottomAnchor, constant: 25).isActive = true
@@ -256,24 +259,26 @@ class TripDetailViewController: UIViewController {
         scrollView.addSubview(destinationButton)
         
         startDateLabel.text = "Start Date"
-        startDateLabel.font = UIFont.systemFont(ofSize: 20)
+        startDateLabel.font = UIFont(name: "AmericanTypeWriter-Bold", size: 20)
         startDateLabel.textColor = Colors.darkBlue
         startDateLabel.topAnchor.constraint(equalTo: addPeopleButton.bottomAnchor, constant: 20).isActive = true
         startDateLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         
         startDate.timeZone = NSTimeZone.local
+        startDate.tintColor = .white
         startDate.backgroundColor = Colors.darkBlue
         startDate.datePickerMode = .date
         startDate.topAnchor.constraint(equalTo: startDateLabel.bottomAnchor, constant: 10).isActive = true
         startDate.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         
         endDateLabel.text = "End Date"
-        endDateLabel.font = UIFont.systemFont(ofSize: 20)
+        endDateLabel.font = UIFont(name: "AmericanTypeWriter-Bold", size: 20)
         endDateLabel.textColor = Colors.darkBlue
         endDateLabel.topAnchor.constraint(equalTo: startDate.bottomAnchor, constant: 20).isActive = true
         endDateLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         
         endDate.timeZone = NSTimeZone.local
+        endDate.tintColor = .white
         endDate.datePickerMode = .date
         endDate.backgroundColor = Colors.darkBlue
         endDate.topAnchor.constraint(equalTo: endDateLabel.bottomAnchor, constant: 10).isActive = true
@@ -341,7 +346,7 @@ class TripDetailViewController: UIViewController {
         scrollView.addSubview(notesLabel)
         notesLabel.text = "Notes:"
         notesLabel.textColor = Colors.darkBrown
-        notesLabel.font = UIFont.systemFont(ofSize: 20)
+        notesLabel.font = UIFont(name: "AmericanTypeWriter-Bold", size: 20)
         notesLabel.textAlignment = .center
         notesLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         notesLabel.topAnchor.constraint(equalTo: taskButton.bottomAnchor, constant: 20).isActive = true
@@ -391,6 +396,7 @@ class TripDetailViewController: UIViewController {
 
         alert.addTextField(configurationHandler: { textField in
             textField.placeholder = "Enter task here..."
+            textField.font = UIFont(name: "AmericanTypeWriter-Bold", size: 15)
         })
         
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
