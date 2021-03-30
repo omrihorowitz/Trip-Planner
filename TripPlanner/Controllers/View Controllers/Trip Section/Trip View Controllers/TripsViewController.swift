@@ -50,7 +50,8 @@ class TripsViewController: UIViewController {
         let removeAllButton: UIButton = {
             let removeAllButton = UIButton()
             removeAllButton.setTitle("Add Trip", for: .normal)
-            removeAllButton.setTitleColor(.systemGreen, for: .normal)
+            removeAllButton.backgroundColor = Colors.lightBrown
+            removeAllButton.setTitleColor(Colors.darkBlue, for: .normal)
             return removeAllButton
         }()
         
@@ -62,8 +63,7 @@ class TripsViewController: UIViewController {
         removeAllButton.centerXAnchor.constraint(equalTo: headerView.centerXAnchor).isActive = true
         
         
-        headerView.backgroundColor = .white
-        
+        headerView.backgroundColor = Colors.lightBrown
         tableView.tableHeaderView = headerView
     }
     

@@ -13,7 +13,7 @@ class TPPersonCollectionViewCell: UICollectionViewCell {
     
     var profileImageView = TPImageView(frame: .zero)
     
-    let nameLabel = TPTitleLabel(textAlignment: .center, fontSize: 16)
+    let nameLabel = TPTitleLabel(textAlignment: .center, fontSize: 20)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
