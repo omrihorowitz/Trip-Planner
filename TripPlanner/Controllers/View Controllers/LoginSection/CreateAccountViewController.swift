@@ -42,6 +42,11 @@ class CreateAccountViewController: UIViewController {
         super.viewWillAppear(animated)
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        imageView.layer.cornerRadius = 125
+    }
+    
     func setUpButtonTargets() {
         createAccountButton.addTarget(self, action: #selector(actionButtonPressed), for: .touchUpInside)
         changeImageButton.addTarget(self, action: #selector(changePhotoButtonTapped), for: .touchUpInside)
@@ -127,10 +132,7 @@ class CreateAccountViewController: UIViewController {
         createAccountButton.setTitleColor(.white, for: .normal)
         createAccountButton.titleLabel?.font = UIFont(name: "AmericanTypewriter-Bold", size: 20)
         
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        imageView.layer.cornerRadius = 125
-        imageView.clipsToBounds = true
+        
         
         NSLayoutConstraint.activate([
             
@@ -139,9 +141,11 @@ class CreateAccountViewController: UIViewController {
             imageView.heightAnchor.constraint(equalToConstant: 250),
             imageView.widthAnchor.constraint(equalToConstant: 250),
             
-            changeImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -10),
+            changeImageButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
             changeImageButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             changeImageButton.heightAnchor.constraint(equalToConstant: 30),
+            changeImageButton.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
+            changeImageButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
             
             nameTextField.topAnchor.constraint(equalTo: changeImageButton.bottomAnchor, constant: 20),
             nameTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
@@ -149,7 +153,6 @@ class CreateAccountViewController: UIViewController {
             nameTextField.heightAnchor.constraint(equalToConstant: 50),
             
             emailTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 20),
-            emailTextField.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             emailTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
             emailTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
             emailTextField.heightAnchor.constraint(equalToConstant: 50),
@@ -171,6 +174,21 @@ class CreateAccountViewController: UIViewController {
             createAccountButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -250),
             createAccountButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+        
+        let attributes = [
+            NSAttributedString.Key.font : UIFont(name: "AmericanTypewriter-Bold", size: 15)!
+        ]
+        
+        for textField in [nameTextField, emailTextField, passwordTextField, confirmPasswordTextField] {
+            textField.font = UIFont(name: "AmericanTypewriter-Bold", size: 18)
+            textField.textColor = Colors.darkBlue
+            textField.backgroundColor = Colors.lightBrown
+        }
+        
+        nameTextField.attributedPlaceholder = NSAttributedString(string: "Name here...", attributes:attributes)
+        emailTextField.attributedPlaceholder = NSAttributedString(string: "Email here...", attributes:attributes)
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password here...", attributes:attributes)
+        confirmPasswordTextField.attributedPlaceholder = NSAttributedString(string: "Confirm password here...", attributes:attributes)
         
     }
 }

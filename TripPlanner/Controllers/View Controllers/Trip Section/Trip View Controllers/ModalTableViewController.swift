@@ -20,6 +20,7 @@ class ModalTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.register(MemberTableViewCell.self, forCellReuseIdentifier: MemberTableViewCell.cellID)
         addCancelKeyboardGestureRecognizer()
+        tableView.backgroundColor = Colors.lightBrown
     }
     
     
@@ -39,6 +40,7 @@ class ModalTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MemberTableViewCell.cellID) as? MemberTableViewCell else { return UITableViewCell() }
         
+        cell.backgroundColor = Colors.lightBrown
         cell.set(user: friends[indexPath.row])
         
         return cell

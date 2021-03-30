@@ -92,6 +92,8 @@ class TripDetailViewController: UIViewController {
             } else if trip == nil {
                 saveButtonTapped()
             }
+        } else {
+            navigationController?.navigationBar.barTintColor = .white
         }
     }
     
@@ -122,8 +124,8 @@ class TripDetailViewController: UIViewController {
         
         //If we are the owner of the trip, just put current users name up there
         if trip.owner == UserController.shared.currentUser?.email {
-            ownerLabel.text = "Creator: \(UserController.shared.currentUser?.name ?? "Unknown")"
-            ownerLabel.font = UIFont(name: "AmericanTypeWriter-Bold", size: 25)
+            ownerLabel.text = "Trip Owner: \(UserController.shared.currentUser?.name ?? "Unknown")"
+            ownerLabel.font = UIFont(name: "AmericanTypeWriter-Bold", size: 30)
         } else {
             // users = [User]
             // trip owner: String
@@ -145,10 +147,23 @@ class TripDetailViewController: UIViewController {
         setupTaskButton()
         setupNotesLabel()
         setupTextView()
-        //setupSaveButton()
+        setUpColorsForLabels()
+        setFontsForButtons()
     }
     
     // MARK: - Constraint Methods
+    func setUpColorsForLabels() {
+        for label in [tripNameLabel, membersLabel, ownerLabel, startDateLabel, endDateLabel] {
+            label.textColor = Colors.darkBrown
+        }
+    }
+    
+    func setFontsForButtons() {
+        for button in [addPeopleButton, taskButton, destinationButton] {
+            button.titleLabel?.font = UIFont(name: "AmericanTypeWriter-Bold", size: 20)
+        }
+    }
+    
     func setupScrollView(){
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         contentView.translatesAutoresizingMaskIntoConstraints = false
@@ -192,9 +207,10 @@ class TripDetailViewController: UIViewController {
         tripNameLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         
         tripNameTextField.placeholder = "Enter trip name..."
-        tripNameTextField.backgroundColor = Colors.darkBlue
-        tripNameTextField.textColor = .white
-        tripNameTextField.font = UIFont(name: "AmericanTypeWriter-Bold", size: 15)
+        tripNameTextField.backgroundColor = Colors.lightBrown
+        tripNameTextField.textColor = Colors.darkBlue
+        tripNameTextField.textAlignment = .center
+        tripNameTextField.font = UIFont(name: "AmericanTypeWriter-Bold", size: 20)
         tripNameTextField.borderStyle = UITextField.BorderStyle.roundedRect
         tripNameTextField.autocorrectionType = UITextAutocorrectionType.no
         tripNameTextField.keyboardType = UIKeyboardType.default
@@ -265,7 +281,7 @@ class TripDetailViewController: UIViewController {
         startDateLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         
         startDate.timeZone = NSTimeZone.local
-        startDate.tintColor = .white
+        startDate.tintColor = Colors.lightBlue
         startDate.backgroundColor = Colors.darkBlue
         startDate.datePickerMode = .date
         startDate.topAnchor.constraint(equalTo: startDateLabel.bottomAnchor, constant: 10).isActive = true
@@ -278,7 +294,7 @@ class TripDetailViewController: UIViewController {
         endDateLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         
         endDate.timeZone = NSTimeZone.local
-        endDate.tintColor = .white
+        endDate.tintColor = Colors.lightBlue
         endDate.datePickerMode = .date
         endDate.backgroundColor = Colors.darkBlue
         endDate.topAnchor.constraint(equalTo: endDateLabel.bottomAnchor, constant: 10).isActive = true
@@ -359,10 +375,13 @@ class TripDetailViewController: UIViewController {
         notesTextView.center = self.view.center
         notesTextView.textAlignment = .justified
         notesTextView.backgroundColor = Colors.lightBrown
-        notesTextView.font = .systemFont(ofSize: 20)
+        notesTextView.font = UIFont(name: "AmericanTypewriter-Bold", size: 16)
         notesTextView.isSelectable = true
         notesTextView.dataDetectorTypes = .link
         notesTextView.layer.cornerRadius = 10
+        notesTextView.layer.borderWidth = 1
+        notesTextView.layer.borderColor = Colors.darkBrown?.cgColor
+        notesTextView.textColor = Colors.darkBlue
         notesTextView.autocorrectionType = .yes
         notesTextView.spellCheckingType = .yes
         notesTextView.autocapitalizationType = .none
@@ -539,6 +558,9 @@ extension TripDetailViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.textLabel?.text = tasks[indexPath.row]
             }
             cell.backgroundColor = Colors.lightBrown
+            cell.textLabel?.textAlignment = .center
+            cell.textLabel?.textColor = Colors.darkBlue
+            cell.textLabel?.font = UIFont(name: "AmericanTypewriter-Bold", size: 18)
             return cell
         }
         return UITableViewCell()

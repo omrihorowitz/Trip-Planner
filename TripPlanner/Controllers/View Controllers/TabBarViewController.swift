@@ -13,6 +13,10 @@ class TabBarViewController: UITabBarController {
         super.viewDidLoad()
         self.viewControllers = [setUpFriendsVC(), setUpTripsVC(), setUpAccountVC()]
         addCancelKeyboardGestureRecognizer()
+        tabBar.barTintColor = Colors.brown
+        tabBar.unselectedItemTintColor = .white
+        tabBar.tintColor = Colors.darkBlue
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {
