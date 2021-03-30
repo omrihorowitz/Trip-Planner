@@ -19,7 +19,7 @@ class CreateAccountViewController: UIViewController {
     let emailTextField = TPTextField(placeHolder: "Email", isSecure: false)
     let passwordTextField = TPTextField(placeHolder: "Password", isSecure: true)
     let confirmPasswordTextField = TPTextField(placeHolder: "Confirm Password", isSecure: true)
-    let createAccountButton = TPButton(backgroundColor: Colors.lightBlue!, title: "Start Your Engines!")
+    let createAccountButton = TPButton(backgroundColor: Colors.darkBlue!, title: "Start Your Engines!")
     
     var imageData: Data?
     
@@ -30,7 +30,7 @@ class CreateAccountViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = false
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = Colors.lightBrown
         constrainScrollView()
         constrainViews()
         setUpButtonTargets()
@@ -86,7 +86,6 @@ class CreateAccountViewController: UIViewController {
         
     }
     
-    
     func createUser(email: String, password: String, name: String, downloadURL: String?) {
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] (result, error) in
             guard let self = self else { return }
@@ -121,13 +120,17 @@ class CreateAccountViewController: UIViewController {
     
     func constrainViews() {
         
-        
-        
         changeImageButton.setTitleColor(Colors.lightBrown, for: .normal)
+
         changeImageButton.titleLabel?.font = UIFont(name: "AmericanTypewriter-Bold", size: 15)
 
-        createAccountButton.setTitleColor(Colors.darkBlue, for: .normal)
+        createAccountButton.setTitleColor(.white, for: .normal)
         createAccountButton.titleLabel?.font = UIFont(name: "AmericanTypewriter-Bold", size: 20)
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 125
+        imageView.clipsToBounds = true
         
         NSLayoutConstraint.activate([
             
