@@ -29,6 +29,12 @@ class MemberTableViewCell: UITableViewCell {
         profilePhotoImageView.configure()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        profilePhotoImageView.layer.cornerRadius = profilePhotoImageView.frame.width / 2
+        profilePhotoImageView.clipsToBounds = true
+    }
+    
     func set(user: User) {
         
         userName.text = user.name

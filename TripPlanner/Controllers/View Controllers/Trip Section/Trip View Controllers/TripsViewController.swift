@@ -14,7 +14,7 @@ class TripsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = Colors.lightBrown
         self.navigationItem.title = "Trips"
         setupTableView()
         setUpHeaderView()
@@ -74,6 +74,7 @@ class TripsViewController: UIViewController {
         tableView.rowHeight = 40
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.backgroundColor = Colors.lightBrown
         tableView.register(TripTableViewCell.self, forCellReuseIdentifier: TripTableViewCell.cellID)
         
         NSLayoutConstraint.activate([
@@ -104,6 +105,7 @@ extension TripsViewController: UITableViewDelegate, UITableViewDataSource {
         let currentTrip = TripController.shared.allTrips[indexPath.row]
         
         cell.configure(trip: currentTrip)
+        cell.backgroundColor = Colors.lightBrown
         
         return cell
     }
