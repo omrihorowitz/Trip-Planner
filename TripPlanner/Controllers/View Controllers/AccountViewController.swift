@@ -14,7 +14,7 @@ class AccountViewController: UIViewController {
     
     let contentView = UIView()
     
-    let rateButton = TPButton(backgroundColor: Colors.darkBlue ?? UIColor(), title: "Rate App!")
+    let rateButton = TPButton(backgroundColor: .systemGreen, title: "Rate App!")
 
     let logoutButton = TPButton(backgroundColor: Colors.darkBlue ?? UIColor(), title: "Logout")
     
@@ -24,20 +24,20 @@ class AccountViewController: UIViewController {
     
     let changePhotoButton = TPButton(backgroundColor: .systemGray, title: "Change photo")
     
-    let nameTextField = TPTextField(placeHolder: "Enter name here...", isSecure: false)
+    let nameTextField = TPTextField(placeHolder: "Edit name...", isSecure: false)
     
     let saveNameButton = TPButton(backgroundColor: .systemGreen, title: "Save name")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         constrainScrollView()
-        constrainRateButton()
         constrainImageView()
         constrainChangePhotoButton()
         constrainNameTextField()
         constrainSaveNameButton()
         constrainLogout()
         constrainDeleteAccountButton()
+        constrainRateButton()
         addButtonTargets()
         loadDataForView()
         view.backgroundColor = Colors.lightBrown
@@ -168,17 +168,6 @@ class AccountViewController: UIViewController {
         contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
     }
     
-    func constrainRateButton(){
-        scrollView.addSubview(rateButton)
-        
-        NSLayoutConstraint.activate([
-            rateButton.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 20),
-            rateButton.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            rateButton.widthAnchor.constraint(equalToConstant: 90),
-            rateButton.heightAnchor.constraint(equalToConstant: 40)
-        ])
-    }
-    
     func constrainImageView() {
         
         profileImageView.tintColor = .black
@@ -188,7 +177,7 @@ class AccountViewController: UIViewController {
         
             profileImageView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 20),
             profileImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            profileImageView.heightAnchor.constraint(equalToConstant: 100),
+            profileImageView.heightAnchor.constraint(equalToConstant: 200),
             profileImageView.widthAnchor.constraint(equalTo: profileImageView.heightAnchor)
         ])
         
@@ -198,12 +187,13 @@ class AccountViewController: UIViewController {
         
         scrollView.addSubview(changePhotoButton)
         changePhotoButton.backgroundColor = Colors.darkBrown
-        //changePhotoButton.setTitleColor(Colors.darkGreen, for: .normal)
+        changePhotoButton.titleLabel?.font = UIFont(name: "AmericanTypewriter-Bold", size: 15)
         
         NSLayoutConstraint.activate([
-            changePhotoButton.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 40),
-            changePhotoButton.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 50),
-            changePhotoButton.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -50)
+            changePhotoButton.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 10),
+            changePhotoButton.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 70),
+            changePhotoButton.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -70),
+            changePhotoButton.heightAnchor.constraint(equalToConstant: 40)
         ])
         
     }
@@ -212,12 +202,20 @@ class AccountViewController: UIViewController {
         
         scrollView.addSubview(nameTextField)
         nameTextField.backgroundColor = Colors.lightBrown
-        //nameTextField.textColor = Colors.
+        let attributes = [
+//            NSForegroundColorAttributeName: UIColor.blackColor(),
+            NSAttributedString.Key.font : UIFont(name: "AmericanTypewriter-Bold", size: 15)! // Note the !
+        ]
+
+        nameTextField.attributedPlaceholder = NSAttributedString(string: "Name here...", attributes:attributes)
+        nameTextField.font = UIFont(name: "AmericanTypewriter-Bold", size: 18)
+        nameTextField.textColor = Colors.darkBlue
         
         NSLayoutConstraint.activate([
-            nameTextField.topAnchor.constraint(equalTo: changePhotoButton.bottomAnchor, constant: 15),
+            nameTextField.topAnchor.constraint(equalTo: changePhotoButton.bottomAnchor, constant: 40),
             nameTextField.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 50),
-            nameTextField.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -50)
+            nameTextField.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -50),
+            nameTextField.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
@@ -225,20 +223,23 @@ class AccountViewController: UIViewController {
         
         scrollView.addSubview(saveNameButton)
         saveNameButton.backgroundColor = Colors.darkBrown
+        saveNameButton.titleLabel?.font = UIFont(name: "AmericanTypewriter-Bold", size: 15)
         
         NSLayoutConstraint.activate([
             saveNameButton.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 15),
             saveNameButton.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 50),
-            saveNameButton.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -50)
+            saveNameButton.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -50),
+            saveNameButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
     func constrainLogout() {
         
         scrollView.addSubview(logoutButton)
+        logoutButton.titleLabel?.font = UIFont(name: "AmericanTypewriter-Bold", size: 20)
         
         NSLayoutConstraint.activate([
-            logoutButton.topAnchor.constraint(equalTo: saveNameButton.bottomAnchor, constant: 250),
+            logoutButton.topAnchor.constraint(equalTo: saveNameButton.bottomAnchor, constant: 40),
             logoutButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
             logoutButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
             logoutButton.heightAnchor.constraint(equalToConstant: 75)
@@ -248,13 +249,26 @@ class AccountViewController: UIViewController {
     func constrainDeleteAccountButton() {
         
         scrollView.addSubview(deleteAccountButton)
+        deleteAccountButton.titleLabel?.font = UIFont(name: "AmericanTypewriter-Bold", size: 20)
         
         NSLayoutConstraint.activate([
-            deleteAccountButton.topAnchor.constraint(equalTo: logoutButton.bottomAnchor, constant: 20),
+            deleteAccountButton.topAnchor.constraint(equalTo: logoutButton.bottomAnchor, constant: 15),
             deleteAccountButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
             deleteAccountButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
-            deleteAccountButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
             deleteAccountButton.heightAnchor.constraint(equalToConstant: 75)
+        ])
+    }
+    
+    func constrainRateButton(){
+        scrollView.addSubview(rateButton)
+        rateButton.titleLabel?.font = UIFont(name: "AmericanTypewriter-Bold", size: 15)
+        
+        NSLayoutConstraint.activate([
+            rateButton.topAnchor.constraint(equalTo: deleteAccountButton.bottomAnchor, constant: 40),
+            rateButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 70),
+            rateButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -70),
+            rateButton.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            rateButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
