@@ -9,7 +9,7 @@ import UIKit
 
 class FirstPageViewController: UIViewController {
 
-    let logo = UIImageView(image: UIImage(named: "logo"))
+    let titleImageView = TPImageView(frame: .zero)
     let loginButton = TPButton(backgroundColor: Colors.darkBlue!, title: "Login")
     let createAccountButton = TPButton(backgroundColor: Colors.darkBrown!, title: "Create Account")
     
@@ -17,11 +17,18 @@ class FirstPageViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = Colors.lightBrown
         navigationController?.navigationBar.isHidden = true
-        view.addSubviews(loginButton, createAccountButton)
+        view.addSubviews(loginButton, createAccountButton, titleImageView)
         constrainButtons()
-        constrainLogo()
+        constrainTitleImageView()
         addTargets()
         addCancelKeyboardGestureRecognizer()
+        navigationController?.navigationBar.barTintColor = Colors.lightBrown
+        navigationController?.navigationBar.tintColor = Colors.darkBrown
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
     }
     
     func addTargets() {
@@ -52,16 +59,18 @@ class FirstPageViewController: UIViewController {
         ])
     }
     
-    func constrainLogo() {
+    func constrainTitleImageView() {
         
-//        logo.translatesAutoresizingMaskIntoConstraints = false
-//        logo.contentMode = .scaleAspectFit
-//            
-//        NSLayoutConstraint.activate([
-//            logo.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-//            logo.bottomAnchor.constraint(equalTo: loginButton.topAnchor, constant: -20),
-//            logo.heightAnchor.constraint(equalToConstant: 50)
-//        ])
+        titleImageView.image = UIImage(named: "titleImage")
+        titleImageView.layer.cornerRadius = 0
+        
+        NSLayoutConstraint.activate([
+            titleImageView.bottomAnchor.constraint(equalTo: loginButton.topAnchor, constant: -50),
+            titleImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15),
+            titleImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -15),
+            titleImageView.heightAnchor.constraint(equalToConstant: 100)
+        
+        ])
     }
     
     @objc func ActionButtonPressed(sender: UIButton) {

@@ -66,7 +66,7 @@ class PersonDetailViewController: UIViewController {
     }
     
     override func viewWillLayoutSubviews() {
-        profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
+        profileImageView.layer.cornerRadius = 50
         setUpColors()
     }
     
@@ -195,6 +195,9 @@ class PersonDetailViewController: UIViewController {
         
         //Set name for user
         nameLabel.text = user.name
+        nameLabel.font = UIFont(name: "AmericanTypewriter-Bold", size: 20)
+        friendStatusLabel.font = UIFont(name: "AmericanTypewriter-Bold", size: 12)
+        nameLabel.textColor = Colors.darkBlue
         
         //Set friend status for user
         if currentUser.friends.contains(user.email) {
@@ -296,10 +299,14 @@ class PersonDetailViewController: UIViewController {
         buttonStackView.distribution = .fillProportionally
         buttonStackView.spacing = 10
         
+        for button in [friendUnfriendButton, acceptButton, rejectButton, cancelRequestButton, blockUnblockButton, reportButton] {
+            button.titleLabel?.font = UIFont(name: "AmericanTypewriter-Bold", size: 16)
+        }
+        
         NSLayoutConstraint.activate([
             buttonStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50),
             buttonStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
-            buttonStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            buttonStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5)
         ])
         
         

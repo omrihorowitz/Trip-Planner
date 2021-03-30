@@ -12,7 +12,7 @@ class AlertViewController: UIViewController {
     let containerView = TPContainerView()
     let titleLabel = TPTitleLabel(textAlignment: .center, fontSize: 20)
     let messageLabel = TPBodyLabel(textAlignment: .center)
-    let actionButton = TPButton(backgroundColor: .systemPink, title: "Ok")
+    let actionButton = TPButton(backgroundColor: Colors.darkBlue!, title: "Ok")
     
     var alertTitle: String?
     var message: String?
@@ -56,6 +56,8 @@ class AlertViewController: UIViewController {
     
     func configureTitleLabel() {
         titleLabel.text = alertTitle ?? "Something went wrong"
+        titleLabel.font = UIFont(name: "AmericanTypewriter-Bold", size: 20)
+        titleLabel.textColor = Colors.darkBlue
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: padding),
@@ -83,6 +85,8 @@ class AlertViewController: UIViewController {
     func configureMessageLabel() {
         messageLabel.text = message ?? "Unable to complete request"
         messageLabel.numberOfLines = 4
+        messageLabel.font = UIFont(name: "AmericanTypewriter-Bold", size: 16)
+        messageLabel.textColor = Colors.darkBlue
         
         NSLayoutConstraint.activate([
             messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),

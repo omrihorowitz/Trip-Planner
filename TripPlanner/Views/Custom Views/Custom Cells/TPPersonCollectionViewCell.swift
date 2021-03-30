@@ -31,7 +31,9 @@ class TPPersonCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         nameLabel.textColor = Colors.darkBlue
-        nameLabel.backgroundColor = Colors.brown
+        nameLabel.backgroundColor = Colors.lightBrown
+        nameLabel.font = UIFont(name: "AmericanTypewriter-Bold", size: 20)
+        profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
     }
     
     func set(user: User) {

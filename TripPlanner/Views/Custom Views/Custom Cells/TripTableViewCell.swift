@@ -17,7 +17,7 @@ class TripTableViewCell: UITableViewCell {
     
     let member2ImageView = TPImageView(frame: .zero)
     
-    let tripNameLabel = TPTitleLabel(textAlignment: .left, fontSize:    20)
+    let tripNameLabel = TPTitleLabel(textAlignment: .center, fontSize:    20)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -43,9 +43,10 @@ class TripTableViewCell: UITableViewCell {
 
     func configure(trip: Trip) {
         tripNameLabel.text = trip.name
-        tripNameLabel.textColor = Colors.darkBrown
+        tripNameLabel.textColor = Colors.darkBlue
         tripNameLabel.backgroundColor = Colors.lightBrown
-        tripNameLabel.textAlignment = .center
+        tripNameLabel.font = UIFont(name: "AmericanTypewriter-Bold", size: 20)
+        
         //Find the user object for the owner.
         
         if trip.owner == UserController.shared.currentUser?.email {
@@ -220,11 +221,10 @@ class TripTableViewCell: UITableViewCell {
             
             pic.layer.masksToBounds = true
             pic.layer.borderWidth = 4
-            pic.layer.borderColor = UIColor.white.cgColor
+            pic.layer.borderColor = UIColor.black.cgColor
             pic.clipsToBounds = true
             
         }
-        ownerImageView.layer.borderColor = UIColor.systemGreen.cgColor
     }
     
 }

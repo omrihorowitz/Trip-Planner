@@ -58,6 +58,9 @@ class MemberTableViewCell: UITableViewCell {
     func configure() {
         addSubviews(profilePhotoImageView, userName)
         profilePhotoImageView.tintColor = .black
+        userName.font = UIFont(name: "AmericanTypewriter-Bold", size: 20)
+        userName.backgroundColor = Colors.lightBrown
+        userName.textColor = Colors.darkBlue
         
         NSLayoutConstraint.activate([
         

@@ -52,6 +52,7 @@ class TripsViewController: UIViewController {
             removeAllButton.setTitle("Add Trip", for: .normal)
             removeAllButton.backgroundColor = Colors.lightBrown
             removeAllButton.setTitleColor(Colors.darkBlue, for: .normal)
+            removeAllButton.titleLabel?.font = UIFont(name: "AmericanTypewriter-Bold", size: 16)
             return removeAllButton
         }()
         
