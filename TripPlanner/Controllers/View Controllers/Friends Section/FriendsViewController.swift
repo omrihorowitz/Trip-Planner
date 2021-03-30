@@ -51,13 +51,19 @@ class FriendsViewController: UIViewController {
         view.backgroundColor = Colors.brown
         searchBar.barTintColor = Colors.lightBrown
         searchBar.backgroundColor = Colors.brown
+        searchBar.searchTextField.textColor = Colors.darkBlue
+        searchBar.searchTextField.font = UIFont(name: "AmericanTypewriter-Bold", size: 15)
+        searchBar.autocapitalizationType = .words
         segmentedControl.selectedSegmentTintColor = Colors.darkBrown
         segmentedControl.backgroundColor = Colors.brown
         collectionView.backgroundColor = Colors.brown
         let titleTextAttributesForSelected = [NSAttributedString.Key.foregroundColor: Colors.lightBlue]
         let titleTextAttributesForNormal = [NSAttributedString.Key.foregroundColor: Colors.darkBlue]
-        segmentedControl.setTitleTextAttributes(titleTextAttributesForSelected, for: .selected)
-        segmentedControl.setTitleTextAttributes(titleTextAttributesForNormal, for: .normal)
+        segmentedControl.setTitleTextAttributes(titleTextAttributesForSelected as [NSAttributedString.Key : Any], for: .selected)
+        segmentedControl.setTitleTextAttributes(titleTextAttributesForNormal as [NSAttributedString.Key : Any], for: .normal)
+//        let font = UIFont(name: "AmericanTypewriter-Bold", size: 15)
+//        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: font as Any], for: .normal)
+//
     }
     
     func setUpCollectionView() {
