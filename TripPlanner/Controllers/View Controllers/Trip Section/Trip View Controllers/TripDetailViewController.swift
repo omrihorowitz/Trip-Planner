@@ -65,7 +65,7 @@ class TripDetailViewController: UIViewController {
     let saveButton = TPButton()
     
     static let defaultMKMapItem = MKMapItem()
-    let defaultRoute = Route(origin: defaultMKMapItem, stops: [defaultMKMapItem])
+    //let defaultRoute = Route(origin: defaultMKMapItem, stops: [defaultMKMapItem])
     
     // MARK: - LifeCyle Functions
     override func viewDidLoad() {
