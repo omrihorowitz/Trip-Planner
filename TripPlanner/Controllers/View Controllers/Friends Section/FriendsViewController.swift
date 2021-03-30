@@ -26,7 +26,6 @@ class FriendsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
         view.addSubviews(searchBar, segmentedControl)
         setConstraints()
         setUpSegmentedControl()
@@ -42,6 +41,23 @@ class FriendsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        setUpColors()
+    }
+    
+    func setUpColors() {
+        view.backgroundColor = Colors.brown
+        searchBar.barTintColor = Colors.lightBrown
+        searchBar.backgroundColor = Colors.brown
+        segmentedControl.selectedSegmentTintColor = Colors.darkBrown
+        segmentedControl.backgroundColor = Colors.brown
+        collectionView.backgroundColor = Colors.brown
+        let titleTextAttributesForSelected = [NSAttributedString.Key.foregroundColor: Colors.lightBlue]
+        let titleTextAttributesForNormal = [NSAttributedString.Key.foregroundColor: Colors.darkBlue]
+        segmentedControl.setTitleTextAttributes(titleTextAttributesForSelected, for: .selected)
+        segmentedControl.setTitleTextAttributes(titleTextAttributesForNormal, for: .normal)
     }
     
     func setUpCollectionView() {

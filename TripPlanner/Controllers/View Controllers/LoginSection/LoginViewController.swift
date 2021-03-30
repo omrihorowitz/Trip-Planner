@@ -17,11 +17,10 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = false
-        view.backgroundColor = .systemBackground
         view.addSubviews(emailTextField, passwordTextField, loginButton)
         constrainViews()
         setButtonTarget()
-        emailTextField.text = "c@c.com"
+        emailTextField.text = "b@b.com"
         passwordTextField.text = "123456"
         addCancelKeyboardGestureRecognizer()
     }
