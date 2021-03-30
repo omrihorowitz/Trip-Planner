@@ -159,7 +159,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     @objc func goButtonTapped() {
         hideOrShowButtonTapped(sender: goButton)
-        
+        etaLabel.backgroundColor = .systemGreen
         guard let originLat = originLat, let originLong = originLong, let destinationLat = destinationLat, let destinationLong = destinationLong else { return }
         
         map.removeAnnotations(map.annotations)
@@ -295,8 +295,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         searchStackView.translatesAutoresizingMaskIntoConstraints = false
         searchStackView.axis = .vertical
         searchStackView.distribution = .fillProportionally
-        searchStackView.backgroundColor = .white
-        searchStackView.spacing = 5
+        //searchStackView.backgroundColor = Colors.brown
+        searchStackView.spacing = 0
         
         originLocationSearchBar.showsCancelButton = true
         destinationSearchBar.showsCancelButton = true
@@ -312,7 +312,26 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         searchStackView.addArrangedSubview(showOrHideSearchesButton)
         
         originLocationLabel.text = "Origin"
+        originLocationLabel.textColor = Colors.darkBlue
+        originLocationLabel.backgroundColor = .systemGray6
+        originLocationLabel.font = UIFont(name: "AmericanTypewriter-Bold", size: 20)
+        originLocationSearchBar.backgroundColor = .systemGray6
+        
+        let textFieldInsideOrigin = originLocationSearchBar.value(forKey: "searchField") as? UITextField
+        textFieldInsideOrigin?.textColor = Colors.darkBlue
+        textFieldInsideOrigin?.font = UIFont(name: "AmericanTypewriter-Bold", size: 15)
+        
         destinationLocationLabel.text = "Destination"
+        destinationLocationLabel.textColor = Colors.darkBlue
+        destinationLocationLabel.backgroundColor = .systemGray6
+        destinationLocationLabel.font = UIFont(name: "AmericanTypewriter-Bold", size: 20)
+        destinationSearchBar.backgroundColor = .systemGray6
+        
+        let textFieldInsideDestination = destinationSearchBar.value(forKey: "searchField") as? UITextField
+        textFieldInsideDestination?.textColor = Colors.darkBlue
+        textFieldInsideDestination?.font = UIFont(name: "AmericanTypewriter-Bold", size: 15)
+        
+        goButton.titleLabel?.font = UIFont(name: "AmericanTypewriter-Bold", size: 15)
         
         NSLayoutConstraint.activate([
             searchStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -326,6 +345,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         suggestionsTableView.translatesAutoresizingMaskIntoConstraints = false
         
         suggestionsTableView.isHidden = true
+        
+        //suggestionsTableView.backgroundColor = Colors.lightBrown
         
         NSLayoutConstraint.activate([
             suggestionsTableView.topAnchor.constraint(equalTo: searchStackView.bottomAnchor),
@@ -351,10 +372,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func constrainDirectionsButton() {
+        
         directionsButton.sizeToFit()
+        directionsButton.titleLabel?.font = UIFont(name: "AmericanTypewriter-Bold", size: 15)
+        
         NSLayoutConstraint.activate([
-            directionsButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -13),
-            directionsButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40)
+            directionsButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            directionsButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
+            directionsButton.heightAnchor.constraint(equalToConstant: 40),
+            directionsButton.widthAnchor.constraint(equalToConstant: 150)
         ])
         
     }
@@ -379,17 +405,20 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
 
     func constrainETALabel() {
         etaLabel.translatesAutoresizingMaskIntoConstraints = false
-        etaLabel.backgroundColor = .white
+        etaLabel.backgroundColor = .clear
         etaLabel.textAlignment = .center
-        etaLabel.textColor = .systemGreen
-        etaLabel.font = .boldSystemFont(ofSize: 18)
+        etaLabel.textColor = .white
+        etaLabel.font = UIFont(name: "AmericanTypewriter-Bold", size: 20)
         etaLabel.numberOfLines = 0
         etaLabel.layer.cornerRadius = 10
         etaLabel.clipsToBounds = true
+        if trip != nil{
+            etaLabel.backgroundColor = .systemGreen
+        }
         NSLayoutConstraint.activate([
             etaLabel.heightAnchor.constraint(equalToConstant: 80),
-            etaLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 60),
-            etaLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -160),
+            etaLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            etaLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -180),
             etaLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10)
         ])
     }
