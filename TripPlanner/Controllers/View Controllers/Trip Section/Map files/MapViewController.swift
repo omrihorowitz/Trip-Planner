@@ -377,8 +377,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         directionsButton.titleLabel?.font = UIFont(name: "AmericanTypewriter-Bold", size: 15)
         
         NSLayoutConstraint.activate([
-            directionsButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            directionsButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
+            //directionsButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            //directionsButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
+            directionsButton.topAnchor.constraint(equalTo: etaLabel.topAnchor, constant: 20),
+            directionsButton.leadingAnchor.constraint(equalTo: etaLabel.trailingAnchor, constant: 20),
             directionsButton.heightAnchor.constraint(equalToConstant: 40),
             directionsButton.widthAnchor.constraint(equalToConstant: 150)
         ])
@@ -417,9 +419,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         }
         NSLayoutConstraint.activate([
             etaLabel.heightAnchor.constraint(equalToConstant: 80),
-            etaLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            etaLabel.widthAnchor.constraint(equalToConstant: 160),
+            etaLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
             etaLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -180),
-            etaLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10)
+            etaLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -15)
         ])
     }
     
