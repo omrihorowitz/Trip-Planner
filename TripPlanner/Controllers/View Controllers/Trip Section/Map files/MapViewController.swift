@@ -92,8 +92,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         constrainSuggestionsTableView()
         constrainETALabel()
         addButtonTargets()
-        
-        
     }
     
 
@@ -160,6 +158,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     @objc func goButtonTapped() {
         hideOrShowButtonTapped(sender: goButton)
         etaLabel.backgroundColor = .systemGreen
+        view.endEditing(true)
         guard let originLat = originLat, let originLong = originLong, let destinationLat = destinationLat, let destinationLong = destinationLong else { return }
         
         map.removeAnnotations(map.annotations)
