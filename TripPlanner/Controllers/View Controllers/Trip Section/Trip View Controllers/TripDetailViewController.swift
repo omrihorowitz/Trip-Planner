@@ -18,15 +18,6 @@ class TripDetailViewController: UIViewController {
         }
     }
     
-    //colors
-    let drkPurple = UIColor(red: 60/255, green: 33/255, blue: 173/255, alpha: 1)
-    let medPurple = UIColor(red: 105/255, green: 66/255, blue: 194/255, alpha: 1)
-    let lgtPurple = UIColor(red: 176/255, green: 167/255, blue: 247/255, alpha: 1)
-    let text = UIColor(red: 218/255, green: 224/255, blue: 239/255, alpha: 1)
-    let accentColor = UIColor(red: 86/255, green: 79/255, blue: 80/255, alpha: 1)
-    
-    
-    
     var originLong: Double?
     var destinationLong: Double?
     
@@ -318,15 +309,12 @@ class TripDetailViewController: UIViewController {
         
         map.modalPresentationStyle = .fullScreen
         map.delegate = self
-        if let trip = self.trip {
-            map.trip = trip
-        } else if let originLong = originLong, let originLat = originLat, let destinationLong = destinationLong, let destinationLat = destinationLat {
+        if let originLong = originLong, let originLat = originLat, let destinationLong = destinationLong, let destinationLat = destinationLat {
             map.originLong = originLong
             map.originLat = originLat
             map.destinationLong = destinationLong
             map.destinationLat = destinationLat
-        }
-        
+        }        
         navigationController?.pushViewController(map, animated: true)
     }
     
