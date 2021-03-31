@@ -92,6 +92,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         constrainSuggestionsTableView()
         constrainETALabel()
         addButtonTargets()
+        addCancelKeyboardGestureRecognizer()
         
         
     }
