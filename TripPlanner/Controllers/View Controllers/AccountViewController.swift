@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import Photos
 
 class AccountViewController: UIViewController {
     
@@ -80,11 +81,45 @@ class AccountViewController: UIViewController {
     
     @objc func changePhotoButtonTapped() {
         
-        let picker = UIImagePickerController()
-        picker.sourceType = .photoLibrary
-        picker.allowsEditing = true
-        picker.delegate = self
-        present(picker, animated: true)
+        let status = PHPhotoLibrary.authorizationStatus()
+        switch status {
+        case .authorized:
+        //handle authorized status
+            DispatchQueue.main.async {
+                let picker = UIImagePickerController()
+                picker.sourceType = .photoLibrary
+                picker.allowsEditing = true
+                picker.delegate = self
+                self.present(picker, animated: true)
+            }
+        case .denied, .restricted :
+        presentAlertOnMainThread(title: "Uh oh", message: "Please allow access to photos to change your profile pic", buttonTitle: "Ok")
+        case .notDetermined:
+            // ask for permissions
+            PHPhotoLibrary.requestAuthorization { status in
+                switch status {
+                case .authorized:
+                // as above
+                    DispatchQueue.main.async {
+                        let picker = UIImagePickerController()
+                        picker.sourceType = .photoLibrary
+                        picker.allowsEditing = true
+                        picker.delegate = self
+                        self.present(picker, animated: true)
+                    }
+                case .denied, .restricted:
+                // as above
+                    self.presentAlertOnMainThread(title: "Uh oh", message: "Please allow access to photos to change your profile pic", buttonTitle: "Ok")
+                case .notDetermined:
+                // won't happen but still
+                    self.presentAlertOnMainThread(title: "Uh oh", message: "Please allow access to photos to change your profile pic", buttonTitle: "Ok")
+                @unknown default:
+                    break
+                }
+            }
+        @unknown default:
+            print("Unknown")
+        }
         
     }
     
